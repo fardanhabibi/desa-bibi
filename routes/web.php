@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BiodataController;
+use App\Http\Controllers\PengaduanController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -85,4 +86,26 @@ Route::middleware(['auth', 'web'])->group(function () {
             return view('user.daftar_ulang');
         })->name('user.daftar_ulang');
     });
+});
+// User routes (dalam middleware auth dan cekRole:user)
+Route::middleware(['cekRole:user'])->group(function () {
+    // ... routes yang sudah ada ...
+    
+    // Pengaduan Routes
+    Route::get('/pengaduan', [PengaduanController::class, 'index'])->name('user.pengaduan.index');
+    Route::get('/pengaduan/create', [PengaduanController::class, 'create'])->name('user.pengaduan.create');
+    Route::post('/pengaduan', [PengaduanController::class, 'store'])->name('user.pengaduan.store');
+    Route::get('/pengaduan/{pengaduan}', [PengaduanController::class, 'show'])->name('user.pengaduan.show');
+    Route::delete('/pengaduan/{pengaduan}', [PengaduanController::class, 'destroy'])->name('user.pengaduan.destroy');
+});
+
+// Admin routes (dalam middleware auth dan cekRole:admin)
+Route::middleware(['cekRole:admin'])->group(function () {
+    // ... routes yang sudah ada ...
+    
+    // Pengaduan Management Routes
+    Route::get('/admin/pengaduan', [PengaduanController::class, 'adminIndex'])->name('admin.pengaduan.index');
+    Route::get('/admin/pengaduan/{pengaduan}', [PengaduanController::class, 'adminShow'])->name('admin.pengaduan.show');
+    Route::put('/admin/pengaduan/{pengaduan}', [PengaduanController::class, 'adminUpdate'])->name('admin.pengaduan.update');
+    Route::delete('/admin/pengaduan/{pengaduan}', [PengaduanController::class, 'adminDestroy'])->name('admin.pengaduan.destroy');
 });
