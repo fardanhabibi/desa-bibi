@@ -2,75 +2,64 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class PengajuanSurat extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
         'user_id',
         'nomor_pengajuan',
         'jenis_surat',
         'keperluan',
         'keterangan',
-        'file_pendukung',
         'status',
         'catatan_admin',
         'file_surat',
-        'tanggal_diproses',
-        'tanggal_selesai',
-        'admin_id'
+        'tanggal_verifikasi',
     ];
 
     protected $casts = [
-        'tanggal_diproses' => 'datetime',
-        'tanggal_selesai' => 'datetime',
+        'tanggal_verifikasi' => 'datetime',
     ];
 
-    public function user(): BelongsTo
+    /**
+     * Relasi dengan user
+     */
+    public function user()
     {
-        return $this->belongsTo(User::class, 'user_id');
+        return $this->belongsTo(User::class);
     }
 
-    public function admin(): BelongsTo
-    {
-        return $this->belongsTo(User::class, 'admin_id');
-    }
-
-    // Generate nomor pengajuan otomatis
-    public static function generateNomorPengajuan()
-    {
-        $date = date('Ymd');
-        $lastPengajuan = self::whereDate('created_at', today())
-            ->orderBy('id', 'desc')
-            ->first();
-        
-        $number = $lastPengajuan ? intval(substr($lastPengajuan->nomor_pengajuan, -4)) + 1 : 1;
-        
-        return 'SRT-' . $date . '-' . str_pad($number, 4, '0', STR_PAD_LEFT);
-    }
-
-    // Badge color untuk status
+    /**
+     * Accessor untuk badge status
+     */
     public function getStatusBadgeAttribute()
     {
-        return match($this->status) {
-            'Pending' => 'bg-warning',
-            'Diproses' => 'bg-info',
-            'Disetujui' => 'bg-success',
-            'Ditolak' => 'bg-danger',
-            default => 'bg-secondary'
-        };
+        $badges = [
+            'Pending' => 'bg-light-warning text-warning',
+            'Diproses' => 'bg-light-info text-info',
+            'Disetujui' => 'bg-light-success text-success',
+            'Ditolak' => 'bg-light-danger text-danger',
+        ];
+
+        return $badges[$this->status] ?? 'bg-light-secondary text-secondary';
     }
 
-    // Icon untuk status
+    /**
+     * Accessor untuk icon status
+     */
     public function getStatusIconAttribute()
     {
-        return match($this->status) {
+        $icons = [
             'Pending' => 'ti-clock',
             'Diproses' => 'ti-refresh',
             'Disetujui' => 'ti-check',
             'Ditolak' => 'ti-x',
-            default => 'ti-help'
-        };
+        ];
+
+        return $icons[$this->status] ?? 'ti-help';
     }
 }

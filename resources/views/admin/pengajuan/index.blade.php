@@ -35,7 +35,7 @@
                         </div>
                         <div class="flex-grow-1 ms-3">
                             <h6 class="mb-0">Total Pengajuan</h6>
-                            <h4 class="mb-0">{{ $stats['total'] }}</h4>
+                            <h4 class="mb-0">{{ $stats['total'] ?? 0 }}</h4>
                         </div>
                     </div>
                 </div>
@@ -52,7 +52,7 @@
                         </div>
                         <div class="flex-grow-1 ms-3">
                             <h6 class="mb-0">Pending</h6>
-                            <h4 class="mb-0">{{ $stats['pending'] }}</h4>
+                            <h4 class="mb-0">{{ $stats['pending'] ?? 0 }}</h4>
                         </div>
                     </div>
                 </div>
@@ -69,7 +69,7 @@
                         </div>
                         <div class="flex-grow-1 ms-3">
                             <h6 class="mb-0">Diproses</h6>
-                            <h4 class="mb-0">{{ $stats['diproses'] }}</h4>
+                            <h4 class="mb-0">{{ $stats['diproses'] ?? 0 }}</h4>
                         </div>
                     </div>
                 </div>
@@ -86,7 +86,7 @@
                         </div>
                         <div class="flex-grow-1 ms-3">
                             <h6 class="mb-0">Disetujui</h6>
-                            <h4 class="mb-0">{{ $stats['disetujui'] }}</h4>
+                            <h4 class="mb-0">{{ $stats['disetujui'] ?? 0 }}</h4>
                         </div>
                     </div>
                 </div>
@@ -110,7 +110,7 @@
                 </div>
                 <div class="card-body">
                     <!-- Filter & Search -->
-                    <form method="GET" action="{{ route('admin.surat.index') }}" class="mb-4">
+                    <form method="GET" action="{{ route('admin.pengajuan.index') }}" class="mb-4">
                         <div class="row g-3">
                             <div class="col-md-3">
                                 <select name="status" class="form-select" onchange="this.form.submit()">
@@ -124,13 +124,14 @@
                             <div class="col-md-3">
                                 <select name="jenis_surat" class="form-select" onchange="this.form.submit()">
                                     <option value="">Semua Jenis Surat</option>
-                                    <option value="Surat Keterangan Siswa" {{ request('jenis_surat') == 'Surat Keterangan Siswa' ? 'selected' : '' }}>Surat Keterangan Siswa</option>
-                                    <option value="Surat Izin" {{ request('jenis_surat') == 'Surat Izin' ? 'selected' : '' }}>Surat Izin</option>
-                                    <option value="Surat Rekomendasi" {{ request('jenis_surat') == 'Surat Rekomendasi' ? 'selected' : '' }}>Surat Rekomendasi</option>
-                                    <option value="Surat Keterangan Lulus" {{ request('jenis_surat') == 'Surat Keterangan Lulus' ? 'selected' : '' }}>Surat Keterangan Lulus</option>
-                                    <option value="Surat Pindah Sekolah" {{ request('jenis_surat') == 'Surat Pindah Sekolah' ? 'selected' : '' }}>Surat Pindah Sekolah</option>
-                                    <option value="Surat Keterangan Aktif Kuliah" {{ request('jenis_surat') == 'Surat Keterangan Aktif Kuliah' ? 'selected' : '' }}>Surat Keterangan Aktif Kuliah</option>
-                                    <option value="Lainnya" {{ request('jenis_surat') == 'Lainnya' ? 'selected' : '' }}>Lainnya</option>
+                                    <option value="Surat Keterangan Domisili" {{ request('jenis_surat') == 'Surat Keterangan Domisili' ? 'selected' : '' }}>Surat Keterangan Domisili</option>
+                                    <option value="Surat Keterangan Usaha" {{ request('jenis_surat') == 'Surat Keterangan Usaha' ? 'selected' : '' }}>Surat Keterangan Usaha</option>
+                                    <option value="Surat Keterangan Tidak Mampu" {{ request('jenis_surat') == 'Surat Keterangan Tidak Mampu' ? 'selected' : '' }}>Surat Keterangan Tidak Mampu</option>
+                                    <option value="Surat Keterangan Kelahiran" {{ request('jenis_surat') == 'Surat Keterangan Kelahiran' ? 'selected' : '' }}>Surat Keterangan Kelahiran</option>
+                                    <option value="Surat Keterangan Kematian" {{ request('jenis_surat') == 'Surat Keterangan Kematian' ? 'selected' : '' }}>Surat Keterangan Kematian</option>
+                                    <option value="Surat Pengantar" {{ request('jenis_surat') == 'Surat Pengantar' ? 'selected' : '' }}>Surat Pengantar</option>
+                                    <option value="Surat Keterangan Beda Nama" {{ request('jenis_surat') == 'Surat Keterangan Beda Nama' ? 'selected' : '' }}>Surat Keterangan Beda Nama</option>
+                                    <option value="Surat Keterangan Lainnya" {{ request('jenis_surat') == 'Surat Keterangan Lainnya' ? 'selected' : '' }}>Surat Keterangan Lainnya</option>
                                 </select>
                             </div>
                             <div class="col-md-6">
@@ -144,7 +145,7 @@
                                         <i class="ti ti-search"></i> Cari
                                     </button>
                                     @if(request()->hasAny(['status', 'jenis_surat', 'search']))
-                                        <a href="{{ route('admin.surat.index') }}" class="btn btn-light">
+                                        <a href="{{ route('admin.pengajuan.index') }}" class="btn btn-light">
                                             <i class="ti ti-x"></i> Reset
                                         </a>
                                     @endif
@@ -199,19 +200,19 @@
                                                 </span>
                                             </td>
                                             <td class="text-center">
-                                                <a href="{{ route('admin.surat.show', $pengajuan) }}" 
+                                                <a href="{{ route('admin.pengajuan.show', $pengajuan) }}" 
                                                    class="btn btn-sm btn-light-primary" 
                                                    title="Proses">
                                                     <i class="ti ti-edit"></i>
                                                 </a>
                                                 @if($pengajuan->file_surat)
-                                                    <a href="{{ route('admin.surat.download', $pengajuan) }}" 
+                                                    <a href="{{ route('admin.pengajuan.download', $pengajuan) }}" 
                                                        class="btn btn-sm btn-light-success" 
                                                        title="Download">
                                                         <i class="ti ti-download"></i>
                                                     </a>
                                                 @endif
-                                                <form action="{{ route('admin.surat.destroy', $pengajuan) }}" 
+                                                <form action="{{ route('admin.pengajuan.destroy', $pengajuan) }}" 
                                                       method="POST" 
                                                       class="d-inline"
                                                       onsubmit="return confirm('Yakin ingin menghapus pengajuan ini?')">
