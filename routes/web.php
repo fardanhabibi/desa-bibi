@@ -3,7 +3,6 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BiodataController;
-use App\Http\Controllers\PengaduanController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -109,3 +108,47 @@ Route::middleware(['cekRole:admin'])->group(function () {
     Route::put('/admin/pengaduan/{pengaduan}', [PengaduanController::class, 'adminUpdate'])->name('admin.pengaduan.update');
     Route::delete('/admin/pengaduan/{pengaduan}', [PengaduanController::class, 'adminDestroy'])->name('admin.pengaduan.destroy');
 });
+use App\Http\Controllers\PengajuanSuratController;
+
+// ... kode sebelumnya ...
+
+// User routes (dalam middleware auth dan cekRole:user)
+Route::middleware(['cekRole:user'])->group(function () {
+    // ... routes yang sudah ada ...
+    
+    // Pengajuan Surat Routes
+    Route::get('/surat', [PengajuanSuratController::class, 'index'])->name('user.surat.index');
+    Route::get('/surat/create', [PengajuanSuratController::class, 'create'])->name('user.surat.create');
+    Route::post('/surat', [PengajuanSuratController::class, 'store'])->name('user.surat.store');
+    Route::get('/surat/{surat}', [PengajuanSuratController::class, 'show'])->name('user.surat.show');
+    Route::delete('/surat/{surat}', [PengajuanSuratController::class, 'destroy'])->name('user.surat.destroy');
+    Route::get('/surat/{surat}/download', [PengajuanSuratController::class, 'downloadSurat'])->name('user.surat.download');
+});
+
+// Admin routes (dalam middleware auth dan cekRole:admin)
+Route::middleware(['cekRole:admin'])->group(function () {
+    // ... routes yang sudah ada ...
+    
+    // Kelola Pengajuan Surat Routes
+    Route::get('/admin/surat', [PengajuanSuratController::class, 'adminIndex'])->name('admin.surat.index');
+    Route::get('/admin/surat/{surat}', [PengajuanSuratController::class, 'adminShow'])->name('admin.surat.show');
+    Route::put('/admin/surat/{surat}', [PengajuanSuratController::class, 'adminUpdate'])->name('admin.surat.update');
+    Route::delete('/admin/surat/{surat}', [PengajuanSuratController::class, 'adminDestroy'])->name('admin.surat.destroy');
+    Route::get('/admin/surat/{surat}/download', [PengajuanSuratController::class, 'adminDownloadSurat'])->name('admin.surat.download');
+});
+// Tambahkan di bagian atas file (setelah use yang sudah ada)
+
+// Tambahkan di dalam Route::middleware(['cekRole:admin'])
+Route::get('/admin/surat', [PengajuanSuratController::class, 'adminIndex'])->name('admin.surat.index');
+Route::get('/admin/surat/{surat}', [PengajuanSuratController::class, 'adminShow'])->name('admin.surat.show');
+Route::put('/admin/surat/{surat}', [PengajuanSuratController::class, 'adminUpdate'])->name('admin.surat.update');
+Route::delete('/admin/surat/{surat}', [PengajuanSuratController::class, 'adminDestroy'])->name('admin.surat.destroy');
+Route::get('/admin/surat/{surat}/download', [PengajuanSuratController::class, 'adminDownloadSurat'])->name('admin.surat.download');
+
+// Tambahkan di dalam Route::middleware(['cekRole:user'])
+Route::get('/surat', [PengajuanSuratController::class, 'index'])->name('user.surat.index');
+Route::get('/surat/create', [PengajuanSuratController::class, 'create'])->name('user.surat.create');
+Route::post('/surat', [PengajuanSuratController::class, 'store'])->name('user.surat.store');
+Route::get('/surat/{surat}', [PengajuanSuratController::class, 'show'])->name('user.surat.show');
+Route::delete('/surat/{surat}', [PengajuanSuratController::class, 'destroy'])->name('user.surat.destroy');
+Route::get('/surat/{surat}/download', [PengajuanSuratController::class, 'downloadSurat'])->name('user.surat.download');
