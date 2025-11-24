@@ -10,7 +10,7 @@ class ForumDiskusi extends Model
     use HasFactory;
 
     protected $table = 'forum_diskusi';
-    protected $fillable = ['topik', 'pemilik_nik', 'tanggal_posting'];
+    protected $fillable = ['topik', 'pemilik_nik', 'tanggal_posting', 'status'];
 
     protected $casts = [
         'tanggal_posting' => 'date',
