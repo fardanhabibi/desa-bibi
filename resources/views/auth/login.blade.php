@@ -27,9 +27,10 @@
                     </div>
                 @endif
                 <div class="form-group mb-3">
-                    <label class="form-label">Email Address</label>
-                    <input type="email" class="form-control" name="email" placeholder="Email Address"
-                        value="{{ session('registered_email') }}" autocomplete="off" required>
+                    <label class="form-label">Email Address atau NIK</label>
+                    <input type="text" class="form-control" name="email_or_nik" placeholder="Email atau NIK (16 digit)"
+                        value="{{ old('email_or_nik', session('registered_email')) }}" autocomplete="off" required>
+                    <small class="form-text text-muted">Gunakan email atau NIK 16 digit untuk login</small>
                 </div>
                 <div class="form-group mb-3">
                     <label for="password" class="form-label">Password</label>

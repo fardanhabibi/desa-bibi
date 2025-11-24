@@ -27,37 +27,36 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-
         // Validate the request data
-        $credentials = $request->only('email', 'password');
-        $remember = $request->has('remember'); // akan bernilai true jika dicentang
         $request->validate([
-            'email' => 'required|email',
+            'email_or_nik' => 'required|string',
             'password' => 'required|min:6',
         ]);
 
-        // buat agar dia memverifikasi email dulu dari kolom is_verified(boolean)
-        // tpi kalau yang login  role nya admin, ndk perlu verifikasi
+        $input = $request->input('email_or_nik');
+        $password = $request->input('password');
+        $remember = $request->has('remember');
 
-        // $user = User::where('email', $credentials['email'])->first();
-        // if ($user->role != 'admin' && !$user->is_verified) {
-        //     return back()->withErrors([
-        //         'verify_email' => 'Email belum diverifikasi. silahkan hubugi Admin',
-        //     ]);
-        // }
-
+        // Check if input is NIK (16 digits) or email
+        $credentials = [];
+        if (preg_match('/^[0-9]{16}$/', $input)) {
+            // Input adalah NIK
+            $credentials = ['nik' => $input, 'password' => $password];
+        } else {
+            // Input adalah email
+            $credentials = ['email' => $input, 'password' => $password];
+        }
 
         // Attempt to log the user in
         if (Auth::attempt($credentials, $remember)) {
             $request->session()->regenerate();
-
             return redirect()->intended('dashboard');
         }
 
         // If authentication fails, redirect back with an error
         return back()->withErrors([
-            'email' => 'The provided credentials do not match our records.',
-        ]);
+            'email_or_nik' => 'The provided credentials do not match our records.',
+        ])->withInput($request->only('email_or_nik'));
     }
 
     public function showRegistrationForm()
@@ -70,23 +69,29 @@ class AuthController extends Controller
         // Validate the request data
         $request->validate([
             'name' => 'required|string|max:255',
+            'nik' => 'required|string|max:16|unique:users,nik',
+            'tempat_lahir' => 'nullable|string|max:100',
+            'tanggal_lahir' => 'nullable|date|before:today',
+            'status_perkawinan' => 'nullable|in:Belum Kawin,Kawin,Cerai Hidup,Cerai Mati',
+            'pekerjaan' => 'nullable|string|max:100',
+            'nomor_telpon' => 'nullable|string|min:10|max:13',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
-
         ]);
 
-        // Create the user
+        // Create the user with biodata
         $user = User::create([
             'name' => $request->name,
+            'nik' => $request->nik,
+            'tempat_lahir' => $request->tempat_lahir,
+            'tanggal_lahir' => $request->tanggal_lahir,
+            'status_perkawinan' => $request->status_perkawinan,
+            'pekerjaan' => $request->pekerjaan,
+            'nomor_telpon' => $request->nomor_telpon,
             'email' => $request->email,
             'password' => bcrypt($request->password),
             'role' => $request->role ?? 'user',
         ]);
-
-
-        // Set session untuk email yang akan diverifikasi
-        // session(['verify_email' => $user->email]);
-        // return $this->sendOtp($user, true); // true: from register
 
         // Set session with the registered email
         $request->session()->flash('registered_email', $request->email);

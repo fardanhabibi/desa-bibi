@@ -109,6 +109,8 @@ Route::middleware(['auth', 'web', TrackVisits::class])->group(function () {
     Route::middleware(['cekRole:user'])->group(function () {
         // Biodata
         Route::get('/biodata', [BiodataController::class, 'index'])->name('user.biodata');
+        Route::get('/biodata/edit', [BiodataController::class, 'edit'])->name('user.biodata.edit');
+        Route::post('/biodata/update', [BiodataController::class, 'updateBiodata'])->name('user.biodata.update');
         
         // Dokumen
         Route::get('/dokumen', function () {

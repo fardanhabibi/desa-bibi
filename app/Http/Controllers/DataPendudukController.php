@@ -14,10 +14,11 @@ class DataPendudukController extends Controller
     {
         $query = User::where('role', 'user');
 
-        // Search functionality
+        // Search functionality - cari by name, email, atau NIK
         if ($request->search) {
             $query->where('name', 'like', '%' . $request->search . '%')
-                  ->orWhere('email', 'like', '%' . $request->search . '%');
+                  ->orWhere('email', 'like', '%' . $request->search . '%')
+                  ->orWhere('nik', 'like', '%' . $request->search . '%');
         }
 
         // Filter by verification status

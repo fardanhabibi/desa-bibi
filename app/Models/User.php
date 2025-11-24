@@ -28,6 +28,16 @@ class User extends Authenticatable
         'is_verified',
         'otp_code',
         'otp_expires_at',
+        'nik',
+        'tempat_lahir',
+        'tanggal_lahir',
+        'status_perkawinan',
+        'nomor_telpon',
+        'pekerjaan',
+        'alamat',
+        'kota',
+        'provinsi',
+        'kode_pos',
     ];
 
     /**
@@ -50,6 +60,7 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'tanggal_lahir' => 'date',
         ];
     }
 }

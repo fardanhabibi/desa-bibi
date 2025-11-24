@@ -84,9 +84,9 @@
                         <!-- Filter & Search -->
                         <form method="GET" class="mb-3">
                             <div class="row g-2">
-                                <div class="col-md-6">
+                                <div class="col-md-5">
                                     <input type="text" name="search" class="form-control" 
-                                           placeholder="Cari nama atau email..." value="{{ request('search') }}">
+                                           placeholder="Cari nama, email, atau NIK..." value="{{ request('search') }}">
                                 </div>
                                 <div class="col-md-3">
                                     <select name="verification_status" class="form-control">
@@ -95,7 +95,7 @@
                                         <option value="unverified" {{ request('verification_status') == 'unverified' ? 'selected' : '' }}>Belum Terverifikasi</option>
                                     </select>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-4">
                                     <select name="sort" class="form-control">
                                         <option value="newest" {{ request('sort') == 'newest' ? 'selected' : '' }}>Terbaru</option>
                                         <option value="oldest" {{ request('sort') == 'oldest' ? 'selected' : '' }}>Tertua</option>
@@ -123,7 +123,9 @@
                                     <tr>
                                         <th class="ps-4">No</th>
                                         <th>Nama</th>
+                                        <th>NIK</th>
                                         <th>Email</th>
+                                        <th>Telepon</th>
                                         <th>Status Verifikasi</th>
                                         <th>Tanggal Pendaftaran</th>
                                         <th class="text-end pe-4">Aksi</th>
@@ -138,10 +140,18 @@
                                                     <div class="avtar avtar-s rounded-circle bg-light-primary me-2">
                                                         <img src="{{ $resident->avatar ?? 'https://ui-avatars.com/api/?name=' . urlencode($resident->name) }}" alt="{{ $resident->name }}">
                                                     </div>
-                                                    <span class="fw-600">{{ $resident->name }}</span>
+                                                    <div>
+                                                        <span class="fw-600">{{ $resident->name }}</span>
+                                                        <br>
+                                                        <small class="text-muted">{{ $resident->pekerjaan ?? '-' }}</small>
+                                                    </div>
                                                 </div>
                                             </td>
+                                            <td>
+                                                <span class="font-monospace">{{ $resident->nik ?? '-' }}</span>
+                                            </td>
                                             <td>{{ $resident->email }}</td>
+                                            <td>{{ $resident->nomor_telpon ?? '-' }}</td>
                                             <td>
                                                 @if($resident->is_verified)
                                                     <span class="badge bg-light-success text-success">Terverifikasi</span>

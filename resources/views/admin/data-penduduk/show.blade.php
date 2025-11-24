@@ -52,6 +52,16 @@
 
                         <!-- Detail Information -->
                         <div class="row g-4">
+                            <!-- NIK -->
+                            <div class="col-md-6">
+                                <div class="detail-item">
+                                    <label class="detail-label">
+                                        <i class="ti ti-id me-2" style="color: #1e3c72;"></i>NIK
+                                    </label>
+                                    <p class="detail-value font-monospace fw-600">{{ $resident->nik ?? '-' }}</p>
+                                </div>
+                            </div>
+
                             <!-- Email Section -->
                             <div class="col-md-6">
                                 <div class="detail-item">
@@ -61,6 +71,98 @@
                                     <p class="detail-value">
                                         <a href="mailto:{{ $resident->email }}" class="text-decoration-none fw-600">{{ $resident->email }}</a>
                                     </p>
+                                </div>
+                            </div>
+
+                            <!-- Tempat Lahir -->
+                            <div class="col-md-6">
+                                <div class="detail-item">
+                                    <label class="detail-label">
+                                        <i class="ti ti-map-pin me-2" style="color: #1e3c72;"></i>Tempat Lahir
+                                    </label>
+                                    <p class="detail-value">{{ $resident->tempat_lahir ?? '-' }}</p>
+                                </div>
+                            </div>
+
+                            <!-- Tanggal Lahir -->
+                            <div class="col-md-6">
+                                <div class="detail-item">
+                                    <label class="detail-label">
+                                        <i class="ti ti-calendar me-2" style="color: #1e3c72;"></i>Tanggal Lahir
+                                    </label>
+                                    <p class="detail-value">{{ $resident->tanggal_lahir ? $resident->tanggal_lahir->format('d F Y') : '-' }}</p>
+                                </div>
+                            </div>
+
+                            <!-- Status Perkawinan -->
+                            <div class="col-md-6">
+                                <div class="detail-item">
+                                    <label class="detail-label">
+                                        <i class="ti ti-heart me-2" style="color: #1e3c72;"></i>Status Perkawinan
+                                    </label>
+                                    <p class="detail-value">{{ $resident->status_perkawinan ?? '-' }}</p>
+                                </div>
+                            </div>
+
+                            <!-- Pekerjaan -->
+                            <div class="col-md-6">
+                                <div class="detail-item">
+                                    <label class="detail-label">
+                                        <i class="ti ti-briefcase me-2" style="color: #1e3c72;"></i>Pekerjaan
+                                    </label>
+                                    <p class="detail-value">{{ $resident->pekerjaan ?? '-' }}</p>
+                                </div>
+                            </div>
+
+                            <!-- Nomor Telepon -->
+                            <div class="col-md-6">
+                                <div class="detail-item">
+                                    <label class="detail-label">
+                                        <i class="ti ti-phone me-2" style="color: #1e3c72;"></i>Nomor Telepon
+                                    </label>
+                                    <p class="detail-value">
+                                        <a href="tel:{{ $resident->nomor_telpon }}" class="text-decoration-none fw-600">{{ $resident->nomor_telpon ?? '-' }}</a>
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- Alamat -->
+                            <div class="col-md-12">
+                                <div class="detail-item">
+                                    <label class="detail-label">
+                                        <i class="ti ti-home me-2" style="color: #1e3c72;"></i>Alamat Lengkap
+                                    </label>
+                                    <p class="detail-value">{{ $resident->alamat ?? '-' }}</p>
+                                </div>
+                            </div>
+
+                            <!-- Kota -->
+                            <div class="col-md-6">
+                                <div class="detail-item">
+                                    <label class="detail-label">
+                                        <i class="ti ti-building me-2" style="color: #1e3c72;"></i>Kota/Kabupaten
+                                    </label>
+                                    <p class="detail-value">{{ $resident->kota ?? '-' }}</p>
+                                </div>
+                            </div>
+
+                            <!-- Provinsi -->
+                            <div class="col-md-6">
+                                <div class="detail-item">
+                                    <label class="detail-label">
+                                        <i class="ti ti-map me-2" style="color: #1e3c72;"></i>Provinsi
+                                    </label>
+                                    <p class="detail-value">{{ $resident->provinsi ?? '-' }}</p>
+                                </div>
+                            </div>
+
+                            <!-- Kode Pos -->
+                            <div class="col-md-6">
+                                <div class="detail-item">
+                                    <label class="detail-label">
+                                        <i class="ti ti-mailbox me-2" style="color: #1e3c72;"></i>Kode Pos
+                                    </label>
+                                    <p class="detail-value">{{ $resident->kode_pos ?? '-' }}</p>
                                 </div>
                             </div>
 
@@ -83,48 +185,6 @@
                                     </p>
                                 </div>
                             </div>
-
-                            <!-- Registration Date -->
-                            <div class="col-md-6">
-                                <div class="detail-item">
-                                    <label class="detail-label">
-                                        <i class="ti ti-calendar-event me-2" style="color: #1e3c72;"></i>Tanggal Pendaftaran
-                                    </label>
-                                    <p class="detail-value fw-600">{{ $resident->created_at ? $resident->created_at->format('d M Y') : '-' }}</p>
-                                    <small class="text-muted">{{ $resident->created_at ? $resident->created_at->format('H:i') : '-' }}</small>
-                                </div>
-                            </div>
-
-                            <!-- Provider -->
-                            <div class="col-md-6">
-                                <div class="detail-item">
-                                    <label class="detail-label">
-                                        <i class="ti ti-brand-google me-2" style="color: #1e3c72;"></i>Metode Pendaftaran
-                                    </label>
-                                    <p class="detail-value fw-600">{{ ucfirst($resident->provider ?? 'Manual') }}</p>
-                                </div>
-                            </div>
-
-                            <!-- Last Updated -->
-                            <div class="col-md-6">
-                                <div class="detail-item">
-                                    <label class="detail-label">
-                                        <i class="ti ti-clock-edit me-2" style="color: #1e3c72;"></i>Terakhir Diperbarui
-                                    </label>
-                                    <p class="detail-value fw-600">{{ $resident->updated_at ? $resident->updated_at->format('d M Y H:i') : '-' }}</p>
-                                </div>
-                            </div>
-
-                            <!-- User ID -->
-                            <div class="col-md-6">
-                                <div class="detail-item">
-                                    <label class="detail-label">
-                                        <i class="ti ti-hash me-2" style="color: #1e3c72;"></i>ID Pengguna
-                                    </label>
-                                    <p class="detail-value fw-600">{{ $resident->id }}</p>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
 
