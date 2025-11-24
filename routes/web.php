@@ -108,6 +108,42 @@ Route::middleware(['auth', 'web', TrackVisits::class])->group(function () {
         return view('myprofile');
     })->name('myprofile');
 
+    // User-facing public routes (view only)
+    Route::get('/berita', function () {
+        $berita = \App\Models\Berita::paginate(12);
+        return view('user.berita', compact('berita'));
+    })->name('berita.index');
+
+    Route::get('/agenda', function () {
+        $agenda = \App\Models\Agenda::paginate(12);
+        return view('user.agenda', compact('agenda'));
+    })->name('agenda.index');
+
+    Route::get('/faq', function () {
+        $faq = \App\Models\Faq::paginate(12);
+        return view('user.faq', compact('faq'));
+    })->name('faq.index');
+
+    Route::get('/formulir', function () {
+        $formulir = \App\Models\DownloadFormulir::paginate(12);
+        return view('user.formulir', compact('formulir'));
+    })->name('formulir.index');
+
+    Route::get('/layanan', function () {
+        $layanan = \App\Models\LayananOnline::where('status', 'aktif')->paginate(12);
+        return view('user.layanan', compact('layanan'));
+    })->name('layanan.index');
+
+    Route::get('/forum', function () {
+        $forum = \App\Models\ForumDiskusi::where('status', 'dibuka')->paginate(12);
+        return view('user.forum', compact('forum'));
+    })->name('forum.index');
+
+    Route::get('/kontak', function () {
+        $kontak = \App\Models\KontakDesa::all();
+        return view('user.kontak', compact('kontak'));
+    })->name('kontak.index');
+
     // User routes
     Route::middleware(['cekRole:user'])->group(function () {
         // Biodata
