@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\KartuKeluarga;
-use App\Models\Penduduk;
 use Illuminate\Http\Request;
 
 class KartuKeluargaController extends Controller
@@ -25,19 +24,18 @@ class KartuKeluargaController extends Controller
 
     public function create()
     {
-        $penduduk = Penduduk::all();
-        return view('admin.kartu_keluarga.create', compact('penduduk'));
+        return view('admin.kartu_keluarga.create');
     }
 
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'no_kk' => 'required|string|unique:kartu_keluargas,no_kk|max:16',
-            'kepala_keluarga_nik' => 'required|exists:penduduks,nik',
-            'alamat' => 'required|string',
-            'desa' => 'nullable|string',
-            'kecamatan' => 'nullable|string',
-            'kabupaten' => 'nullable|string',
+            'no_kk' => 'required|string|unique:kartu_keluarga,no_kk|max:16',
+            'kepala_keluarga' => 'required|string',
+            'alamat' => 'nullable|string',
+            'rt' => 'nullable|string',
+            'rw' => 'nullable|string',
+            'dusun' => 'nullable|string',
         ]);
 
         KartuKeluarga::create($validated);
@@ -51,19 +49,18 @@ class KartuKeluargaController extends Controller
 
     public function edit(KartuKeluarga $kartu_keluarga)
     {
-        $penduduk = Penduduk::all();
-        return view('admin.kartu_keluarga.edit', compact('kartu_keluarga', 'penduduk'));
+        return view('admin.kartu_keluarga.edit', compact('kartu_keluarga'));
     }
 
     public function update(Request $request, KartuKeluarga $kartu_keluarga)
     {
         $validated = $request->validate([
-            'no_kk' => 'required|string|unique:kartu_keluargas,no_kk,' . $kartu_keluarga->id . '|max:16',
-            'kepala_keluarga_nik' => 'required|exists:penduduks,nik',
-            'alamat' => 'required|string',
-            'desa' => 'nullable|string',
-            'kecamatan' => 'nullable|string',
-            'kabupaten' => 'nullable|string',
+            'no_kk' => 'required|string|unique:kartu_keluarga,no_kk,' . $kartu_keluarga->id . '|max:16',
+            'kepala_keluarga' => 'required|string',
+            'alamat' => 'nullable|string',
+            'rt' => 'nullable|string',
+            'rw' => 'nullable|string',
+            'dusun' => 'nullable|string',
         ]);
 
         $kartu_keluarga->update($validated);
