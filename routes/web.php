@@ -8,6 +8,9 @@ use App\Http\Controllers\PengajuanSuratController;
 use App\Http\Controllers\DataPendudukController;
 use App\Http\Middleware\TrackVisits;
 
+// Include admin routes
+require __DIR__ . '/admin.php';
+
 Route::get('/', function () {
     return view('welcome');
 });
