@@ -1,51 +1,60 @@
 @extends('layouts.landing')
 
-@section('title', 'Selamat Datang di PPDB Online')
+@section('title', 'Sistem Informasi Desa - Transparansi dan Pemberdayaan Masyarakat')
 
 
 @section('content')
     <!-- [ Header ] start -->
     <header id="home" class="d-flex align-items-center"
-        style="position: relative; min-height: 100dvh; background: url('{{ asset('assets/images/my/hero-section.png') }}') no-repeat center center; background-size: cover;">
-        <!-- Overlay -->
-        <div
-            style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-image: linear-gradient(to top, rgba(0,0,0,0.7), rgba(0,0,0,0.1));">
+        style="position: relative; min-height: 100dvh; background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);">
+        <!-- Animated Background -->
+        <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; overflow: hidden; z-index: 1; pointer-events: none;">
+            <div style="position: absolute; top: -50%; right: -10%; width: 600px; height: 600px; background: rgba(255,255,255,0.05); border-radius: 50%; animation: float 8s ease-in-out infinite;"></div>
+            <div style="position: absolute; bottom: -30%; left: -5%; width: 400px; height: 400px; background: rgba(255,255,255,0.03); border-radius: 50%; animation: float 10s ease-in-out infinite reverse;"></div>
         </div>
 
-        <div class="container mt-5 pt-5">
+        <div class="container mt-5 pt-5" style="position: relative; z-index: 10;">
             <div class="row justify-content-center">
                 <div class="col-lg-10 col-xl-8 text-center">
-                    <h1 class="mt-sm-3 text-white mb-4 f-w-600 wow fadeInUp" data-wow-delay="0.2s" style="font-size: 3.5rem;">
-                        Selamat Datang di PPDB Online
+                    <h1 class="mt-sm-3 text-white mb-4 f-w-600 wow fadeInUp" data-wow-delay="0.2s" style="font-size: 3.5rem; font-weight: 800;">
+                        Selamat Datang di
                         <br>
-                        <span class="text-primary">Sekolah Harapan Bangsa</span>
+                        <span class="text-warning" style="background: linear-gradient(135deg, #ffd700, #ffed4e); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Sistem Informasi Desa Bibi</span>
                     </h1>
-                    <h5 class="mb-4 text-white opacity-75 wow fadeInUp" data-wow-delay="0.4s" style="font-size: 1.25rem;">
-                        Wujudkan Masa Depan Gemilang Melalui Pendidikan Berkualitas.
+                    <h5 class="mb-4 text-white opacity-90 wow fadeInUp" data-wow-delay="0.4s" style="font-size: 1.25rem; font-weight: 300;">
+                        Transparansi, Partisipasi, dan Pemberdayaan Masyarakat
                         <br class="d-none d-md-block">
-                        Daftar dengan mudah dan cepat melalui sistem pendaftaran siswa baru kami.
+                        Akses informasi desa, laporan keuangan, dan layanan publik dengan mudah dan transparan.
                     </h5>
-                    <div class="my-5 wow fadeInUp" data-wow-delay="0.6s">
+                    <div class="my-5 wow fadeInUp" data-wow-delay="0.6s" style="position: relative; z-index: 10;">
                         <a href="{{ route('register') }}"
-                            class="btn btn-primary btn-lg d-inline-flex align-items-center me-2" target="_blank">Daftar
-                            Sekarang <i class="ti ti-arrow-right ms-2"></i></a>
-                        <a href="#alur" class="btn btn-outline-light btn-lg me-2">Lihat Alur Pendaftaran</a>
+                            class="btn btn-warning btn-lg d-inline-flex align-items-center me-2" style="color: #1e3c72; font-weight: 600; cursor: pointer;">
+                            Daftar Sebagai Warga <i class="ti ti-arrow-right ms-2"></i>
+                        </a>
+                        <a href="#alur" class="btn btn-outline-light btn-lg me-2" style="border-width: 2px; cursor: pointer;">Pelajari Sistem</a>
                     </div>
                 </div>
             </div>
         </div>
+        
+        <style>
+            @keyframes float {
+                0%, 100% { transform: translateY(0px) rotate(0deg); }
+                50% { transform: translateY(30px) rotate(180deg); }
+            }
+        </style>
     </header>
     <!-- [ Header ] End -->
 
-    <!-- [ Keunggulan Kami ] start -->
+    <!-- [ Fitur Unggulan ] start -->
     <section>
         <div class="container title">
             <div class="row justify-content-center text-center wow fadeInUp" data-wow-delay="0.2s">
                 <div class="col-md-10 col-xl-6">
-                    <h5 class="text-primary mb-0">Pendidikan Terbaik</h5>
-                    <h2 class="my-3">Mengapa Memilih Sekolah Kami?</h2>
-                    <p class="mb-0">Kami berkomitmen untuk menyediakan lingkungan belajar yang inspiratif dengan kurikulum
-                        terbaik untuk masa depan cerah putra-putri Anda.</p>
+                    <h5 class="text-primary mb-0">Transformasi Digital</h5>
+                    <h2 class="my-3">Fitur Unggulan Sistem Informasi Desa</h2>
+                    <p class="mb-0">Kami menyediakan platform terintegrasi untuk meningkatkan transparansi dan layanan publik
+                        di tingkat desa dengan teknologi terkini.</p>
                 </div>
             </div>
         </div>
@@ -54,50 +63,46 @@
                 <div class="col-sm-6 col-lg-4">
                     <div class="card wow fadeInUp" data-wow-delay="0.4s">
                         <div class="card-body">
-                            <img src="../assets/images/landing/img-feature1.svg"
-                                alt="Ruang kelas modern dengan proyektor dan kursi ergonomis" class="img-fluid">
-                            <h5 class="my-3">Fasilitas Modern</h5>
-                            <p class="mb-0 text-muted">Lingkungan belajar nyaman dengan fasilitas terkini, dari lab,
-                                perpustakaan, hingga sarana olahraga lengkap.</p>
+                            <i class="ti ti-lock-open f-36 text-primary" style="margin-bottom: 1rem;"></i>
+                            <h5 class="my-3">Transparansi Data</h5>
+                            <p class="mb-0 text-muted">Akses laporan keuangan, anggaran, dan penggunaan dana publik secara real-time
+                                dengan format yang mudah dipahami.</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-sm-6 col-lg-4">
                     <div class="card wow fadeInUp" data-wow-delay="0.6s">
                         <div class="card-body">
-                            <img src="../assets/images/landing/img-feature2.svg"
-                                alt="Guru sedang mengajar di depan kelas menggunakan papan tulis interaktif"
-                                class="img-fluid">
-                            <h5 class="my-3">Kurikulum Unggulan</h5>
-                            <p class="mb-0 text-muted">Kurikulum dirancang untuk mengembangkan potensi akademik dan
-                                non-akademik siswa secara seimbang.</p>
+                            <i class="ti ti-users f-36 text-primary" style="margin-bottom: 1rem;"></i>
+                            <h5 class="my-3">Layanan Administrasi</h5>
+                            <p class="mb-0 text-muted">Ajukan surat pengantar, surat kelahiran, kematian, dan layanan administrasi
+                                lainnya secara online dari rumah Anda.</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-sm-6 col-lg-4">
                     <div class="card wow fadeInUp" data-wow-delay="0.8s">
                         <div class="card-body">
-                            <img src="../assets/images/landing/img-feature3.svg"
-                                alt="Sekelompok guru yang ramah dan profesional berdiskusi di ruang guru" class="img-fluid">
-                            <h5 class="my-3">Pendidik Profesional</h5>
-                            <p class="mb-0 text-muted">Didukung oleh guru berpengalaman dan berdedikasi dalam membimbing
-                                siswa menjadi pribadi cerdas dan berkarakter.</p>
+                            <i class="ti ti-bell f-36 text-primary" style="margin-bottom: 1rem;"></i>
+                            <h5 class="my-3">Berita & Pengumuman</h5>
+                            <p class="mb-0 text-muted">Dapatkan informasi terbaru tentang kegiatan desa, pengumuman penting,
+                                dan undangan acara langsung ke dashboard Anda.</p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-    <!-- [ Keunggulan Kami ] End -->
+    <!-- [ Fitur Unggulan ] End -->
 
-    <!-- [ Alur Pendaftaran ] start -->
+    <!-- [ Alur Penggunaan ] start -->
     <section class="pt-0" id="alur">
         <div class="container title">
             <div class="row justify-content-center text-center wow fadeInUp" data-wow-delay="0.2s">
                 <div class="col-md-10 col-xl-6">
-                    <h5 class="text-primary mb-0">Proses Cepat & Mudah</h5>
-                    <h2 class="my-3">Alur Pendaftaran</h2>
-                    <p class="mb-0">Ikuti 4 langkah mudah untuk menjadi bagian dari keluarga besar Sekolah Harapan Bangsa.
+                    <h5 class="text-primary mb-0">Mudah & Cepat</h5>
+                    <h2 class="my-3">Langkah Menggunakan Sistem</h2>
+                    <p class="mb-0">Ikuti 4 langkah sederhana untuk memulai menggunakan sistem informasi desa kami.
                     </p>
                 </div>
             </div>
@@ -108,69 +113,76 @@
                     <div class="card wow fadeInUp" data-wow-delay="0.4s">
                         <div class="card-body text-center">
                             <i class="ti ti-user-plus f-36 text-primary"></i>
-                            <h5 class="my-3">1. Buat Akun</h5>
-                            <p class="mb-0 text-muted">Daftarkan diri Anda dengan mengisi email dan password untuk membuat
-                                akun.</p>
+                            <h5 class="my-3">1. Daftar Akun</h5>
+                            <p class="mb-0 text-muted">Buat akun warga dengan menggunakan NIK dan email aktif Anda
+                                untuk mendapatkan akses penuh.</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-sm-6 col-lg-3">
                     <div class="card wow fadeInUp" data-wow-delay="0.6s">
                         <div class="card-body text-center">
-                            <i class="ti ti-file-text f-36 text-primary"></i>
-                            <h5 class="my-3">2. Lengkapi Data</h5>
-                            <p class="mb-0 text-muted">Login dan lengkapi formulir biodata serta unggah dokumen yang
-                                diperlukan.</p>
+                            <i class="ti ti-shield-check f-36 text-primary"></i>
+                            <h5 class="my-3">2. Verifikasi</h5>
+                            <p class="mb-0 text-muted">Verifikasi email Anda dan lengkapi profil dengan data pribadi
+                                yang akurat dan terpercaya.</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-sm-6 col-lg-3">
                     <div class="card wow fadeInUp" data-wow-delay="0.8s">
                         <div class="card-body text-center">
-                            <i class="ti ti-search f-36 text-primary"></i>
-                            <h5 class="my-3">3. Proses Seleksi</h5>
-                            <p class="mb-0 text-muted">Tim kami akan melakukan verifikasi dan seleksi terhadap berkas
-                                pendaftaran Anda.</p>
+                            <i class="ti ti-layout-grid f-36 text-primary"></i>
+                            <h5 class="my-3">3. Jelajahi Fitur</h5>
+                            <p class="mb-0 text-muted">Akses berbagai fitur seperti laporan desa, pengajuan layanan,
+                                dan pengumuman terbaru.</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-sm-6 col-lg-3">
                     <div class="card wow fadeInUp" data-wow-delay="1.0s">
                         <div class="card-body text-center">
-                            <i class="ti ti-bell f-36 text-primary"></i>
-                            <h5 class="my-3">4. Pengumuman</h5>
-                            <p class="mb-0 text-muted">Hasil seleksi akan diumumkan secara online melalui akun Anda
-                                masing-masing.</p>
+                            <i class="ti ti-heart-handshake f-36 text-primary"></i>
+                            <h5 class="my-3">4. Berpartisipasi</h5>
+                            <p class="mb-0 text-muted">Ikut serta dalam keputusan desa dan berikan masukan untuk
+                                kemajuan bersama.</p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-    <!-- [ Alur Pendaftaran ] End -->
+    <!-- [ Alur Penggunaan ] End -->
 
     <!-- [ CTA ] start -->
     <section class="cta-block"
-        style="position: relative; padding: 120px 0; background: url('{{ asset('assets/images/my/join-us.png') }}') no-repeat center center; background-size: cover; background-attachment: fixed;">
-        <!-- Overlay -->
-        <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(0, 0, 0, 0.6);">
+        style="position: relative; padding: 120px 0; background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); min-height: 400px; display: flex; align-items: center;">
+        <!-- Animated Background -->
+        <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; overflow: hidden; z-index: 1; pointer-events: none;">
+            <div style="position: absolute; top: -50%; right: -10%; width: 500px; height: 500px; background: rgba(255,255,255,0.05); border-radius: 50%; animation: float 8s ease-in-out infinite;"></div>
+            <div style="position: absolute; bottom: -20%; left: -5%; width: 400px; height: 400px; background: rgba(255,255,255,0.03); border-radius: 50%; animation: float 10s ease-in-out infinite reverse;"></div>
         </div>
 
-        <div class="container" style="position: relative; z-index: 2;">
+        <div class="container" style="position: relative; z-index: 10;">
             <div class="row justify-content-center">
                 <div class="col-md-8 text-center">
-                    <h2 class="text-white mb-4" style="font-size: 2.8rem; font-weight: 600;">Siap Bergabung dengan <span
-                            class="text-primary">Sekolah Harapan
-                            Bangsa?</span></h2>
-                    <p class="text-white opacity-75 mb-4 lead">Pendaftaran akan segera ditutup. Jangan lewatkan
-                        kesempatan untuk
-                        menjadi siswa berprestasi di sekolah kami. Klik tombol di bawah untuk memulai proses pendaftaran.
+                    <h2 class="text-white mb-4" style="font-size: 2.8rem; font-weight: 600;">Jadilah Bagian dari <span
+                            style="background: linear-gradient(135deg, #ffd700, #ffed4e); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Gerakan Desa Digital</span></h2>
+                    <p class="text-white opacity-90 mb-4 lead">Bergabunglah dengan ribuan warga desa dalam membangun transparansi, 
+                        partisipasi aktif, dan pemberdayaan masyarakat. Bersama kita wujudkan desa yang lebih maju dan demokratis.
                     </p>
-                    <a href="{{ route('register') }}" class="btn btn-primary btn-lg">Daftar Sekarang <i
+                    <a href="{{ route('register') }}" class="btn btn-warning btn-lg" style="color: #1e3c72; font-weight: 600; cursor: pointer;">Daftar Sebagai Warga <i
                             class="ti ti-arrow-right ms-2"></i></a>
                 </div>
             </div>
         </div>
+
+        <style>
+            @keyframes float {
+                0%, 100% { transform: translateY(0px) rotate(0deg); }
+                50% { transform: translateY(30px) rotate(180deg); }
+            }
+        </style>
     </section>
     <!-- [ CTA ] End -->
 
@@ -183,11 +195,11 @@
                         <div class="card-body">
                             <div class="d-flex align-items-center">
                                 <div class="flex-shrink-0">
-                                    <h2 class="m-0 text-primary">1200+</h2>
+                                    <h2 class="m-0 text-primary">3,500+</h2>
                                 </div>
                                 <div class="flex-grow-1 ms-3">
-                                    <h4 class="mb-2">Total Pendaftar</h4>
-                                    <p class="mb-0">Antusiasme tinggi dari calon siswa baru setiap tahunnya.</p>
+                                    <h4 class="mb-2">Penduduk Desa</h4>
+                                    <p class="mb-0">Komunitas aktif yang berkomitmen untuk kemajuan bersama dan transparansi desa.</p>
                                 </div>
                             </div>
                         </div>
@@ -198,11 +210,11 @@
                         <div class="card-body">
                             <div class="d-flex align-items-center">
                                 <div class="flex-shrink-0">
-                                    <h2 class="m-0 text-primary">350</h2>
+                                    <h2 class="m-0 text-primary">850+</h2>
                                 </div>
                                 <div class="flex-grow-1 ms-3">
-                                    <h4 class="mb-2">Kursi Tersedia</h4>
-                                    <p class="mb-0">Kuota terbatas untuk menjaga kualitas proses belajar mengajar.</p>
+                                    <h4 class="mb-2">Keluarga Terdaftar</h4>
+                                    <p class="mb-0">Kepala keluarga yang telah terdaftar dan terverifikasi dalam sistem.</p>
                                 </div>
                             </div>
                         </div>
@@ -213,11 +225,11 @@
                         <div class="card-body">
                             <div class="d-flex align-items-center">
                                 <div class="flex-shrink-0">
-                                    <h2 class="m-0 text-primary">3</h2>
+                                    <h2 class="m-0 text-primary">2,100+</h2>
                                 </div>
                                 <div class="flex-grow-1 ms-3">
-                                    <h4 class="mb-2">Jurusan Unggulan</h4>
-                                    <p class="mb-0">Pilihan jurusan yang relevan dengan kebutuhan industri saat ini.</p>
+                                    <h4 class="mb-2">Berita & Laporan</h4>
+                                    <p class="mb-0">Informasi transparan tentang perkembangan dan kebijakan desa.</p>
                                 </div>
                             </div>
                         </div>
@@ -235,8 +247,8 @@
                 <div class="col-md-10 col-xl-6">
                     <h5 class="text-primary mb-0">Testimoni</h5>
                     <h2 class="my-3">Apa Kata Mereka?</h2>
-                    <p class="mb-0">Kami bangga dapat memberikan dampak positif. Simak pengalaman para alumni dan orang
-                        tua siswa kami.</p>
+                    <p class="mb-0">Dengarkan pengalaman warga desa dan perangkat desa yang telah merasakan manfaat 
+                        dari sistem informasi desa yang transparan dan mudah diakses.</p>
                 </div>
             </div>
         </div>
@@ -247,19 +259,19 @@
                         <div class="card-body">
                             <div class="d-flex">
                                 <div class="flex-shrink-0">
-                                    <img src="../assets/images/user/avatar-1.jpg"
-                                        alt="Foto close-up alumni pria tersenyum" class="img-fluid wid-40 rounded-circle">
+                                    <img src="{{ asset('assets/images/user/avatar-1.jpg') }}"
+                                        alt="Warga desa pria" class="img-fluid wid-40 rounded-circle">
                                 </div>
                                 <div class="flex-grow-1 ms-3">
-                                    <h5 class="mb-1">Lingkungan Belajar Kondusif</h5>
+                                    <h5 class="mb-1">Transparansi Sangat Terjaga</h5>
                                     <div class="star f-12 mb-3">
                                         <i class="fas fa-star text-warning"></i><i class="fas fa-star text-warning"></i><i
                                             class="fas fa-star text-warning"></i><i
                                             class="fas fa-star text-warning"></i><i class="fas fa-star text-warning"></i>
                                     </div>
-                                    <p class="mb-2 text-muted">Sekolah ini memberikan fondasi yang kuat untuk saya
-                                        melanjutkan ke perguruan tinggi favorit. Guru-gurunya sangat mendukung.</p>
-                                    <h6 class="mb-0">Budi Santoso, Alumni</h6>
+                                    <p class="mb-2 text-muted">Dengan sistem ini, saya bisa memantau anggaran desa dan 
+                                        laporan keuangan dengan jelas. Ini memberikan kepercayaan kepada warga seperti saya.</p>
+                                    <h6 class="mb-0">Budi Santoso, Warga Desa</h6>
                                 </div>
                             </div>
                         </div>
@@ -270,21 +282,21 @@
                         <div class="card-body">
                             <div class="d-flex">
                                 <div class="flex-shrink-0">
-                                    <img src="../assets/images/user/avatar-2.jpg"
-                                        alt="Foto close-up orang tua siswa wanita tersenyum"
+                                    <img src="{{ asset('assets/images/user/avatar-2.jpg') }}"
+                                        alt="Perangkat desa wanita"
                                         class="img-fluid wid-40 rounded-circle">
                                 </div>
                                 <div class="flex-grow-1 ms-3">
-                                    <h5 class="mb-1">Pengembangan Karakter</h5>
+                                    <h5 class="mb-1">Pelayanan Lebih Efisien</h5>
                                     <div class="star f-12 mb-3">
                                         <i class="fas fa-star text-warning"></i><i class="fas fa-star text-warning"></i><i
                                             class="fas fa-star text-warning"></i><i
                                             class="fas fa-star text-warning"></i><i
                                             class="fas fa-star-half-alt text-warning"></i>
                                     </div>
-                                    <p class="mb-2 text-muted">Anak saya berkembang pesat di sini, tidak hanya akademis
-                                        tapi juga karakternya. Lingkungannya sangat positif.</p>
-                                    <h6 class="mb-0">Rina Wulandari, Orang Tua Siswa</h6>
+                                    <p class="mb-2 text-muted">Sebagai perangkat desa, sistem ini mempermudah pekerjaan kami 
+                                        dalam mengelola surat-surat dan melayani warga dengan lebih cepat dan terorganisir.</p>
+                                    <h6 class="mb-0">Rina Wulandari, Perangkat Desa</h6>
                                 </div>
                             </div>
                         </div>
@@ -295,20 +307,20 @@
                         <div class="card-body">
                             <div class="d-flex">
                                 <div class="flex-shrink-0">
-                                    <img src="../assets/images/user/avatar-3.jpg"
-                                        alt="Foto close-up alumni wanita berhijab tersenyum"
+                                    <img src="{{ asset('assets/images/user/avatar-3.jpg') }}"
+                                        alt="Warga desa wanita berhijab"
                                         class="img-fluid wid-40 rounded-circle">
                                 </div>
                                 <div class="flex-grow-1 ms-3">
-                                    <h5 class="mb-1">Fasilitas Sangat Memadai</h5>
+                                    <h5 class="mb-1">Partisipasi Lebih Mudah</h5>
                                     <div class="star f-12 mb-3">
                                         <i class="fas fa-star text-warning"></i><i class="fas fa-star text-warning"></i><i
                                             class="fas fa-star text-warning"></i><i
                                             class="fas fa-star text-warning"></i><i class="fas fa-star text-warning"></i>
                                     </div>
-                                    <p class="mb-2 text-muted">Fasilitasnya lengkap dan modern, membuat kegiatan belajar
-                                        mengajar menjadi sangat efektif dan menyenangkan.</p>
-                                    <h6 class="mb-0">Siti Aminah, Alumni</h6>
+                                    <p class="mb-2 text-muted">Platform ini membuat saya lebih aktif berpartisipasi dalam 
+                                        keputusan desa. Suara warga jadi lebih didengar dan dipertimbangkan dengan baik.</p>
+                                    <h6 class="mb-0">Siti Aminah, Warga Desa</h6>
                                 </div>
                             </div>
                         </div>

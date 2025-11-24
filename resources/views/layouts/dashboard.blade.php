@@ -223,12 +223,7 @@
                                             aria-controls="drp-tab-1" aria-selected="true"><i class="ti ti-user"></i>
                                             Profile</button>
                                     </li>
-                                    <li class="nav-item" role="presentation">
-                                        <button class="nav-link" id="drp-t2" data-bs-toggle="tab"
-                                            data-bs-target="#drp-tab-2" type="button" role="tab"
-                                            aria-controls="drp-tab-2" aria-selected="false"><i
-                                                class="ti ti-settings"></i> Setting</button>
-                                    </li>
+                                    
                                 </ul>
                                 <div class="tab-content" id="mysrpTabContent">
                                     <div class="tab-pane fade show active" id="drp-tab-1" role="tabpanel"

@@ -1,16 +1,9 @@
-<li class="pc-item">
-    <a href="{{ route('admin.verifikasi') }}" class="pc-link">
-        <span class="pc-micon"><i class="ti ti-file-check"></i>
-        </span><span class="pc-mtext">Verifikasi Berkas</span></a>
-</li>
-<li class="pc-item"><a href="{{ route('admin.seleksi') }}" class="pc-link">
-        <span class="pc-micon"><i class="ti ti-list-check"></i></span>
-        <span class="pc-mtext">Seleksi</span></a>
-</li>
-<li class="pc-item">
-    <a href="{{ route('admin.pengumuman') }}" class="pc-link">
-        <span class="pc-micon"><i class="ti ti-bell"></i></span>
-        <span class="pc-mtext">Pengumuman</span></a>
+
+<li class="pc-item {{ request()->is('admin/data-penduduk*') ? 'active' : '' }}">
+    <a href="{{ route('admin.data-penduduk.index') }}" class="pc-link">
+        <span class="pc-micon"><i class="ti ti-users"></i></span>
+        <span class="pc-mtext">Data Penduduk</span>
+    </a>
 </li>
 <li class="pc-item">
     <a href="{{ route('admin.pengajuan.index') }}" class="pc-link">

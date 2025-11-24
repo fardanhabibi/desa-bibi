@@ -5,6 +5,8 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BiodataController;
 use App\Http\Controllers\PengaduanController;
 use App\Http\Controllers\PengajuanSuratController;
+use App\Http\Controllers\DataPendudukController;
+use App\Http\Middleware\TrackVisits;
 
 Route::get('/', function () {
     return view('welcome');
@@ -39,9 +41,62 @@ Route::middleware(['guest'])->group(function () {
 });
 
 // Route yang hanya bisa diakses oleh user yang sudah login
-Route::middleware(['auth', 'web'])->group(function () {
+Route::middleware(['auth', 'web', TrackVisits::class])->group(function () {
     Route::get('/dashboard', function () {
-        return view('dashboard');
+        $user = auth()->user();
+        
+        // Get dashboard data for admin
+        if ($user->role == 'admin') {
+            // Total pengunjung sistem (user unik yang pernah login)
+            $totalVisitors = \App\Models\Visit::distinct('user_id')->count('user_id');
+            $totalVisits = \App\Models\Visit::count();
+            
+            // Pengunjung bulan ini
+            $visitorsThisMonth = \App\Models\Visit::whereYear('visited_at', now()->year)
+                ->whereMonth('visited_at', now()->month)
+                ->distinct('user_id')
+                ->count('user_id');
+            
+            $visitorGrowth = $totalVisitors > 0 ? round(($visitorsThisMonth / $totalVisitors) * 100, 1) : 0;
+            
+            // Residents (users with role 'user')
+            $registeredResidents = \App\Models\User::where('role', 'user')->count();
+            $newResidentsThisMonth = \App\Models\User::where('role', 'user')
+                ->whereYear('created_at', now()->year)
+                ->whereMonth('created_at', now()->month)
+                ->count();
+            $residentGrowth = $registeredResidents > 0 ? round(($newResidentsThisMonth / $registeredResidents) * 100, 1) : 0;
+            
+            // Pengajuan Surat
+            $totalPengajuan = \App\Models\PengajuanSurat::count();
+            $approvedPengajuan = \App\Models\PengajuanSurat::where('status', 'approved')->count();
+            $pengajuanApprovalRate = $totalPengajuan > 0 ? round(($approvedPengajuan / $totalPengajuan) * 100, 1) : 0;
+            
+            // Berita/Pengumuman
+            $totalBerita = \App\Models\Pengaduan::count();
+            $pendingBerita = \App\Models\Pengaduan::where('status', 'pending')->count();
+        } else {
+            // For regular users
+            $totalVisitors = $visitorsThisMonth = $visitorGrowth = 0;
+            $registeredResidents = $newResidentsThisMonth = $residentGrowth = 0;
+            $totalPengajuan = $pengajuanApprovalRate = 0;
+            $totalBerita = $pendingBerita = 0;
+            $user = auth()->user();
+        }
+
+        return view('dashboard', compact(
+            'totalVisitors',
+            'visitorsThisMonth',
+            'visitorGrowth',
+            'registeredResidents',
+            'newResidentsThisMonth',
+            'residentGrowth',
+            'totalPengajuan',
+            'pengajuanApprovalRate',
+            'totalBerita',
+            'pendingBerita',
+            'user'
+        ));
     })->name('dashboard');
 
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
@@ -90,6 +145,18 @@ Route::middleware(['auth', 'web'])->group(function () {
 
     // Admin routes
     Route::middleware(['cekRole:admin'])->group(function () {
+        // Data Penduduk Management
+        Route::prefix('admin/data-penduduk')->name('admin.data-penduduk.')->group(function () {
+            Route::get('/', [DataPendudukController::class, 'index'])->name('index');
+            Route::get('/create', [DataPendudukController::class, 'create'])->name('create');
+            Route::post('/', [DataPendudukController::class, 'store'])->name('store');
+            Route::get('/{resident}', [DataPendudukController::class, 'show'])->name('show');
+            Route::get('/{resident}/edit', [DataPendudukController::class, 'edit'])->name('edit');
+            Route::put('/{resident}', [DataPendudukController::class, 'update'])->name('update');
+            Route::delete('/{resident}', [DataPendudukController::class, 'destroy'])->name('destroy');
+            Route::get('/export/csv', [DataPendudukController::class, 'export'])->name('export');
+        });
+
         // Dashboard Admin
         Route::get('/verifikasi', function () {
             return view('admin.verifikasi');
