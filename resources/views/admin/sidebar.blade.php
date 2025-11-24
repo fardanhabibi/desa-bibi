@@ -1,14 +1,152 @@
 
-<li class="pc-item {{ request()->is('admin/data-penduduk*') ? 'active' : '' }}">
-    <a href="{{ route('admin.data-penduduk.index') }}" class="pc-link">
+<!-- Penduduk Management -->
+<li class="pc-item {{ request()->is('admin/penduduk*') ? 'active' : '' }}">
+    <a href="{{ route('admin.penduduk.index') }}" class="pc-link">
         <span class="pc-micon"><i class="ti ti-users"></i></span>
-        <span class="pc-mtext">Data Penduduk</span>
+        <span class="pc-mtext">Manajemen Penduduk</span>
     </a>
 </li>
+
+<!-- Document Management -->
+<li class="pc-item pc-hasmenu {{ request()->is('admin/surat*', 'admin/kartu_keluarga*', 'admin/migrasi*', 'admin/kelahiran*', 'admin/kematian*') ? 'active' : '' }}">
+    <a href="javascript:void(0)" class="pc-link">
+        <span class="pc-micon"><i class="ti ti-file-text"></i></span>
+        <span class="pc-mtext">Dokumen</span>
+        <span class="pc-arrow"><i data-feather="chevron-right"></i></span>
+    </a>
+    <ul class="pc-submenu">
+        <li class="pc-item {{ request()->is('admin/surat*') ? 'active' : '' }}">
+            <a class="pc-link" href="{{ route('admin.surat.index') }}">
+                <span class="pc-micon"><i class="ti ti-file-check"></i></span>
+                <span class="pc-mtext">Manajemen Surat</span>
+            </a>
+        </li>
+        <li class="pc-item {{ request()->is('admin/kartu_keluarga*') ? 'active' : '' }}">
+            <a class="pc-link" href="{{ route('admin.kartu_keluarga.index') }}">
+                <span class="pc-micon"><i class="ti ti-id"></i></span>
+                <span class="pc-mtext">Kartu Keluarga</span>
+            </a>
+        </li>
+        <li class="pc-item {{ request()->is('admin/migrasi*') ? 'active' : '' }}">
+            <a class="pc-link" href="{{ route('admin.migrasi.index') }}">
+                <span class="pc-micon"><i class="ti ti-map"></i></span>
+                <span class="pc-mtext">Migrasi</span>
+            </a>
+        </li>
+        <li class="pc-item {{ request()->is('admin/kelahiran*') ? 'active' : '' }}">
+            <a class="pc-link" href="{{ route('admin.kelahiran.index') }}">
+                <span class="pc-micon"><i class="ti ti-baby-carriage"></i></span>
+                <span class="pc-mtext">Kelahiran</span>
+            </a>
+        </li>
+        <li class="pc-item {{ request()->is('admin/kematian*') ? 'active' : '' }}">
+            <a class="pc-link" href="{{ route('admin.kematian.index') }}">
+                <span class="pc-micon"><i class="ti ti-cross"></i></span>
+                <span class="pc-mtext">Kematian</span>
+            </a>
+        </li>
+    </ul>
+</li>
+
+<!-- Information Management -->
+<li class="pc-item pc-hasmenu {{ request()->is('admin/berita*', 'admin/agenda*', 'admin/faq*', 'admin/formulir*', 'admin/kontak*') ? 'active' : '' }}">
+    <a href="javascript:void(0)" class="pc-link">
+        <span class="pc-micon"><i class="ti ti-news"></i></span>
+        <span class="pc-mtext">Informasi</span>
+        <span class="pc-arrow"><i data-feather="chevron-right"></i></span>
+    </a>
+    <ul class="pc-submenu">
+        <li class="pc-item {{ request()->is('admin/berita*') ? 'active' : '' }}">
+            <a class="pc-link" href="{{ route('admin.berita.index') }}">
+                <span class="pc-micon"><i class="ti ti-news"></i></span>
+                <span class="pc-mtext">Berita</span>
+            </a>
+        </li>
+        <li class="pc-item {{ request()->is('admin/agenda*') ? 'active' : '' }}">
+            <a class="pc-link" href="{{ route('admin.agenda.index') }}">
+                <span class="pc-micon"><i class="ti ti-calendar"></i></span>
+                <span class="pc-mtext">Agenda</span>
+            </a>
+        </li>
+        <li class="pc-item {{ request()->is('admin/faq*') ? 'active' : '' }}">
+            <a class="pc-link" href="{{ route('admin.faq.index') }}">
+                <span class="pc-micon"><i class="ti ti-help-circle"></i></span>
+                <span class="pc-mtext">FAQ</span>
+            </a>
+        </li>
+        <li class="pc-item {{ request()->is('admin/formulir*') ? 'active' : '' }}">
+            <a class="pc-link" href="{{ route('admin.formulir.index') }}">
+                <span class="pc-micon"><i class="ti ti-download"></i></span>
+                <span class="pc-mtext">Formulir</span>
+            </a>
+        </li>
+        <li class="pc-item {{ request()->is('admin/kontak*') ? 'active' : '' }}">
+            <a class="pc-link" href="{{ route('admin.kontak.index') }}">
+                <span class="pc-micon"><i class="ti ti-phone"></i></span>
+                <span class="pc-mtext">Kontak Desa</span>
+            </a>
+        </li>
+    </ul>
+</li>
+
+<!-- Programs & Services -->
+<li class="pc-item pc-hasmenu {{ request()->is('admin/program*', 'admin/kegiatan*', 'admin/layanan*', 'admin/permohonan_layanan*') ? 'active' : '' }}">
+    <a href="javascript:void(0)" class="pc-link">
+        <span class="pc-micon"><i class="ti ti-building-community"></i></span>
+        <span class="pc-mtext">Program & Layanan</span>
+        <span class="pc-arrow"><i data-feather="chevron-right"></i></span>
+    </a>
+    <ul class="pc-submenu">
+        <li class="pc-item {{ request()->is('admin/program*') ? 'active' : '' }}">
+            <a class="pc-link" href="{{ route('admin.program.index') }}">
+                <span class="pc-micon"><i class="ti ti-chart-bar"></i></span>
+                <span class="pc-mtext">Program Desa</span>
+            </a>
+        </li>
+        <li class="pc-item {{ request()->is('admin/kegiatan*') ? 'active' : '' }}">
+            <a class="pc-link" href="{{ route('admin.kegiatan.index') }}">
+                <span class="pc-micon"><i class="ti ti-building-community"></i></span>
+                <span class="pc-mtext">Kegiatan</span>
+            </a>
+        </li>
+        <li class="pc-item {{ request()->is('admin/layanan*') ? 'active' : '' }}">
+            <a class="pc-link" href="{{ route('admin.layanan.index') }}">
+                <span class="pc-micon"><i class="ti ti-help"></i></span>
+                <span class="pc-mtext">Layanan Online</span>
+            </a>
+        </li>
+        <li class="pc-item {{ request()->is('admin/permohonan_layanan*') ? 'active' : '' }}">
+            <a class="pc-link" href="{{ route('admin.permohonan_layanan.index') }}">
+                <span class="pc-micon"><i class="ti ti-mail"></i></span>
+                <span class="pc-mtext">Permohonan Layanan</span>
+            </a>
+        </li>
+    </ul>
+</li>
+
+<!-- Community -->
+<li class="pc-item pc-hasmenu {{ request()->is('admin/forum*') ? 'active' : '' }}">
+    <a href="javascript:void(0)" class="pc-link">
+        <span class="pc-micon"><i class="ti ti-message-circle"></i></span>
+        <span class="pc-mtext">Komunitas</span>
+        <span class="pc-arrow"><i data-feather="chevron-right"></i></span>
+    </a>
+    <ul class="pc-submenu">
+        <li class="pc-item {{ request()->is('admin/forum*') ? 'active' : '' }}">
+            <a class="pc-link" href="{{ route('admin.forum.index') }}">
+                <span class="pc-micon"><i class="ti ti-message-circle"></i></span>
+                <span class="pc-mtext">Forum Diskusi</span>
+            </a>
+        </li>
+    </ul>
+</li>
+
+<!-- Legacy Menu Items -->
 <li class="pc-item">
     <a href="{{ route('admin.pengajuan.index') }}" class="pc-link">
         <span class="pc-micon"><i class="ti ti-report"></i></span>
-        <span class="pc-mtext">Laporan</span></a>
+        <span class="pc-mtext">Laporan</span>
+    </a>
 </li>
 <li class="pc-item {{ request()->is('admin/pengaduan*') ? 'active' : '' }}">
     <a href="{{ route('admin.pengaduan.index') }}" class="pc-link">
