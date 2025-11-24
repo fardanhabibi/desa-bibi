@@ -1,32 +1,17 @@
 <div class="row">
-    <!-- [ sample-page ] start -->
+    <!-- [ statistics ] start -->
     <div class="col-md-6 col-xl-3">
         <div class="card modern-card">
             <div class="card-body">
                 <div class="d-flex align-items-center justify-content-between mb-3">
-                    <h6 class="mb-0 f-w-400 text-muted">Pengunjung Sistem</h6>
-                    <div class="dashboard-icon">
-                        <i class="ti ti-eye"></i>
-                    </div>
-                </div>
-                <h4 class="mb-3">{{ $totalVisitors ?? 0 }} <span class="badge bg-light-success border border-success"><i
-                            class="ti ti-trending-up"></i> {{ isset($visitorGrowth) ? $visitorGrowth . '%' : '0%' }}</span></h4>
-                <p class="mb-0 text-muted text-sm">Total pengguna unik yang telah mengunjungi sistem dengan peningkatan <span class="text-success">{{ isset($visitorsThisMonth) ? $visitorsThisMonth : '0' }} bulan ini</span></p>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-6 col-xl-3">
-        <div class="card modern-card">
-            <div class="card-body">
-                <div class="d-flex align-items-center justify-content-between mb-3">
-                    <h6 class="mb-0 f-w-400 text-muted">Warga Terdaftar</h6>
+                    <h6 class="mb-0 f-w-400 text-muted">Total Penduduk</h6>
                     <div class="dashboard-icon">
                         <i class="ti ti-users"></i>
                     </div>
                 </div>
-                <h4 class="mb-3">{{ $registeredResidents ?? 0 }} <span class="badge bg-light-success border border-success"><i
-                            class="ti ti-trending-up"></i> {{ isset($residentGrowth) ? $residentGrowth . '%' : '0%' }}</span></h4>
-                <p class="mb-0 text-muted text-sm">Warga yang telah terdaftar dalam sistem dengan tambahan <span class="text-success">{{ isset($newResidentsThisMonth) ? $newResidentsThisMonth : '0' }} bulan ini</span></p>
+                <h4 class="mb-3">{{ \App\Models\Penduduk::count() }} <span class="badge bg-light-success border border-success"><i
+                            class="ti ti-trending-up"></i> Aktif</span></h4>
+                <p class="mb-0 text-muted text-sm">Total data penduduk yang terdaftar dalam sistem desa</p>
             </div>
         </div>
     </div>
@@ -34,14 +19,14 @@
         <div class="card modern-card">
             <div class="card-body">
                 <div class="d-flex align-items-center justify-content-between mb-3">
-                    <h6 class="mb-0 f-w-400 text-muted">Pengajuan Layanan</h6>
+                    <h6 class="mb-0 f-w-400 text-muted">Total Surat</h6>
                     <div class="dashboard-icon">
-                        <i class="ti ti-file-check"></i>
+                        <i class="ti ti-file-text"></i>
                     </div>
                 </div>
-                <h4 class="mb-3">{{ $totalPengajuan ?? 0 }} <span class="badge bg-light-warning border border-warning"><i
-                            class="ti ti-trending-up"></i> {{ isset($pengajuanApprovalRate) ? $pengajuanApprovalRate . '%' : '0%' }}</span></h4>
-                <p class="mb-0 text-muted text-sm">Total pengajuan layanan administratif dengan persetujuan <span class="text-warning">{{ isset($pengajuanApprovalRate) ? $pengajuanApprovalRate . '%' : '0%' }}</span></p>
+                <h4 class="mb-3">{{ \App\Models\Surat::count() }} <span class="badge bg-light-warning border border-warning"><i
+                            class="ti ti-trending-up"></i> {{ \App\Models\Surat::where('status', 'diproses')->count() }} Processing</span></h4>
+                <p class="mb-0 text-muted text-sm">Total permohonan surat yang masuk ke sistem</p>
             </div>
         </div>
     </div>
@@ -49,14 +34,29 @@
         <div class="card modern-card">
             <div class="card-body">
                 <div class="d-flex align-items-center justify-content-between mb-3">
-                    <h6 class="mb-0 f-w-400 text-muted">Laporan Desa</h6>
+                    <h6 class="mb-0 f-w-400 text-muted">Total Berita</h6>
                     <div class="dashboard-icon">
                         <i class="ti ti-news"></i>
                     </div>
                 </div>
-                <h4 class="mb-3">{{ $totalBerita ?? 0 }} <span class="badge bg-light-danger border border-danger"><i
-                            class="ti ti-trending-down"></i> {{ isset($pendingBerita) ? $pendingBerita : '0' }} pending</span></h4>
-                <p class="mb-0 text-muted text-sm">Total berita dan pengumuman yang dipublikasikan dengan <span class="text-danger">{{ isset($pendingBerita) ? $pendingBerita : '0' }} pending</span></p>
+                <h4 class="mb-3">{{ \App\Models\Berita::count() }} <span class="badge bg-light-info border border-info"><i
+                            class="ti ti-trending-up"></i> Dipublikasi</span></h4>
+                <p class="mb-0 text-muted text-sm">Total berita dan informasi yang dipublikasikan</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 col-xl-3">
+        <div class="card modern-card">
+            <div class="card-body">
+                <div class="d-flex align-items-center justify-content-between mb-3">
+                    <h6 class="mb-0 f-w-400 text-muted">Total Agenda</h6>
+                    <div class="dashboard-icon">
+                        <i class="ti ti-calendar"></i>
+                    </div>
+                </div>
+                <h4 class="mb-3">{{ \App\Models\Agenda::count() }} <span class="badge bg-light-danger border border-danger"><i
+                            class="ti ti-trending-up"></i> Acara</span></h4>
+                <p class="mb-0 text-muted text-sm">Total agenda kegiatan yang dijadwalkan</p>
             </div>
         </div>
     </div>

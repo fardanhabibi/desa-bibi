@@ -6,6 +6,17 @@ use App\Http\Controllers\Admin\SuratController;
 use App\Http\Controllers\Admin\BeritaController;
 use App\Http\Controllers\Admin\AgendaController;
 use App\Http\Controllers\Admin\KegiatanDesaController;
+use App\Http\Controllers\Admin\KartuKeluargaController;
+use App\Http\Controllers\Admin\MigrasiController;
+use App\Http\Controllers\Admin\KelahiranController;
+use App\Http\Controllers\Admin\KematianController;
+use App\Http\Controllers\Admin\LayananOnlineController;
+use App\Http\Controllers\Admin\PermohonanLayananController;
+use App\Http\Controllers\Admin\ForumDiskusiController;
+use App\Http\Controllers\Admin\FaqController;
+use App\Http\Controllers\Admin\DownloadFormulirController;
+use App\Http\Controllers\Admin\KontakDesaController;
+use App\Http\Controllers\Admin\ProgramDesaController;
 use App\Models\Penduduk;
 
 // Route Model Binding
@@ -32,4 +43,37 @@ Route::middleware(['auth', 'cekRole:admin'])->prefix('admin')->name('admin.')->g
 
     // Kegiatan Desa Management
     Route::resource('kegiatan', KegiatanDesaController::class);
+
+    // Kartu Keluarga Management
+    Route::resource('kartu_keluarga', KartuKeluargaController::class);
+
+    // Migrasi Management
+    Route::resource('migrasi', MigrasiController::class);
+
+    // Kelahiran Management
+    Route::resource('kelahiran', KelahiranController::class);
+
+    // Kematian Management
+    Route::resource('kematian', KematianController::class);
+
+    // Layanan Online Management
+    Route::resource('layanan', LayananOnlineController::class);
+
+    // Permohonan Layanan Management
+    Route::resource('permohonan_layanan', PermohonanLayananController::class);
+
+    // Forum Diskusi Management
+    Route::resource('forum', ForumDiskusiController::class);
+
+    // FAQ Management
+    Route::resource('faq', FaqController::class);
+
+    // Download Formulir Management
+    Route::resource('formulir', DownloadFormulirController::class);
+
+    // Kontak Desa Management
+    Route::resource('kontak', KontakDesaController::class);
+
+    // Program Desa Management
+    Route::resource('program', ProgramDesaController::class);
 });
