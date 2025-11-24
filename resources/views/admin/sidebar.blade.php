@@ -90,7 +90,7 @@
 </li>
 
 <!-- Programs & Services -->
-<li class="pc-item pc-hasmenu {{ request()->is('admin/program*', 'admin/kegiatan*', 'admin/layanan*', 'admin/permohonan_layanan*') ? 'active' : '' }}">
+<li class="pc-item pc-hasmenu {{ request()->is('admin/program*', 'admin/kegiatan*', 'admin/permohonan_layanan*') ? 'active' : '' }}">
     <a href="javascript:void(0)" class="pc-link">
         <span class="pc-micon"><i class="ti ti-building-community"></i></span>
         <span class="pc-mtext">Program & Layanan</span>
@@ -107,12 +107,6 @@
             <a class="pc-link" href="{{ route('admin.kegiatan.index') }}">
                 <span class="pc-micon"><i class="ti ti-building-community"></i></span>
                 <span class="pc-mtext">Kegiatan</span>
-            </a>
-        </li>
-        <li class="pc-item {{ request()->is('admin/layanan*') ? 'active' : '' }}">
-            <a class="pc-link" href="{{ route('admin.layanan.index') }}">
-                <span class="pc-micon"><i class="ti ti-help"></i></span>
-                <span class="pc-mtext">Layanan Online</span>
             </a>
         </li>
         <li class="pc-item {{ request()->is('admin/permohonan_layanan*') ? 'active' : '' }}">

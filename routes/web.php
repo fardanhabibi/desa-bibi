@@ -129,11 +129,6 @@ Route::middleware(['auth', 'web', TrackVisits::class])->group(function () {
         return view('user.formulir', compact('formulir'));
     })->name('formulir.index');
 
-    Route::get('/layanan', function () {
-        $layanan = \App\Models\LayananOnline::where('status', 'aktif')->paginate(12);
-        return view('user.layanan', compact('layanan'));
-    })->name('layanan.index');
-
     Route::get('/forum', function () {
         $forum = \App\Models\ForumDiskusi::where('status', 'dibuka')->paginate(12);
         return view('user.forum', compact('forum'));

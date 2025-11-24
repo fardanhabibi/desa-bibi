@@ -10,7 +10,6 @@ use App\Http\Controllers\Admin\KartuKeluargaController;
 use App\Http\Controllers\Admin\MigrasiController;
 use App\Http\Controllers\Admin\KelahiranController;
 use App\Http\Controllers\Admin\KematianController;
-use App\Http\Controllers\Admin\LayananOnlineController;
 use App\Http\Controllers\Admin\PermohonanLayananController;
 use App\Http\Controllers\Admin\ForumDiskusiController;
 use App\Http\Controllers\Admin\FaqController;
@@ -55,9 +54,6 @@ Route::middleware(['auth', 'cekRole:admin'])->prefix('admin')->name('admin.')->g
 
     // Kematian Management
     Route::resource('kematian', KematianController::class);
-
-    // Layanan Online Management
-    Route::resource('layanan', LayananOnlineController::class);
 
     // Permohonan Layanan Management
     Route::resource('permohonan_layanan', PermohonanLayananController::class);

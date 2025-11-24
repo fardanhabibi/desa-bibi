@@ -57,19 +57,13 @@
 </li>
 
 <!-- Services -->
-<li class="pc-item pc-hasmenu {{ request()->is('layanan*', 'forum*', 'kontak*') ? 'active' : '' }}">
+<li class="pc-item pc-hasmenu {{ request()->is('forum*', 'kontak*') ? 'active' : '' }}">
     <a href="javascript:void(0)" class="pc-link">
         <span class="pc-micon"><i class="ti ti-help"></i></span>
         <span class="pc-mtext">Layanan</span>
         <span class="pc-arrow"><i data-feather="chevron-right"></i></span>
     </a>
     <ul class="pc-submenu">
-        <li class="pc-item">
-            <a class="pc-link" href="{{ route('layanan.index') }}">
-                <span class="pc-micon"><i class="ti ti-checkup-list"></i></span>
-                <span class="pc-mtext">Layanan Online</span>
-            </a>
-        </li>
         <li class="pc-item">
             <a class="pc-link" href="{{ route('forum.index') }}">
                 <span class="pc-micon"><i class="ti ti-message-circle"></i></span>
