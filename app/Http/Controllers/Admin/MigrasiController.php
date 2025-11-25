@@ -15,10 +15,8 @@ class MigrasiController extends Controller
         $migrasi = Migrasi::query();
 
         if ($search) {
-            $migrasi->whereHas('penduduk', function ($q) use ($search) {
-                $q->where('nama', 'like', "%{$search}%")
-                  ->orWhere('nik', 'like', "%{$search}%");
-            });
+            $migrasi->where('penduduk_nik', 'like', "%{$search}%")
+                    ->orWhere('jenis', 'like', "%{$search}%");
         }
 
         $migrasi = $migrasi->paginate(15);
@@ -27,23 +25,24 @@ class MigrasiController extends Controller
 
     public function create()
     {
-        $penduduk = Penduduk::all();
-        return view('admin.migrasi.create', compact('penduduk'));
+        return view('admin.migrasi.create');
     }
 
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'penduduk_nik' => 'required|exists:penduduks,nik',
-            'asal_kabupaten' => 'required|string',
-            'asal_kecamatan' => 'required|string',
-            'tujuan_kabupaten' => 'required|string',
-            'tujuan_kecamatan' => 'required|string',
-            'tanggal_migrasi' => 'required|date',
-            'keterangan' => 'nullable|string',
+            'nama_penduduk' => 'required|string',
+            'jenis' => 'required|string',
+            'asal_tujuan' => 'required|string',
+            'tanggal' => 'required|date',
         ]);
 
-        Migrasi::create($validated);
+        Migrasi::create([
+            'penduduk_nik' => $validated['nama_penduduk'],
+            'jenis' => $validated['jenis'],
+            'asal_tujuan' => $validated['asal_tujuan'],
+            'tanggal' => $validated['tanggal'],
+        ]);
         return redirect()->route('admin.migrasi.index')->with('success', 'Data migrasi berhasil ditambahkan');
     }
 
@@ -54,23 +53,26 @@ class MigrasiController extends Controller
 
     public function edit(Migrasi $migrasi)
     {
-        $penduduk = Penduduk::all();
-        return view('admin.migrasi.edit', compact('migrasi', 'penduduk'));
+        // Use manual input for penduduk name (stored in penduduk_nik column)
+        return view('admin.migrasi.edit', compact('migrasi'));
     }
 
     public function update(Request $request, Migrasi $migrasi)
     {
+        // Validate same fields as store (manual nama input)
         $validated = $request->validate([
-            'penduduk_nik' => 'required|exists:penduduks,nik',
-            'asal_kabupaten' => 'required|string',
-            'asal_kecamatan' => 'required|string',
-            'tujuan_kabupaten' => 'required|string',
-            'tujuan_kecamatan' => 'required|string',
-            'tanggal_migrasi' => 'required|date',
-            'keterangan' => 'nullable|string',
+            'nama_penduduk' => 'required|string',
+            'jenis' => 'required|string',
+            'asal_tujuan' => 'required|string',
+            'tanggal' => 'required|date',
         ]);
 
-        $migrasi->update($validated);
+        $migrasi->update([
+            'penduduk_nik' => $validated['nama_penduduk'],
+            'jenis' => $validated['jenis'],
+            'asal_tujuan' => $validated['asal_tujuan'],
+            'tanggal' => $validated['tanggal'],
+        ]);
         return redirect()->route('admin.migrasi.index')->with('success', 'Data migrasi berhasil diperbarui');
     }
 

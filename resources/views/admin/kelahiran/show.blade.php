@@ -17,11 +17,12 @@
                 <div class="col-md-8">
                     <div class="card">
                         <div class="card-body">
-                            <p><strong>Nama Bayi:</strong> {{ $kelahiran->nama_bayi }}</p>
-                            <p><strong>Tanggal Lahir:</strong> {{ $kelahiran->tanggal_lahir?->format('d M Y') ?? '-' }}</p>
-                            <p><strong>Tempat Lahir:</strong> {{ $kelahiran->tempat_lahir }}</p>
-                            <p><strong>Nama Ibu:</strong> {{ $kelahiran->nama_ibu }}</p>
-                            <p><strong>Nama Ayah:</strong> {{ $kelahiran->nama_ayah }}</p>
+                            <p><strong>Nama Bayi:</strong> {{ $kelahiran->nama_bayi ?? '-' }}</p>
+                            <p><strong>Tanggal Lahir:</strong> {{ $kelahiran->tanggal_lahir ? $kelahiran->tanggal_lahir->format('d M Y') : '-' }}</p>
+                            <p><strong>Tempat Lahir:</strong> {{ $kelahiran->tempat_lahir ?? '-' }}</p>
+                            <p><strong>Jenis Kelamin:</strong> {{ $kelahiran->jenis_kelamin ?? '-' }}</p>
+                            <p><strong>Nama Ibu:</strong> {{ $kelahiran->ibu_nik ?? '-' }}</p>
+                            <p><strong>Nama Ayah:</strong> {{ $kelahiran->ayah_nik ?? '-' }}</p>
                         </div>
                         <div class="card-footer text-end">
                             <a href="{{ route('admin.kelahiran.edit', $kelahiran->id) }}" class="btn btn-primary">Edit</a>

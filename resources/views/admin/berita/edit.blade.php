@@ -13,7 +13,7 @@
         <div class="container-xl">
             <div class="row">
                 <div class="col-md-8">
-                    <form method="POST" action="{{ route('admin.berita.update', $berita->id) }}" class="card" enctype="multipart/form-data">
+                    <form method="POST" action="{{ route('admin.berita.update', $berita) }}" class="card" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
                         <div class="card-body">

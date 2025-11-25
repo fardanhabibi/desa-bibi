@@ -64,10 +64,7 @@ class Penduduk extends Model
         return $this->hasMany(PesertaProgram::class, 'peserta_nik', 'nik');
     }
 
-    public function permohonanLayanan()
-    {
-        return $this->hasMany(PermohonanLayanan::class, 'pemohon_nik', 'nik');
-    }
+    // Relation to PermohonanLayanan removed (module archived)
 
     public function forumDiskusi()
     {

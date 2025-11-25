@@ -31,9 +31,8 @@ class DownloadFormulirController extends Controller
     {
         $validated = $request->validate([
             'nama_formulir' => 'required|string|max:200',
-            'deskripsi' => 'nullable|string',
             'file_url' => 'required|file|mimes:pdf,doc,docx',
-            'kategori' => 'nullable|string',
+            'tanggal_upload' => 'required|date',
         ]);
 
         if ($request->hasFile('file_url')) {
@@ -58,9 +57,8 @@ class DownloadFormulirController extends Controller
     {
         $validated = $request->validate([
             'nama_formulir' => 'required|string|max:200',
-            'deskripsi' => 'nullable|string',
             'file_url' => 'nullable|file|mimes:pdf,doc,docx',
-            'kategori' => 'nullable|string',
+            'tanggal_upload' => 'required|date',
         ]);
 
         if ($request->hasFile('file_url')) {

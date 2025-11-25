@@ -17,7 +17,7 @@
         <div class="container-xl">
             <div class="row">
                 <div class="col-md-8">
-                    <form method="POST" action="{{ route('admin.kontak.update', $kontak->id) }}" class="card">
+                    <form method="POST" action="{{ route('admin.kontak.update', $kontak) }}" class="card">
                         @csrf
                         @method('PUT')
                         <div class="card-body">

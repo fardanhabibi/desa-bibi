@@ -52,15 +52,15 @@
                                             <td>{{ $item->lokasi ?? '-' }}</td>
                                             <td>{{ $item->tanggal?->format('d M Y') ?? '-' }}</td>
                                             <td>{{ $item->penanggungJawab->nama ?? '-' }}</td>
-                                            <td>
-                                                <div class="btn-list">
-                                                    <a href="{{ route('admin.kegiatan.show', $item->id) }}" class="btn btn-icon btn-ghost-primary btn-sm">
+                                                <td>
+                                                    <div class="btn-list">
+                                                        <a href="{{ route('admin.kegiatan.show', $item) }}" class="btn btn-icon btn-ghost-primary btn-sm">
                                                         <i class="ti ti-eye"></i>
                                                     </a>
-                                                    <a href="{{ route('admin.kegiatan.edit', $item->id) }}" class="btn btn-icon btn-ghost-warning btn-sm">
+                                                        <a href="{{ route('admin.kegiatan.edit', $item) }}" class="btn btn-icon btn-ghost-warning btn-sm">
                                                         <i class="ti ti-pencil"></i>
                                                     </a>
-                                                    <form method="POST" action="{{ route('admin.kegiatan.destroy', $item->id) }}" style="display:inline;" onsubmit="return confirm('Yakin ingin menghapus?')">
+                                                    <form method="POST" action="{{ route('admin.kegiatan.destroy', $item) }}" style="display:inline;" onsubmit="return confirm('Yakin ingin menghapus?')">
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="submit" class="btn btn-icon btn-ghost-danger btn-sm">

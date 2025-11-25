@@ -49,19 +49,14 @@
 </li>
 
 <!-- Information Management -->
-<li class="pc-item pc-hasmenu {{ request()->is('admin/berita*', 'admin/agenda*', 'admin/faq*', 'admin/formulir*', 'admin/kontak*') ? 'active' : '' }}">
+<li class="pc-item pc-hasmenu {{ request()->is('admin/berita*', 'admin/agenda*', 'admin/faq*', 'admin/formulir*', 'admin/kontak*', 'admin/kegiatan*') ? 'active' : '' }}">
     <a href="javascript:void(0)" class="pc-link">
         <span class="pc-micon"><i class="ti ti-news"></i></span>
         <span class="pc-mtext">Informasi</span>
         <span class="pc-arrow"><i data-feather="chevron-right"></i></span>
     </a>
     <ul class="pc-submenu">
-        <li class="pc-item {{ request()->is('admin/berita*') ? 'active' : '' }}">
-            <a class="pc-link" href="{{ route('admin.berita.index') }}">
-                <span class="pc-micon"><i class="ti ti-news"></i></span>
-                <span class="pc-mtext">Berita</span>
-            </a>
-        </li>
+        <!-- Berita menu removed -->
         <li class="pc-item {{ request()->is('admin/agenda*') ? 'active' : '' }}">
             <a class="pc-link" href="{{ route('admin.agenda.index') }}">
                 <span class="pc-micon"><i class="ti ti-calendar"></i></span>
@@ -86,37 +81,16 @@
                 <span class="pc-mtext">Kontak Desa</span>
             </a>
         </li>
-    </ul>
-</li>
-
-<!-- Programs & Services -->
-<li class="pc-item pc-hasmenu {{ request()->is('admin/program*', 'admin/kegiatan*', 'admin/permohonan_layanan*') ? 'active' : '' }}">
-    <a href="javascript:void(0)" class="pc-link">
-        <span class="pc-micon"><i class="ti ti-building-community"></i></span>
-        <span class="pc-mtext">Program & Layanan</span>
-        <span class="pc-arrow"><i data-feather="chevron-right"></i></span>
-    </a>
-    <ul class="pc-submenu">
-        <li class="pc-item {{ request()->is('admin/program*') ? 'active' : '' }}">
-            <a class="pc-link" href="{{ route('admin.program.index') }}">
-                <span class="pc-micon"><i class="ti ti-chart-bar"></i></span>
-                <span class="pc-mtext">Program Desa</span>
-            </a>
-        </li>
         <li class="pc-item {{ request()->is('admin/kegiatan*') ? 'active' : '' }}">
             <a class="pc-link" href="{{ route('admin.kegiatan.index') }}">
                 <span class="pc-micon"><i class="ti ti-building-community"></i></span>
                 <span class="pc-mtext">Kegiatan</span>
             </a>
         </li>
-        <li class="pc-item {{ request()->is('admin/permohonan_layanan*') ? 'active' : '' }}">
-            <a class="pc-link" href="{{ route('admin.permohonan_layanan.index') }}">
-                <span class="pc-micon"><i class="ti ti-mail"></i></span>
-                <span class="pc-mtext">Permohonan Layanan</span>
-            </a>
-        </li>
     </ul>
 </li>
+
+<!-- Programs & Services (removed - Program Desa & Permohonan moved/hidden) -->
 
 <!-- Community -->
 <li class="pc-item pc-hasmenu {{ request()->is('admin/forum*') ? 'active' : '' }}">

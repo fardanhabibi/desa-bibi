@@ -47,8 +47,8 @@
                         <table class="table table-hover table-borderless">
                             <thead class="table-light">
                                 <tr>
-                                    <th>Nama Anak</th>
-                                    <th>Ibu</th>
+                                    <th>Nama Bayi</th>
+                                    <th>Nama Ibu</th>
                                     <th>Tanggal Lahir</th>
                                     <th>Tempat Lahir</th>
                                     <th>Aksi</th>
@@ -57,10 +57,10 @@
                             <tbody>
                                 @forelse ($kelahiran as $item)
                                 <tr>
-                                    <td><strong>{{ $item->nama_anak }}</strong></td>
-                                    <td>{{ $item->ibu->nama ?? '-' }}</td>
-                                    <td>{{ \Carbon\Carbon::parse($item->tanggal_lahir)->format('d M Y') }}</td>
-                                    <td>{{ $item->tempat_lahir }}</td>
+                                    <td><strong>{{ $item->nama_bayi ?? '-' }}</strong></td>
+                                    <td>{{ $item->ibu_nik ?? '-' }}</td>
+                                    <td>{{ $item->tanggal_lahir ? \Carbon\Carbon::parse($item->tanggal_lahir)->format('d M Y') : '-' }}</td>
+                                    <td>{{ $item->tempat_lahir ?? '-' }}</td>
                                     <td>
                                         <a href="{{ route('admin.kelahiran.show', $item) }}" class="btn btn-sm btn-info" title="Lihat">
                                             <i class="ti ti-eye"></i>

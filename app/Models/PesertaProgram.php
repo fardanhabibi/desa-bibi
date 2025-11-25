@@ -12,10 +12,7 @@ class PesertaProgram extends Model
     protected $table = 'peserta_program';
     protected $fillable = ['program_id', 'peserta_nik'];
 
-    public function program()
-    {
-        return $this->belongsTo(ProgramDesa::class, 'program_id');
-    }
+    // Relation to ProgramDesa removed (module archived)
 
     public function peserta()
     {

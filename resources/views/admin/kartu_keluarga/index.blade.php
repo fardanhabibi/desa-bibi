@@ -58,7 +58,7 @@
                                 @forelse ($kk as $item)
                                 <tr>
                                     <td><strong>{{ $item->no_kk }}</strong></td>
-                                    <td>{{ $item->kepalaKeluarga->nama ?? '-' }}</td>
+                                    <td>{{ $item->kepala_keluarga }}</td>
                                     <td>{{ Str::limit($item->alamat, 30) }}</td>
                                     <td>{{ $item->desa }}</td>
                                     <td>

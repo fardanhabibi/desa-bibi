@@ -10,14 +10,9 @@ class Kematian extends Model
     use HasFactory;
 
     protected $table = 'kematian';
-    protected $fillable = ['penduduk_nik', 'tanggal', 'penyebab'];
+    protected $fillable = ['penduduk_nik', 'tanggal', 'penyebab', 'keterangan'];
 
     protected $casts = [
         'tanggal' => 'date',
     ];
-
-    public function penduduk()
-    {
-        return $this->belongsTo(Penduduk::class, 'penduduk_nik', 'nik');
-    }
 }

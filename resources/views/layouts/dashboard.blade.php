@@ -33,6 +33,33 @@
         <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}" id="main-style-link">
         <link rel="stylesheet" href="{{ asset('assets/css/style-preset.css') }}">
 
+        <!-- Custom sidebar fixes: ensure any sidebar component is anchored to the left and overlay covers viewport -->
+        <style>
+            aside.sidebar {
+                position: fixed !important;
+                left: 0 !important;
+                top: 0 !important;
+                bottom: 0 !important;
+                width: 260px !important;
+                z-index: 1050 !important;
+                overflow-y: auto;
+            }
+            .sidebar-overlay {
+                position: fixed !important;
+                left: 0 !important;
+                top: 0 !important;
+                right: 0 !important;
+                bottom: 0 !important;
+                background: rgba(0,0,0,0.35);
+                display: none;
+                z-index: 1040 !important;
+            }
+            .sidebar-overlay.active,
+            .sidebar-overlay.show {
+                display: block !important;
+            }
+        </style>
+
     </head>
     <!-- [Head] end -->
     <!-- [Body] Start -->

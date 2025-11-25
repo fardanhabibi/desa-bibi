@@ -26,7 +26,7 @@
                             <p>{{ $berita->isi }}</p>
                         </div>
                         <div class="card-footer text-end">
-                            <a href="{{ route('admin.berita.edit', $berita->id) }}" class="btn btn-primary">Edit</a>
+                            <a href="{{ route('admin.berita.edit', $berita) }}" class="btn btn-primary">Edit</a>
                             <a href="{{ route('admin.berita.index') }}" class="btn btn-link">Kembali</a>
                         </div>
                     </div>

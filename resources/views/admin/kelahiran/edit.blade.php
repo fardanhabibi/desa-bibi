@@ -17,7 +17,7 @@
         <div class="container-xl">
             <div class="row">
                 <div class="col-md-8">
-                    <form method="POST" action="{{ route('admin.kelahiran.update', $kelahiran->id) }}" class="card">
+                    <form method="POST" action="{{ route('admin.kelahiran.update', $kelahiran) }}" class="card">
                         @csrf
                         @method('PUT')
                         <div class="card-body">
@@ -40,15 +40,25 @@
                             </div>
 
                             <div class="mb-3">
+                                <label class="form-label">Jenis Kelamin <span class="text-danger">*</span></label>
+                                <select name="jenis_kelamin" class="form-control @error('jenis_kelamin') is-invalid @enderror" required>
+                                    <option value="">-- Pilih --</option>
+                                    <option value="L" {{ old('jenis_kelamin', $kelahiran->jenis_kelamin) == 'L' ? 'selected' : '' }}>Laki-laki</option>
+                                    <option value="P" {{ old('jenis_kelamin', $kelahiran->jenis_kelamin) == 'P' ? 'selected' : '' }}>Perempuan</option>
+                                </select>
+                                @error('jenis_kelamin')<span class="invalid-feedback d-block">{{ $message }}</span>@enderror
+                            </div>
+
+                            <div class="mb-3">
                                 <label class="form-label">Nama Ibu <span class="text-danger">*</span></label>
-                                <input type="text" name="nama_ibu" class="form-control @error('nama_ibu') is-invalid @enderror" value="{{ old('nama_ibu', $kelahiran->nama_ibu) }}" required>
-                                @error('nama_ibu')<span class="invalid-feedback">{{ $message }}</span>@enderror
+                                <input type="text" name="ibu_nik" class="form-control @error('ibu_nik') is-invalid @enderror" value="{{ old('ibu_nik', $kelahiran->ibu_nik) }}" required>
+                                @error('ibu_nik')<span class="invalid-feedback">{{ $message }}</span>@enderror
                             </div>
 
                             <div class="mb-3">
                                 <label class="form-label">Nama Ayah <span class="text-danger">*</span></label>
-                                <input type="text" name="nama_ayah" class="form-control @error('nama_ayah') is-invalid @enderror" value="{{ old('nama_ayah', $kelahiran->nama_ayah) }}" required>
-                                @error('nama_ayah')<span class="invalid-feedback">{{ $message }}</span>@enderror
+                                <input type="text" name="ayah_nik" class="form-control @error('ayah_nik') is-invalid @enderror" value="{{ old('ayah_nik', $kelahiran->ayah_nik) }}" required>
+                                @error('ayah_nik')<span class="invalid-feedback">{{ $message }}</span>@enderror
                             </div>
                         </div>
 

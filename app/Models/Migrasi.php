@@ -15,9 +15,4 @@ class Migrasi extends Model
     protected $casts = [
         'tanggal' => 'date',
     ];
-
-    public function penduduk()
-    {
-        return $this->belongsTo(Penduduk::class, 'penduduk_nik', 'nik');
-    }
 }

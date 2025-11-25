@@ -16,9 +16,9 @@ class KelahiranController extends Controller
         $kelahiran = Kelahiran::query();
 
         if ($search) {
-            $kelahiran->whereHas('ibu', function ($q) use ($search) {
-                $q->where('nama', 'like', "%{$search}%");
-            });
+            $kelahiran->where('nama_bayi', 'like', "%{$search}%")
+                      ->orWhere('ibu_nik', 'like', "%{$search}%")
+                      ->orWhere('ayah_nik', 'like', "%{$search}%");
         }
 
         $kelahiran = $kelahiran->paginate(15);
@@ -35,16 +35,13 @@ class KelahiranController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'anak_nik' => 'nullable|unique:kelahirans,anak_nik',
-            'ibu_nik' => 'required|exists:penduduks,nik',
-            'ayah_nik' => 'required|exists:penduduks,nik',
-            'kk_id' => 'required|exists:kartu_keluargas,id',
-            'nama_anak' => 'required|string',
+            'nama_bayi' => 'required|string',
             'tanggal_lahir' => 'required|date',
             'tempat_lahir' => 'required|string',
-            'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
-            'berat_badan' => 'nullable|numeric',
-            'panjang_badan' => 'nullable|numeric',
+            'jenis_kelamin' => 'required|string',
+            'ibu_nik' => 'required|string',
+            'ayah_nik' => 'required|string',
+            'kk_id' => 'nullable|integer',
         ]);
 
         Kelahiran::create($validated);
@@ -66,16 +63,13 @@ class KelahiranController extends Controller
     public function update(Request $request, Kelahiran $kelahiran)
     {
         $validated = $request->validate([
-            'anak_nik' => 'nullable|unique:kelahirans,anak_nik,' . $kelahiran->id,
-            'ibu_nik' => 'required|exists:penduduks,nik',
-            'ayah_nik' => 'required|exists:penduduks,nik',
-            'kk_id' => 'required|exists:kartu_keluargas,id',
-            'nama_anak' => 'required|string',
+            'nama_bayi' => 'required|string',
             'tanggal_lahir' => 'required|date',
             'tempat_lahir' => 'required|string',
-            'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
-            'berat_badan' => 'nullable|numeric',
-            'panjang_badan' => 'nullable|numeric',
+            'jenis_kelamin' => 'required|string',
+            'ibu_nik' => 'required|string',
+            'ayah_nik' => 'required|string',
+            'kk_id' => 'nullable|integer',
         ]);
 
         $kelahiran->update($validated);

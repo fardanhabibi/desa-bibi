@@ -32,8 +32,6 @@ class FaqController extends Controller
         $validated = $request->validate([
             'pertanyaan' => 'required|string',
             'jawaban' => 'required|string',
-            'kategori' => 'nullable|string',
-            'urutan' => 'nullable|integer',
         ]);
 
         Faq::create($validated);
@@ -55,8 +53,6 @@ class FaqController extends Controller
         $validated = $request->validate([
             'pertanyaan' => 'required|string',
             'jawaban' => 'required|string',
-            'kategori' => 'nullable|string',
-            'urutan' => 'nullable|integer',
         ]);
 
         $faq->update($validated);

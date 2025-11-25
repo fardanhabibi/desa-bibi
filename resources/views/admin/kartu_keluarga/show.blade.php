@@ -25,7 +25,7 @@
                             <p><strong>Dusun:</strong> {{ $kartu_keluarga->dusun }}</p>
                         </div>
                         <div class="card-footer text-end">
-                            <a href="{{ route('admin.kartu_keluarga.edit', $kartu_keluarga->id) }}" class="btn btn-primary">Edit</a>
+                            <a href="{{ route('admin.kartu_keluarga.edit', $kartu_keluarga) }}" class="btn btn-primary">Edit</a>
                             <a href="{{ route('admin.kartu_keluarga.index') }}" class="btn btn-link">Kembali</a>
                         </div>
                     </div>

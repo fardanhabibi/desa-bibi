@@ -23,7 +23,7 @@
                             <p><strong>Keterangan:</strong> {{ $surat->keterangan ?? '-' }}</p>
                         </div>
                         <div class="card-footer text-end">
-                            <a href="{{ route('admin.surat.edit', $surat->id) }}" class="btn btn-primary">Edit</a>
+                            <a href="{{ route('admin.surat.edit', $surat) }}" class="btn btn-primary">Edit</a>
                             <a href="{{ route('admin.surat.index') }}" class="btn btn-link">Kembali</a>
                         </div>
                     </div>

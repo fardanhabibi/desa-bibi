@@ -17,10 +17,10 @@
                 <div class="col-md-8">
                     <div class="card">
                         <div class="card-body">
-                            <p><strong>Nama Almarhum:</strong> {{ $kematian->nama_almarhum }}</p>
-                            <p><strong>Tanggal Meninggal:</strong> {{ $kematian->tanggal_meninggal?->format('d M Y') ?? '-' }}</p>
-                            <p><strong>Penyebab Kematian:</strong> {{ $kematian->penyebab_kematian }}</p>
-                            <p><strong>Nama Pelapor:</strong> {{ $kematian->nama_pelapor }}</p>
+                            <p><strong>Nama Almarhum:</strong> {{ $kematian->penduduk_nik ?? '-' }}</p>
+                            <p><strong>Tanggal Meninggal:</strong> {{ $kematian->tanggal ? $kematian->tanggal->format('d M Y') : '-' }}</p>
+                            <p><strong>Penyebab Kematian:</strong> {{ $kematian->penyebab ?? '-' }}</p>
+                            <p><strong>Keterangan:</strong> {{ $kematian->keterangan ?? '-' }}</p>
                         </div>
                         <div class="card-footer text-end">
                             <a href="{{ route('admin.kematian.edit', $kematian->id) }}" class="btn btn-primary">Edit</a>

@@ -48,8 +48,8 @@
                             <thead class="table-light">
                                 <tr>
                                     <th>Nama Penduduk</th>
-                                    <th>Asal</th>
-                                    <th>Tujuan</th>
+                                    <th>Jenis</th>
+                                    <th>Asal/Tujuan</th>
                                     <th>Tanggal Migrasi</th>
                                     <th>Aksi</th>
                                 </tr>
@@ -57,10 +57,10 @@
                             <tbody>
                                 @forelse ($migrasi as $item)
                                 <tr>
-                                    <td><strong>{{ $item->penduduk->nama ?? '-' }}</strong></td>
-                                    <td>{{ $item->asal_kabupaten }}, {{ $item->asal_kecamatan }}</td>
-                                    <td>{{ $item->tujuan_kabupaten }}, {{ $item->tujuan_kecamatan }}</td>
-                                    <td>{{ \Carbon\Carbon::parse($item->tanggal_migrasi)->format('d M Y') }}</td>
+                                    <td><strong>{{ $item->penduduk_nik ?? '-' }}</strong></td>
+                                    <td>{{ $item->jenis ?? '-' }}</td>
+                                    <td>{{ $item->asal_tujuan ?? '-' }}</td>
+                                    <td>{{ $item->tanggal ? \Carbon\Carbon::parse($item->tanggal)->format('d M Y') : '-' }}</td>
                                     <td>
                                         <a href="{{ route('admin.migrasi.show', $item) }}" class="btn btn-sm btn-info" title="Lihat">
                                             <i class="ti ti-eye"></i>

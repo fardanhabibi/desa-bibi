@@ -17,14 +17,13 @@
                 <div class="col-md-8">
                     <div class="card">
                         <div class="card-body">
-                            <p><strong>Nama Penduduk:</strong> {{ $migrasi->nama_penduduk }}</p>
-                            <p><strong>Asal Daerah:</strong> {{ $migrasi->asal_daerah }}</p>
-                            <p><strong>Tujuan Daerah:</strong> {{ $migrasi->tujuan_daerah }}</p>
-                            <p><strong>Tanggal Migrasi:</strong> {{ $migrasi->tanggal_migrasi?->format('d M Y') ?? '-' }}</p>
-                            <p><strong>Alasan:</strong> {{ $migrasi->alasan }}</p>
+                            <p><strong>Nama Penduduk:</strong> {{ $migrasi->penduduk_nik ?? '-' }}</p>
+                            <p><strong>Jenis Migrasi:</strong> {{ $migrasi->jenis ?? '-' }}</p>
+                            <p><strong>Asal/Tujuan Daerah:</strong> {{ $migrasi->asal_tujuan ?? '-' }}</p>
+                            <p><strong>Tanggal Migrasi:</strong> {{ $migrasi->tanggal ? $migrasi->tanggal->format('d M Y') : '-' }}</p>
                         </div>
                         <div class="card-footer text-end">
-                            <a href="{{ route('admin.migrasi.edit', $migrasi->id) }}" class="btn btn-primary">Edit</a>
+                            <a href="{{ route('admin.migrasi.edit', $migrasi) }}" class="btn btn-primary">Edit</a>
                             <a href="{{ route('admin.migrasi.index') }}" class="btn btn-link">Kembali</a>
                         </div>
                     </div>

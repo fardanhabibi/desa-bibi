@@ -25,7 +25,7 @@
                             <p><strong>Jenis:</strong> {{ $kontak->jenis }}</p>
                         </div>
                         <div class="card-footer text-end">
-                            <a href="{{ route('admin.kontak.edit', $kontak->id) }}" class="btn btn-primary">Edit</a>
+                            <a href="{{ route('admin.kontak.edit', $kontak) }}" class="btn btn-primary">Edit</a>
                             <a href="{{ route('admin.kontak.index') }}" class="btn btn-link">Kembali</a>
                         </div>
                     </div>

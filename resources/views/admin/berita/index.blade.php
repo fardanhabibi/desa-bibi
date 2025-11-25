@@ -11,11 +11,10 @@
                     <h2 class="page-title"><i class="ti ti-news me-2"></i>Berita & Pengumuman</h2>
                 </div>
                 <div class="col-auto">
-                    <a href="{{ route('admin.berita.create') }}" class="btn btn-primary">
+                    <a href="{{ route('admin.berita.create') }}" class="btn btn-icon btn-ghost-primary btn-sm">
                         <i class="ti ti-plus me-2"></i>Tambah Berita
                     </a>
                 </div>
-            </div>
         </div>
     </div>
     <div class="page-body">
@@ -52,13 +51,13 @@
                                             <td>{{ $item->tanggal_posting?->format('d M Y') ?? '-' }}</td>
                                             <td>
                                                 <div class="btn-list">
-                                                    <a href="{{ route('admin.berita.show', $item->id) }}" class="btn btn-icon btn-ghost-primary btn-sm">
+                                                    <a href="{{ route('admin.berita.show', $item) }}" class="btn btn-icon btn-ghost-primary btn-sm">
                                                         <i class="ti ti-eye"></i>
                                                     </a>
-                                                    <a href="{{ route('admin.berita.edit', $item->id) }}" class="btn btn-icon btn-ghost-warning btn-sm">
+                                                    <a href="{{ route('admin.berita.edit', $item) }}" class="btn btn-icon btn-ghost-warning btn-sm">
                                                         <i class="ti ti-pencil"></i>
                                                     </a>
-                                                    <form method="POST" action="{{ route('admin.berita.destroy', $item->id) }}" style="display:inline;" onsubmit="return confirm('Yakin ingin menghapus?')">
+                                                    <form method="POST" action="{{ route('admin.berita.destroy', $item) }}" style="display:inline;" onsubmit="return confirm('Yakin ingin menghapus?')">
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="submit" class="btn btn-icon btn-ghost-danger btn-sm">

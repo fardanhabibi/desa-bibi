@@ -30,12 +30,12 @@ class KontakDesaController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'nama_kontak' => 'required|string|max:200',
-            'kategori' => 'required|string',
-            'nomor_telepon' => 'required|string|max:20',
-            'email' => 'nullable|email',
-            'alamat' => 'nullable|string',
-            'jam_operasional' => 'nullable|string',
+            'nama' => 'required|string|max:200',
+            'jabatan' => 'required|string',
+            'alamat' => 'required|string',
+            'no_hp' => 'required|string|max:20',
+            'email' => 'required|email',
+            'jenis' => 'required|string',
         ]);
 
         KontakDesa::create($validated);
@@ -55,12 +55,12 @@ class KontakDesaController extends Controller
     public function update(Request $request, KontakDesa $kontak)
     {
         $validated = $request->validate([
-            'nama_kontak' => 'required|string|max:200',
-            'kategori' => 'required|string',
-            'nomor_telepon' => 'required|string|max:20',
-            'email' => 'nullable|email',
-            'alamat' => 'nullable|string',
-            'jam_operasional' => 'nullable|string',
+            'nama' => 'required|string|max:200',
+            'jabatan' => 'required|string',
+            'alamat' => 'required|string',
+            'no_hp' => 'required|string|max:20',
+            'email' => 'required|email',
+            'jenis' => 'required|string',
         ]);
 
         $kontak->update($validated);

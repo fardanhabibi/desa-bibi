@@ -50,17 +50,15 @@
                                     <th>Nama Penduduk</th>
                                     <th>Tanggal Kematian</th>
                                     <th>Penyebab</th>
-                                    <th>Tempat</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @forelse ($kematian as $item)
                                 <tr>
-                                    <td><strong>{{ $item->penduduk->nama ?? '-' }}</strong></td>
-                                    <td>{{ \Carbon\Carbon::parse($item->tanggal_kematian)->format('d M Y') }}</td>
-                                    <td>{{ Str::limit($item->penyebab_kematian, 20) }}</td>
-                                    <td>{{ Str::limit($item->tempat_kematian, 20) }}</td>
+                                    <td><strong>{{ $item->penduduk_nik ?? '-' }}</strong></td>
+                                    <td>{{ $item->tanggal ? \Carbon\Carbon::parse($item->tanggal)->format('d M Y') : '-' }}</td>
+                                    <td>{{ \Str::limit($item->penyebab, 30) }}</td>
                                     <td>
                                         <a href="{{ route('admin.kematian.show', $item) }}" class="btn btn-sm btn-info" title="Lihat">
                                             <i class="ti ti-eye"></i>

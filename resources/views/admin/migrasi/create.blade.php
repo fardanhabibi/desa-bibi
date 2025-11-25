@@ -20,34 +20,34 @@
                     <form method="POST" action="{{ route('admin.migrasi.store') }}" class="card">
                         @csrf
                         <div class="card-body">
+
                             <div class="mb-3">
                                 <label class="form-label">Nama Penduduk <span class="text-danger">*</span></label>
                                 <input type="text" name="nama_penduduk" class="form-control @error('nama_penduduk') is-invalid @enderror" value="{{ old('nama_penduduk') }}" required>
                                 @error('nama_penduduk')<span class="invalid-feedback">{{ $message }}</span>@enderror
                             </div>
 
+
                             <div class="mb-3">
-                                <label class="form-label">Asal Daerah <span class="text-danger">*</span></label>
-                                <input type="text" name="asal_daerah" class="form-control @error('asal_daerah') is-invalid @enderror" value="{{ old('asal_daerah') }}" required>
-                                @error('asal_daerah')<span class="invalid-feedback">{{ $message }}</span>@enderror
+                                <label class="form-label">Jenis Migrasi <span class="text-danger">*</span></label>
+                                <select name="jenis" class="form-control @error('jenis') is-invalid @enderror" required>
+                                    <option value="">-- Pilih Jenis --</option>
+                                    <option value="Masuk" {{ old('jenis') == 'Masuk' ? 'selected' : '' }}>Masuk</option>
+                                    <option value="Keluar" {{ old('jenis') == 'Keluar' ? 'selected' : '' }}>Keluar</option>
+                                </select>
+                                @error('jenis')<span class="invalid-feedback">{{ $message }}</span>@enderror
                             </div>
 
                             <div class="mb-3">
-                                <label class="form-label">Tujuan Daerah <span class="text-danger">*</span></label>
-                                <input type="text" name="tujuan_daerah" class="form-control @error('tujuan_daerah') is-invalid @enderror" value="{{ old('tujuan_daerah') }}" required>
-                                @error('tujuan_daerah')<span class="invalid-feedback">{{ $message }}</span>@enderror
+                                <label class="form-label">Asal/Tujuan Daerah <span class="text-danger">*</span></label>
+                                <input type="text" name="asal_tujuan" class="form-control @error('asal_tujuan') is-invalid @enderror" value="{{ old('asal_tujuan') }}" required>
+                                @error('asal_tujuan')<span class="invalid-feedback">{{ $message }}</span>@enderror
                             </div>
 
                             <div class="mb-3">
                                 <label class="form-label">Tanggal Migrasi <span class="text-danger">*</span></label>
-                                <input type="date" name="tanggal_migrasi" class="form-control @error('tanggal_migrasi') is-invalid @enderror" value="{{ old('tanggal_migrasi') }}" required>
-                                @error('tanggal_migrasi')<span class="invalid-feedback">{{ $message }}</span>@enderror
-                            </div>
-
-                            <div class="mb-3">
-                                <label class="form-label">Alasan <span class="text-danger">*</span></label>
-                                <textarea name="alasan" class="form-control @error('alasan') is-invalid @enderror" rows="3" required>{{ old('alasan') }}</textarea>
-                                @error('alasan')<span class="invalid-feedback">{{ $message }}</span>@enderror
+                                <input type="date" name="tanggal" class="form-control @error('tanggal') is-invalid @enderror" value="{{ old('tanggal') }}" required>
+                                @error('tanggal')<span class="invalid-feedback">{{ $message }}</span>@enderror
                             </div>
                         </div>
 

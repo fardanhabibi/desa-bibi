@@ -22,7 +22,7 @@
                             <p>{{ $kegiatan->deskripsi ?? '-' }}</p>
                         </div>
                         <div class="card-footer text-end">
-                            <a href="{{ route('admin.kegiatan.edit', $kegiatan->id) }}" class="btn btn-primary">Edit</a>
+                            <a href="{{ route('admin.kegiatan.edit', $kegiatan) }}" class="btn btn-primary">Edit</a>
                             <a href="{{ route('admin.kegiatan.index') }}" class="btn btn-link">Kembali</a>
                         </div>
                     </div>
