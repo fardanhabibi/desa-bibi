@@ -374,7 +374,59 @@
                     Keterangan tambahan: {{ $surat->keterangan }}
                 </p>
             @endif
+            @if(!empty($surat->detail) && is_array($surat->detail))
+                <div class="data-pemohon" style="margin-top:10px;">
+                    <div class="data-row" style="margin-bottom:6px;">
+                        <div class="data-label">Detail Pengajuan</div>
+                        <div class="data-separator">:</div>
+                        <div class="data-value">
+                            @php
+                                $labels = [
+                                    'alamat' => 'Alamat',
+                                    'lama_tinggal' => 'Lama Tinggal (tahun)',
+                                    'nama_usaha' => 'Nama Usaha',
+                                    'alamat_usaha' => 'Alamat Usaha',
+                                    'kondisi_ekonomi' => 'Keterangan Kondisi Ekonomi',
+                                    'jumlah_tanggungan' => 'Jumlah Tanggungan',
+                                    'nama_bayi' => 'Nama Bayi',
+                                    'tanggal_lahir' => 'Tanggal Lahir',
+                                    'tempat_lahir' => 'Tempat Lahir',
+                                    'nama_almarhum' => 'Nama Almarhum',
+                                    'tanggal_meninggal' => 'Tanggal Meninggal',
+                                    'sebab' => 'Sebab Kematian',
+                                    'tujuan' => 'Tujuan Pengantar',
+                                    'keterangan_pengantar' => 'Keterangan Pengantar',
+                                    'nama_lama' => 'Nama Lama',
+                                    'nama_baru' => 'Nama Baru',
+                                    'alasan_perubahan' => 'Alasan Perubahan Nama',
+                                    'alamat_tujuan' => 'Alamat Tujuan Migrasi',
+                                    'alasan_migrasi' => 'Alasan Migrasi',
+                                    'judul' => 'Judul / Perihal',
+                                    'rincian' => 'Rincian',
+                                ];
+                            @endphp
 
+                            @foreach($surat->detail as $k => $v)
+                                @if($v === null || $v === '')
+                                    @continue
+                                @endif
+                                @php
+                                    $label = $labels[$k] ?? ucwords(str_replace(['_','-'], [' ',' '], $k));
+                                    $value = $v;
+                                    if(str_contains(strtolower($k), 'tanggal') && !empty($v)){
+                                        try{
+                                            $value = \Carbon\Carbon::parse($v)->format('d F Y');
+                                        } catch(\Exception $e) {
+                                            // keep raw
+                                        }
+                                    }
+                                @endphp
+                                <div style="margin-bottom:4px;"><strong>{{ $label }}:</strong> {{ $value }}</div>
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+            @endif
             <p class="no-indent">
                 Demikian surat keterangan ini diberikan untuk dapat digunakan sebagaimana perlunya.
             </p>
