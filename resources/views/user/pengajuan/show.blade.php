@@ -26,6 +26,77 @@
     <!-- Content -->
     <div class="row">
         <div class="col-lg-10 mx-auto">
+            <!-- Detail Pengajuan Card -->
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="mb-3"><i class="ti ti-file-text me-2"></i> Detail Pengajuan Surat</h5>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-2 text-muted">Jenis Surat</div>
+                            <div><span class="badge bg-light-primary">{{ $surat->jenis_surat }}</span></div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-2 text-muted">Keperluan</div>
+                            <div>{{ $surat->keperluan }}</div>
+                        </div>
+                    </div>
+
+                    @if(!empty($surat->detail) && is_array($surat->detail))
+                        <hr>
+                        <h6 class="mt-3">Isi Form</h6>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="table-responsive">
+                                    <table class="table table-borderless" style="font-size:14px;">
+                                        <tbody>
+                                        @php
+                                            $labels = [
+                                                'alamat' => 'Alamat',
+                                                'lama_tinggal' => 'Lama Tinggal (tahun)',
+                                                'nama_usaha' => 'Nama Usaha',
+                                                'alamat_usaha' => 'Alamat Usaha',
+                                                'kondisi_ekonomi' => 'Keterangan Kondisi Ekonomi',
+                                                'jumlah_tanggungan' => 'Jumlah Tanggungan',
+                                                'nama_bayi' => 'Nama Bayi',
+                                                'tanggal_lahir' => 'Tanggal Lahir',
+                                                'tempat_lahir' => 'Tempat Lahir',
+                                                'nama_almarhum' => 'Nama Almarhum',
+                                                'tanggal_meninggal' => 'Tanggal Meninggal',
+                                                'sebab' => 'Sebab Kematian',
+                                                'tujuan' => 'Tujuan Pengantar',
+                                                'keterangan_pengantar' => 'Keterangan Pengantar',
+                                                'nama_lama' => 'Nama Lama',
+                                                'nama_baru' => 'Nama Baru',
+                                                'alasan_perubahan' => 'Alasan Perubahan Nama',
+                                                'alamat_tujuan' => 'Alamat Tujuan Migrasi',
+                                                'alasan_migrasi' => 'Alasan Migrasi',
+                                                'judul' => 'Judul / Perihal',
+                                                'rincian' => 'Rincian',
+                                            ];
+                                        @endphp
+
+                                        @foreach($surat->detail as $k => $v)
+                                            @continue($v === null || $v === '')
+                                            @php
+                                                $label = $labels[$k] ?? ucwords(str_replace(['_','-'], [' ',' '], $k));
+                                                $value = $v;
+                                                if(str_contains(strtolower($k), 'tanggal') && !empty($v)){
+                                                    try{ $value = \Carbon\Carbon::parse($v)->format('d F Y'); } catch(\Exception $e) { }
+                                                }
+                                            @endphp
+                                            <tr>
+                                                <td style="width:220px; font-weight:600;">{{ $label }}</td>
+                                                <td>: {{ $value }}</td>
+                                            </tr>
+                                        @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+                </div>
+            </div>
             @if($errors->any())
                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
                     <i class="ti ti-alert-circle me-2"></i>
