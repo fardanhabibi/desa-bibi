@@ -7,6 +7,7 @@ use App\Models\Kelahiran;
 use App\Models\KartuKeluarga;
 use App\Models\Penduduk;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Schema;
 
 class KelahiranController extends Controller
 {
@@ -35,19 +36,38 @@ class KelahiranController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'anak_nik' => 'nullable|unique:kelahirans,anak_nik',
-            'ibu_nik' => 'required|exists:penduduks,nik',
-            'ayah_nik' => 'required|exists:penduduks,nik',
-            'kk_id' => 'required|exists:kartu_keluargas,id',
-            'nama_anak' => 'required|string',
+            'ibu_nama' => 'nullable|string',
+            'ayah_nama' => 'nullable|string',
+            'kk_no' => 'required|string',
+            'nama_bayi' => 'required|string',
             'tanggal_lahir' => 'required|date',
-            'tempat_lahir' => 'required|string',
-            'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
-            'berat_badan' => 'nullable|numeric',
-            'panjang_badan' => 'nullable|numeric',
+            'tempat_lahir' => 'nullable|string',
+            'jenis_kelamin' => 'required|in:L,P',
         ]);
 
-        Kelahiran::create($validated);
+        // Resolve kk_no to kk_id
+        $kk = KartuKeluarga::where('no_kk', $validated['kk_no'])->first();
+        if (!$kk) {
+            return back()->withInput()->withErrors(['kk_no' => 'Kartu Keluarga tidak ditemukan dengan nomor tersebut.']);
+        }
+
+        // Find penduduk by name for ibu and ayah (use first match). Both may be unregistered.
+        $ibu = !empty($validated['ibu_nama']) ? Penduduk::where('nama', $validated['ibu_nama'])->first() : null;
+        $ayah = !empty($validated['ayah_nama']) ? Penduduk::where('nama', $validated['ayah_nama'])->first() : null;
+
+        $data = [
+            'nama_bayi' => $validated['nama_bayi'],
+            'tanggal_lahir' => $validated['tanggal_lahir'],
+            'jenis_kelamin' => $validated['jenis_kelamin'],
+            'ayah_nik' => $ayah ? $ayah->nik : null,
+            'ibu_nik' => $ibu ? $ibu->nik : null,
+            'kk_id' => $kk->id,
+            'tempat_lahir' => $validated['tempat_lahir'] ?? null,
+            'ibu_nama' => $validated['ibu_nama'] ?? null,
+            'ayah_nama' => $validated['ayah_nama'] ?? null,
+        ];
+
+        Kelahiran::create($data);
         return redirect()->route('admin.kelahiran.index')->with('success', 'Data kelahiran berhasil ditambahkan');
     }
 
@@ -66,19 +86,38 @@ class KelahiranController extends Controller
     public function update(Request $request, Kelahiran $kelahiran)
     {
         $validated = $request->validate([
-            'anak_nik' => 'nullable|unique:kelahirans,anak_nik,' . $kelahiran->id,
-            'ibu_nik' => 'required|exists:penduduks,nik',
-            'ayah_nik' => 'required|exists:penduduks,nik',
-            'kk_id' => 'required|exists:kartu_keluargas,id',
-            'nama_anak' => 'required|string',
+            'ibu_nama' => 'nullable|string',
+            'ayah_nama' => 'nullable|string',
+            'kk_no' => 'required|string',
+            'nama_bayi' => 'required|string',
             'tanggal_lahir' => 'required|date',
-            'tempat_lahir' => 'required|string',
-            'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
-            'berat_badan' => 'nullable|numeric',
-            'panjang_badan' => 'nullable|numeric',
+            'tempat_lahir' => 'nullable|string',
+            'jenis_kelamin' => 'required|in:L,P',
         ]);
 
-        $kelahiran->update($validated);
+        $kk = KartuKeluarga::where('no_kk', $validated['kk_no'])->first();
+        if (!$kk) {
+            return back()->withInput()->withErrors(['kk_no' => 'Kartu Keluarga tidak ditemukan dengan nomor tersebut.']);
+        }
+
+        // Find penduduk by name for ibu and ayah (use first match). Both may be unregistered.
+        $ibu = !empty($validated['ibu_nama']) ? Penduduk::where('nama', $validated['ibu_nama'])->first() : null;
+        $ayah = !empty($validated['ayah_nama']) ? Penduduk::where('nama', $validated['ayah_nama'])->first() : null;
+
+        // Both parents may be unregistered. If found, store their NIK; otherwise store the provided name and leave nik null.
+        $data = [
+            'nama_bayi' => $validated['nama_bayi'],
+            'tanggal_lahir' => $validated['tanggal_lahir'],
+            'jenis_kelamin' => $validated['jenis_kelamin'],
+            'ayah_nik' => $ayah ? $ayah->nik : null,
+            'ibu_nik' => $ibu ? $ibu->nik : null,
+            'kk_id' => $kk->id,
+            'tempat_lahir' => $validated['tempat_lahir'] ?? null,
+            'ibu_nama' => $validated['ibu_nama'] ?? null,
+            'ayah_nama' => $validated['ayah_nama'] ?? null,
+        ];
+
+        $kelahiran->update($data);
         return redirect()->route('admin.kelahiran.index')->with('success', 'Data kelahiran berhasil diperbarui');
     }
 

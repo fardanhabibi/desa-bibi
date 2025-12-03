@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row row-equal">
     <!-- [ statistics ] start -->
     <div class="col-md-6 col-xl-3">
         <div class="card modern-card">
@@ -34,14 +34,14 @@
         <div class="card modern-card">
             <div class="card-body">
                 <div class="d-flex align-items-center justify-content-between mb-3">
-                    <h6 class="mb-0 f-w-400 text-muted">Total Berita</h6>
+                    <h6 class="mb-0 f-w-400 text-muted">Total Pengaduan</h6>
                     <div class="dashboard-icon">
-                        <i class="ti ti-news"></i>
+                        <i class="ti ti-message-circle-2"></i>
                     </div>
                 </div>
-                <h4 class="mb-3">{{ \App\Models\Berita::count() }} <span class="badge bg-light-info border border-info"><i
-                            class="ti ti-trending-up"></i> Dipublikasi</span></h4>
-                <p class="mb-0 text-muted text-sm">Total berita dan informasi yang dipublikasikan</p>
+                <h4 class="mb-3">{{ \App\Models\Pengaduan::count() }} <span class="badge bg-light-info border border-info"><i
+                            class="ti ti-clock"></i> {{ \App\Models\Pengaduan::where('status', 'Pending')->count() }} Pending</span></h4>
+                <p class="mb-0 text-muted text-sm">Total pengaduan yang diajukan oleh warga</p>
             </div>
         </div>
     </div>
@@ -92,6 +92,12 @@
             </div>
         </div>
     </div>
+    
+    <style>
+    /* Equalize top statistic cards */
+    .row-equal > [class*="col-"] > .modern-card { height: 100%; }
+    .row-equal > [class*="col-"] > .modern-card .card-body { display:flex; flex-direction:column; justify-content:space-between; }
+    </style>
     <div class="col-md-12 col-xl-4">
         <h5 class="mb-3">Ringkasan Aktivitas</h5>
         <div class="card modern-card">

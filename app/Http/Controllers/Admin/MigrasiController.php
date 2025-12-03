@@ -34,16 +34,22 @@ class MigrasiController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'penduduk_nik' => 'required|exists:penduduks,nik',
-            'asal_kabupaten' => 'required|string',
-            'asal_kecamatan' => 'required|string',
-            'tujuan_kabupaten' => 'required|string',
-            'tujuan_kecamatan' => 'required|string',
+            'penduduk_nik' => 'required|exists:penduduk,nik',
+            'asal_daerah' => 'required|string',
+            'tujuan_daerah' => 'required|string',
             'tanggal_migrasi' => 'required|date',
-            'keterangan' => 'nullable|string',
+            'alasan' => 'nullable|string',
         ]);
 
-        Migrasi::create($validated);
+        // Map form fields to model columns
+        $data = [
+            'penduduk_nik' => $validated['penduduk_nik'],
+            'asal_tujuan' => $validated['asal_daerah'] . ' -> ' . $validated['tujuan_daerah'],
+            'tanggal' => $validated['tanggal_migrasi'],
+            'jenis' => $validated['alasan'] ?? null,
+        ];
+
+        Migrasi::create($data);
         return redirect()->route('admin.migrasi.index')->with('success', 'Data migrasi berhasil ditambahkan');
     }
 
@@ -61,16 +67,21 @@ class MigrasiController extends Controller
     public function update(Request $request, Migrasi $migrasi)
     {
         $validated = $request->validate([
-            'penduduk_nik' => 'required|exists:penduduks,nik',
-            'asal_kabupaten' => 'required|string',
-            'asal_kecamatan' => 'required|string',
-            'tujuan_kabupaten' => 'required|string',
-            'tujuan_kecamatan' => 'required|string',
+            'penduduk_nik' => 'required|exists:penduduk,nik',
+            'asal_daerah' => 'required|string',
+            'tujuan_daerah' => 'required|string',
             'tanggal_migrasi' => 'required|date',
-            'keterangan' => 'nullable|string',
+            'alasan' => 'nullable|string',
         ]);
 
-        $migrasi->update($validated);
+        $data = [
+            'penduduk_nik' => $validated['penduduk_nik'],
+            'asal_tujuan' => $validated['asal_daerah'] . ' -> ' . $validated['tujuan_daerah'],
+            'tanggal' => $validated['tanggal_migrasi'],
+            'jenis' => $validated['alasan'] ?? null,
+        ];
+
+        $migrasi->update($data);
         return redirect()->route('admin.migrasi.index')->with('success', 'Data migrasi berhasil diperbarui');
     }
 

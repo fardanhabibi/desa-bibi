@@ -47,7 +47,7 @@
                         <div class="form-group mb-3">
                             <label class="form-label" for="judul">Judul Pengaduan <span class="text-danger">*</span></label>
                             <input type="text" 
-                                   class="form-control @error('judul') is-invalid @enderror" 
+                                class="form-control form-control-sm @error('judul') is-invalid @enderror" 
                                    id="judul" 
                                    name="judul" 
                                    value="{{ old('judul') }}"
@@ -58,26 +58,11 @@
                             @enderror
                         </div>
 
-                        <div class="form-group mb-3">
-                            <label class="form-label" for="kategori">Kategori <span class="text-danger">*</span></label>
-                            <select class="form-select @error('kategori') is-invalid @enderror" 
-                                    id="kategori" 
-                                    name="kategori" 
-                                    required>
-                                <option value="">-- Pilih Kategori --</option>
-                                <option value="Fasilitas" {{ old('kategori') == 'Fasilitas' ? 'selected' : '' }}>Fasilitas</option>
-                                <option value="Akademik" {{ old('kategori') == 'Akademik' ? 'selected' : '' }}>Akademik</option>
-                                <option value="Administrasi" {{ old('kategori') == 'Administrasi' ? 'selected' : '' }}>Administrasi</option>
-                                <option value="Lainnya" {{ old('kategori') == 'Lainnya' ? 'selected' : '' }}>Lainnya</option>
-                            </select>
-                            @error('kategori')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
+                        <!-- Kategori dihapus dari form sesuai permintaan -->
 
                         <div class="form-group mb-3">
                             <label class="form-label" for="isi_pengaduan">Isi Pengaduan <span class="text-danger">*</span></label>
-                            <textarea class="form-control @error('isi_pengaduan') is-invalid @enderror" 
+                            <textarea class="form-control form-control-sm @error('isi_pengaduan') is-invalid @enderror" 
                                       id="isi_pengaduan" 
                                       name="isi_pengaduan" 
                                       rows="6" 
@@ -89,14 +74,18 @@
                         </div>
 
                         <div class="form-group mb-4">
-                            <label class="form-label" for="file_lampiran">File Lampiran (Opsional)</label>
-                            <input type="file" 
-                                   class="form-control @error('file_lampiran') is-invalid @enderror" 
-                                   id="file_lampiran" 
-                                   name="file_lampiran"
-                                   accept=".pdf,.jpg,.jpeg,.png">
-                            <small class="text-muted">Format: PDF, JPG, JPEG, PNG. Maksimal 2MB</small>
+                            <label class="form-label" for="file_lampiran">Lampiran (Opsional)</label>
+                            <input type="file"
+                                class="form-control form-control-sm @error('file_lampiran') is-invalid @enderror"
+                                   id="file_lampiran"
+                                   name="file_lampiran[]"
+                                   accept=".pdf,.jpg,.jpeg,.png"
+                                   multiple>
+                            <small class="text-muted">Tipe file: PDF, JPG, JPEG, PNG. Maks 2MB per file. Anda dapat memilih lebih dari satu file.</small>
                             @error('file_lampiran')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                            @error('file_lampiran.*')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
@@ -106,11 +95,11 @@
                             <strong>Catatan:</strong> Pastikan pengaduan yang Anda ajukan jelas dan detail agar dapat diproses dengan baik.
                         </div>
 
-                        <div class="d-flex justify-content-between">
-                            <a href="{{ route('user.pengaduan.index') }}" class="btn btn-light">
+                        <div class="d-flex justify-content-between flex-column flex-sm-row gap-2">
+                            <a href="{{ route('user.pengaduan.index') }}" class="btn btn-light w-100 w-sm-auto">
                                 <i class="ti ti-arrow-left me-1"></i> Kembali
                             </a>
-                            <button type="submit" class="btn btn-primary">
+                            <button type="submit" class="btn btn-primary w-100 w-sm-auto">
                                 <i class="ti ti-send me-1"></i> Kirim Pengaduan
                             </button>
                         </div>
@@ -120,4 +109,12 @@
         </div>
     </div>
 </div>
+<style>
+    /* Compact form tweaks for mobile */
+    @media (max-width: 576px) {
+        #isi_pengaduan { rows: 4; }
+        .form-control-sm { padding: .35rem .5rem; font-size: .875rem; }
+        .card-body { padding: .85rem; }
+    }
+</style>
 @endsection

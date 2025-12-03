@@ -11,12 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('layanan_online', function (Blueprint $table) {
-            $table->id();
-            $table->string('nama_layanan');
-            $table->string('kategori')->nullable();
-            $table->text('deskripsi')->nullable();
-            $table->timestamps();
+        Schema::table('kelahiran', function (Blueprint $table) {
+            $table->string('ibu_nama')->nullable()->after('ibu_nik');
+            $table->string('ayah_nama')->nullable()->after('ibu_nama');
         });
     }
 
@@ -25,6 +22,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('layanan_online');
+        Schema::table('kelahiran', function (Blueprint $table) {
+            $table->dropColumn(['ibu_nama', 'ayah_nama']);
+        });
     }
 };

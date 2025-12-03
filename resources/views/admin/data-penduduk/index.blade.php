@@ -9,7 +9,7 @@
                 <div class="row align-items-center">
                     <div class="col-md-12">
                         <div class="page-header-title">
-                            <h5 class="m-b-10">Data Penduduk Desa Bibi</h5>
+                            <h5 class="m-b-10">Data Penduduk Desa Urangagung</h5>
                         </div>
                         <ul class="breadcrumb">
                             <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
@@ -121,45 +121,47 @@
                             <table class="table table-hover table-borderless mb-0">
                                 <thead class="table-light">
                                     <tr>
-                                        <th class="ps-4">No</th>
-                                        <th>Nama</th>
-                                        <th>NIK</th>
-                                        <th>Email</th>
-                                        <th>Telepon</th>
-                                        <th>Status Verifikasi</th>
-                                        <th>Tanggal Pendaftaran</th>
-                                        <th class="text-end pe-4">Aksi</th>
-                                    </tr>
+                                                <th class="ps-4">No</th>
+                                                <th>NIK</th>
+                                                <th>Nama</th>
+                                                <th>Jenis Kelamin</th>
+                                                <th>Alamat</th>
+                                                <th>No. HP</th>
+                                                <th class="text-end pe-4">Aksi</th>
+                                            </tr>
                                 </thead>
                                 <tbody>
                                     @forelse($residents as $index => $resident)
                                         <tr>
                                             <td class="ps-4">{{ ($residents->currentPage() - 1) * $residents->perPage() + $loop->iteration }}</td>
+                                            <td>{{ $resident->nik ?? '-' }}</td>
                                             <td>
                                                 <div class="d-flex align-items-center">
                                                     <div class="avtar avtar-s rounded-circle bg-light-primary me-2">
-                                                        <img src="{{ $resident->avatar ?? 'https://ui-avatars.com/api/?name=' . urlencode($resident->name) }}" alt="{{ $resident->name }}">
+                                                        <img src="{{ $resident->avatar ?? 'https://ui-avatars.com/api/?name=' . urlencode($resident->nama) }}" alt="{{ $resident->nama }}">
                                                     </div>
                                                     <div>
-                                                        <span class="fw-600">{{ $resident->name }}</span>
+                                                        <span class="fw-600">{{ $resident->nama }}</span>
                                                         <br>
                                                         <small class="text-muted">{{ $resident->pekerjaan ?? '-' }}</small>
                                                     </div>
                                                 </div>
                                             </td>
                                             <td>
-                                                <span class="font-monospace">{{ $resident->nik ?? '-' }}</span>
+                                                @php
+                                                    $jk = strtolower(trim($resident->jenis_kelamin ?? ''));
+                                                    if (in_array($jk, ['l', 'laki', 'laki-laki', 'male'])) {
+                                                        $jkLabel = 'Laki-laki';
+                                                    } elseif (in_array($jk, ['p', 'perempuan', 'female'])) {
+                                                        $jkLabel = 'Perempuan';
+                                                    } else {
+                                                        $jkLabel = $resident->jenis_kelamin ?? '-';
+                                                    }
+                                                @endphp
+                                                {{ $jkLabel }}
                                             </td>
-                                            <td>{{ $resident->email }}</td>
-                                            <td>{{ $resident->nomor_telpon ?? '-' }}</td>
-                                            <td>
-                                                @if($resident->is_verified)
-                                                    <span class="badge bg-light-success text-success">Terverifikasi</span>
-                                                @else
-                                                    <span class="badge bg-light-warning text-warning">Belum Terverifikasi</span>
-                                                @endif
-                                            </td>
-                                            <td>{{ $resident->created_at ? $resident->created_at->format('d M Y') : '-' }}</td>
+                                            <td>{{ Str::limit($resident->alamat ?? '-', 60) }}</td>
+                                            <td>{{ $resident->no_hp ?? ($resident->nomor_telpon ?? '-') }}</td>
                                             <td class="text-end pe-4">
                                                 <div class="dropdown">
                                                     <button class="btn btn-sm btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown">
@@ -192,7 +194,7 @@
                                         </tr>
                                     @empty
                                         <tr>
-                                            <td colspan="6" class="text-center py-5 text-muted">
+                                            <td colspan="7" class="text-center py-5 text-muted">
                                                 <i class="ti ti-inbox" style="font-size: 3rem; opacity: 0.3;"></i>
                                                 <p class="mt-3">Tidak ada data penduduk</p>
                                             </td>

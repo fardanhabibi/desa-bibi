@@ -6,7 +6,7 @@
     <div class="sidebar-header">
         <a href="/dashboard" class="logo">
             <img src="{{ asset('assets/images/my/logo-black-tp.png') }}" alt="Logo">
-            <span class="logo-text">Desa Bibi</span>
+            <span class="logo-text">Desa Urangagung</span>
         </a>
         <button class="toggle-btn" id="toggleSidebar">
             <i class="ti ti-chevron-left"></i>
@@ -50,14 +50,7 @@
                         <span class="nav-text">Pengaduan & Masukan</span>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link{{ request()->is('admin/berita*') ? ' active' : '' }}" href="/admin/berita">
-                        <div class="nav-icon">
-                            <i class="ti ti-news"></i>
-                        </div>
-                        <span class="nav-text">Berita & Pengumuman</span>
-                    </a>
-                </li>
+                {{-- Berita menu removed per request --}}
                 <li class="nav-item">
                     <a class="nav-link{{ request()->is('laporan*') ? ' active' : '' }}" href="/laporan">
                         <div class="nav-icon">

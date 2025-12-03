@@ -14,8 +14,8 @@ class KontakDesaController extends Controller
         $kontak = KontakDesa::query();
 
         if ($search) {
-            $kontak->where('nama_kontak', 'like', "%{$search}%")
-                ->orWhere('nomor_telepon', 'like', "%{$search}%");
+            $kontak->where('nama', 'like', "%{$search}%")
+                ->orWhere('no_hp', 'like', "%{$search}%");
         }
 
         $kontak = $kontak->paginate(15);
@@ -30,12 +30,11 @@ class KontakDesaController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'nama_kontak' => 'required|string|max:200',
-            'kategori' => 'required|string',
-            'nomor_telepon' => 'required|string|max:20',
-            'email' => 'nullable|email',
+            'nama' => 'required|string|max:200',
+            'jabatan' => 'required|string',
             'alamat' => 'nullable|string',
-            'jam_operasional' => 'nullable|string',
+            'no_hp' => 'required|string|max:20',
+            'email' => 'nullable|email',
         ]);
 
         KontakDesa::create($validated);
@@ -55,12 +54,11 @@ class KontakDesaController extends Controller
     public function update(Request $request, KontakDesa $kontak)
     {
         $validated = $request->validate([
-            'nama_kontak' => 'required|string|max:200',
-            'kategori' => 'required|string',
-            'nomor_telepon' => 'required|string|max:20',
-            'email' => 'nullable|email',
+            'nama' => 'required|string|max:200',
+            'jabatan' => 'required|string',
             'alamat' => 'nullable|string',
-            'jam_operasional' => 'nullable|string',
+            'no_hp' => 'required|string|max:20',
+            'email' => 'nullable|email',
         ]);
 
         $kontak->update($validated);

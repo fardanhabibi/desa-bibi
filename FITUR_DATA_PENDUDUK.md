@@ -290,4 +290,4 @@ Jika ada masalah atau pertanyaan tentang fitur Data Penduduk:
 
 **Versi Dokumentasi**: 1.0
 **Tanggal**: Januari 2025
-**Sistem**: Desa Bibi v1.0
+**Sistem**: Desa Wonoayu v1.0

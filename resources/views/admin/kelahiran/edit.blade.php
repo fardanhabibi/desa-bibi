@@ -27,28 +27,45 @@
                                 @error('nama_bayi')<span class="invalid-feedback">{{ $message }}</span>@enderror
                             </div>
 
-                            <div class="mb-3">
-                                <label class="form-label">Tanggal Lahir <span class="text-danger">*</span></label>
-                                <input type="date" name="tanggal_lahir" class="form-control @error('tanggal_lahir') is-invalid @enderror" value="{{ old('tanggal_lahir', $kelahiran->tanggal_lahir) }}" required>
-                                @error('tanggal_lahir')<span class="invalid-feedback">{{ $message }}</span>@enderror
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Tanggal Lahir <span class="text-danger">*</span></label>
+                                    <input type="date" name="tanggal_lahir" class="form-control @error('tanggal_lahir') is-invalid @enderror" value="{{ old('tanggal_lahir', optional($kelahiran->tanggal_lahir)->format('Y-m-d')) }}" required>
+                                    @error('tanggal_lahir')<span class="invalid-feedback">{{ $message }}</span>@enderror
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Tempat Lahir</label>
+                                    <input type="text" name="tempat_lahir" class="form-control @error('tempat_lahir') is-invalid @enderror" value="{{ old('tempat_lahir', $kelahiran->tempat_lahir) }}" placeholder="Masukkan Tempat Lahir (opsional)">
+                                    @error('tempat_lahir')<span class="invalid-feedback">{{ $message }}</span>@enderror
+                                </div>
                             </div>
 
                             <div class="mb-3">
-                                <label class="form-label">Tempat Lahir <span class="text-danger">*</span></label>
-                                <input type="text" name="tempat_lahir" class="form-control @error('tempat_lahir') is-invalid @enderror" value="{{ old('tempat_lahir', $kelahiran->tempat_lahir) }}" required>
-                                @error('tempat_lahir')<span class="invalid-feedback">{{ $message }}</span>@enderror
+                                <label class="form-label">Ibu (Nama)</label>
+                                <input type="text" name="ibu_nama" class="form-control @error('ibu_nama') is-invalid @enderror" value="{{ old('ibu_nama', optional($kelahiran->ibu)->nama ?? $kelahiran->ibu_nama ?? $kelahiran->ibu_nik) }}" placeholder="Masukkan Nama Ibu (opsional)">
+                                @error('ibu_nama')<span class="invalid-feedback">{{ $message }}</span>@enderror
                             </div>
 
                             <div class="mb-3">
-                                <label class="form-label">Nama Ibu <span class="text-danger">*</span></label>
-                                <input type="text" name="nama_ibu" class="form-control @error('nama_ibu') is-invalid @enderror" value="{{ old('nama_ibu', $kelahiran->nama_ibu) }}" required>
-                                @error('nama_ibu')<span class="invalid-feedback">{{ $message }}</span>@enderror
+                                <label class="form-label">Ayah (Nama)</label>
+                                <input type="text" name="ayah_nama" class="form-control @error('ayah_nama') is-invalid @enderror" value="{{ old('ayah_nama', optional($kelahiran->ayah)->nama ?? $kelahiran->ayah_nama ?? $kelahiran->ayah_nik) }}" placeholder="Masukkan Nama Ayah (opsional)">
+                                @error('ayah_nama')<span class="invalid-feedback">{{ $message }}</span>@enderror
                             </div>
 
                             <div class="mb-3">
-                                <label class="form-label">Nama Ayah <span class="text-danger">*</span></label>
-                                <input type="text" name="nama_ayah" class="form-control @error('nama_ayah') is-invalid @enderror" value="{{ old('nama_ayah', $kelahiran->nama_ayah) }}" required>
-                                @error('nama_ayah')<span class="invalid-feedback">{{ $message }}</span>@enderror
+                                <label class="form-label">No. Kartu Keluarga <span class="text-danger">*</span></label>
+                                <input type="text" name="kk_no" class="form-control @error('kk_no') is-invalid @enderror" value="{{ old('kk_no', optional($kelahiran->kartuKeluarga)->no_kk) }}" placeholder="Masukkan No. KK (mis. 0999...)" required>
+                                @error('kk_no')<span class="invalid-feedback">{{ $message }}</span>@enderror
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">Jenis Kelamin <span class="text-danger">*</span></label>
+                                <select name="jenis_kelamin" class="form-select @error('jenis_kelamin') is-invalid @enderror" required>
+                                    <option value="">Pilih...</option>
+                                    <option value="L" {{ old('jenis_kelamin', $kelahiran->jenis_kelamin) == 'L' ? 'selected' : '' }}>Laki-laki</option>
+                                    <option value="P" {{ old('jenis_kelamin', $kelahiran->jenis_kelamin) == 'P' ? 'selected' : '' }}>Perempuan</option>
+                                </select>
+                                @error('jenis_kelamin')<span class="invalid-feedback">{{ $message }}</span>@enderror
                             </div>
                         </div>
 

@@ -28,7 +28,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <form action="{{ route('user.surat.store') }}" method="POST">
+                    <form action="{{ route('user.surat.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         
                         <div class="row">
@@ -41,10 +41,15 @@
                                             required>
                                         <option value="">Pilih Jenis Surat</option>
                                         @foreach($jenisSurat as $jenis)
-                                            <option value="{{ $jenis }}" 
-                                                {{ old('jenis_surat') == $jenis ? 'selected' : '' }}>
-                                                {{ $jenis }}
-                                            </option>
+                                            @if(is_object($jenis))
+                                                <option value="{{ $jenis->id }}" {{ old('jenis_surat') == $jenis->id ? 'selected' : '' }}>
+                                                    {{ $jenis->nama_surat }}
+                                                </option>
+                                            @else
+                                                <option value="{{ $jenis }}" {{ old('jenis_surat') == $jenis ? 'selected' : '' }}>
+                                                    {{ $jenis }}
+                                                </option>
+                                            @endif
                                         @endforeach
                                     </select>
                                     @error('jenis_surat')
@@ -81,6 +86,21 @@
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                     <div class="form-text">Maksimal 1000 karakter</div>
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <div class="mb-3">
+                                    <label for="file_lampiran" class="form-label">Lampiran (Opsional)</label>
+                                    <input type="file" 
+                                           class="form-control @error('file_lampiran') is-invalid @enderror" 
+                                           id="file_lampiran" 
+                                           name="file_lampiran"
+                                           accept=".pdf,.jpg,.jpeg,.png">
+                                    @error('file_lampiran')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                    <div class="form-text">Tipe file: PDF, JPG, JPEG, PNG (Maks 2MB)</div>
                                 </div>
                             </div>
                         </div>

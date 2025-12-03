@@ -11,8 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('layanan_online', function (Blueprint $table) {
-            $table->enum('status', ['aktif', 'nonaktif'])->default('aktif')->after('deskripsi');
+        Schema::table('agenda', function (Blueprint $table) {
+            // Change tanggal_selesai from date to time
+            $table->time('tanggal_selesai')->nullable()->change();
         });
     }
 
@@ -21,8 +22,9 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('layanan_online', function (Blueprint $table) {
-            $table->dropColumn('status');
+        Schema::table('agenda', function (Blueprint $table) {
+            // Revert back to date
+            $table->date('tanggal_selesai')->nullable()->change();
         });
     }
 };

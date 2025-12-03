@@ -32,15 +32,23 @@ class KartuKeluargaController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'no_kk' => 'required|string|unique:kartu_keluargas,no_kk|max:16',
-            'kepala_keluarga_nik' => 'required|exists:penduduks,nik',
+            'no_kk' => 'required|string|unique:kartu_keluarga,no_kk|max:16',
+            'kepala_keluarga' => 'required|string|max:255',
             'alamat' => 'required|string',
-            'desa' => 'nullable|string',
-            'kecamatan' => 'nullable|string',
-            'kabupaten' => 'nullable|string',
+            'rt' => 'nullable|string|max:5',
+            'rw' => 'nullable|string|max:5',
+            'dusun' => 'nullable|string|max:255',
         ]);
 
-        KartuKeluarga::create($validated);
+        // Sesuaikan key dengan field di model
+        KartuKeluarga::create([
+            'no_kk' => $validated['no_kk'],
+            'kepala_keluarga' => $validated['kepala_keluarga'],
+            'alamat' => $validated['alamat'],
+            'rt' => $validated['rt'] ?? null,
+            'rw' => $validated['rw'] ?? null,
+            'dusun' => $validated['dusun'] ?? null,
+        ]);
         return redirect()->route('admin.kartu_keluarga.index')->with('success', 'Kartu Keluarga berhasil ditambahkan');
     }
 
@@ -58,15 +66,22 @@ class KartuKeluargaController extends Controller
     public function update(Request $request, KartuKeluarga $kartu_keluarga)
     {
         $validated = $request->validate([
-            'no_kk' => 'required|string|unique:kartu_keluargas,no_kk,' . $kartu_keluarga->id . '|max:16',
-            'kepala_keluarga_nik' => 'required|exists:penduduks,nik',
+            'no_kk' => 'required|string|unique:kartu_keluarga,no_kk,' . $kartu_keluarga->id . '|max:16',
+            'kepala_keluarga' => 'required|string|max:255',
             'alamat' => 'required|string',
-            'desa' => 'nullable|string',
-            'kecamatan' => 'nullable|string',
-            'kabupaten' => 'nullable|string',
+            'rt' => 'nullable|string|max:5',
+            'rw' => 'nullable|string|max:5',
+            'dusun' => 'nullable|string|max:255',
         ]);
 
-        $kartu_keluarga->update($validated);
+        $kartu_keluarga->update([
+            'no_kk' => $validated['no_kk'],
+            'kepala_keluarga' => $validated['kepala_keluarga'],
+            'alamat' => $validated['alamat'],
+            'rt' => $validated['rt'] ?? null,
+            'rw' => $validated['rw'] ?? null,
+            'dusun' => $validated['dusun'] ?? null,
+        ]);
         return redirect()->route('admin.kartu_keluarga.index')->with('success', 'Kartu Keluarga berhasil diperbarui');
     }
 

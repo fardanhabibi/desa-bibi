@@ -5,8 +5,9 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Auth;
-
 use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\URL;
+use SocialiteProviders\Manager\SocialiteWasCalled;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -20,7 +21,7 @@ class AppServiceProvider extends ServiceProvider
                 $user = Auth::user();
                 $name = $user->name;
                 $role = $user->role;
-                $avatar = $user->provider == null
+                $avatar = $user->provider === null
                     ? url('assets/images/user/' . $user->avatar)
                     : $user->avatar;
 
@@ -34,8 +35,13 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        Event::listen(function (\SocialiteProviders\Manager\SocialiteWasCalled $event) {
+        Event::listen(function (SocialiteWasCalled $event) {
             $event->extendSocialite('discord', \SocialiteProviders\Discord\Provider::class);
         });
+
+        // if ($this->app->environment('local')) {
+        //     URL::forceRootUrl(config('app.url'));
+        //     URL::forceScheme('https');
+        // }
     }
 }

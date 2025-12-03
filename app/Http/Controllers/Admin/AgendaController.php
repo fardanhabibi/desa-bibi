@@ -31,7 +31,7 @@ class AgendaController extends Controller
         $validated = $request->validate([
             'nama_acara' => 'required|string|max:255',
             'tanggal_mulai' => 'required|date',
-            'tanggal_selesai' => 'required|date|after_or_equal:tanggal_mulai',
+            'tanggal_selesai' => 'required|date_format:H:i',
             'lokasi' => 'nullable|string|max:255',
             'deskripsi' => 'nullable|string',
         ]);
@@ -55,7 +55,7 @@ class AgendaController extends Controller
         $validated = $request->validate([
             'nama_acara' => 'required|string|max:255',
             'tanggal_mulai' => 'required|date',
-            'tanggal_selesai' => 'required|date|after_or_equal:tanggal_mulai',
+            'tanggal_selesai' => 'required|date_format:H:i',
             'lokasi' => 'nullable|string|max:255',
             'deskripsi' => 'nullable|string',
         ]);

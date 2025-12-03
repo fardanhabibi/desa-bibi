@@ -22,20 +22,38 @@
                         <div class="card-body">
                             <div class="mb-3">
                                 <label class="form-label">No. Kartu Keluarga <span class="text-danger">*</span></label>
-                                <input type="text" name="no_kartu_keluarga" class="form-control @error('no_kartu_keluarga') is-invalid @enderror" value="{{ old('no_kartu_keluarga') }}" required>
-                                @error('no_kartu_keluarga')<span class="invalid-feedback">{{ $message }}</span>@enderror
+                                <input type="text" name="no_kk" class="form-control @error('no_kk') is-invalid @enderror" value="{{ old('no_kk') }}" required>
+                                @error('no_kk')<span class="invalid-feedback">{{ $message }}</span>@enderror
                             </div>
 
                             <div class="mb-3">
                                 <label class="form-label">Alamat Lengkap <span class="text-danger">*</span></label>
-                                <textarea name="alamat_lengkap" class="form-control @error('alamat_lengkap') is-invalid @enderror" rows="3" required>{{ old('alamat_lengkap') }}</textarea>
-                                @error('alamat_lengkap')<span class="invalid-feedback">{{ $message }}</span>@enderror
+                                <textarea name="alamat" class="form-control @error('alamat') is-invalid @enderror" rows="3" required>{{ old('alamat') }}</textarea>
+                                @error('alamat')<span class="invalid-feedback">{{ $message }}</span>@enderror
                             </div>
 
                             <div class="mb-3">
                                 <label class="form-label">Kepala Keluarga <span class="text-danger">*</span></label>
                                 <input type="text" name="kepala_keluarga" class="form-control @error('kepala_keluarga') is-invalid @enderror" value="{{ old('kepala_keluarga') }}" required>
                                 @error('kepala_keluarga')<span class="invalid-feedback">{{ $message }}</span>@enderror
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-4 mb-3">
+                                    <label class="form-label">RT</label>
+                                    <input type="text" name="rt" class="form-control @error('rt') is-invalid @enderror" value="{{ old('rt') }}">
+                                    @error('rt')<span class="invalid-feedback">{{ $message }}</span>@enderror
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label class="form-label">RW</label>
+                                    <input type="text" name="rw" class="form-control @error('rw') is-invalid @enderror" value="{{ old('rw') }}">
+                                    @error('rw')<span class="invalid-feedback">{{ $message }}</span>@enderror
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label class="form-label">Dusun</label>
+                                    <input type="text" name="dusun" class="form-control @error('dusun') is-invalid @enderror" value="{{ old('dusun') }}">
+                                    @error('dusun')<span class="invalid-feedback">{{ $message }}</span>@enderror
+                                </div>
                             </div>
                         </div>
 

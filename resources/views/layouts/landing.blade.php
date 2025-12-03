@@ -312,7 +312,7 @@
                     <div class="col-lg-4 mb-4 mb-lg-0">
                         <img src="{{ asset('assets/images/my/logo-black-cp.png') }}"
                             alt="Logo Sekolah Harapan Bangsa" class="img-fluid mb-3" style="max-width: 200px;">
-                        <p class="opacity-75 mb-4">desa Wonoayu adalah sebuah kecamatan di Kabupaten Sidoarjo, Provinsi Jawa Timur, Indonesia. Wonoayu dilewati Jalan Provinsi yaitu Jalan Raya Wonoayu. Secara harfiah Wonoayu berasal dari bahasa jawa yang berarti Wono artinya Hutan dan Ayu artinya indah yang berarti Hutan yang Indah</p>
+                        <p class="opacity-75 mb-4">Urangagung terletak di Kecamatan Sidoarjo, Kabupaten Sidoarjo, Jawa Timur, Indonesia. Kelurahan ini memiliki kantor kelurahan yang melayani masyarakat dalam berbagai kebutuhan administrasi, termasuk perizinan dan layanan kependudukan.</p>
                         <div class="footer-sos-link">
                             <a href="#" class="me-2"><i class="fab fa-facebook-f"></i></a>
                             <a href="#" class="me-2"><i class="fab fa-instagram"></i></a>
@@ -336,11 +336,11 @@
                                 <ul class="list-unstyled footer-link">
                                     <li class="d-flex mb-3">
                                         <i class="ti ti-map-pin me-3 mt-1 text-primary"></i>
-                                        <span>Jl. Balai Desa No.1 61261 Wonoayu Jawa Timur Indonesia</span>
+                                        <span>Jl. Balai Desa No.1 61261 Urangagung Jawa Timur Indonesia</span>
                                     </li>
                                     <li class="d-flex mb-3">
                                         <i class="ti ti-mail me-3 mt-1 text-primary"></i>
-                                        <span>info wonoayu @sidoarjokab.go.id</span>
+                                        <span>info@urangagung.sidoarjokab.go.id</span>
                                     </li>
                                     <li class="d-flex">
                                         <i class="ti ti-phone me-3 mt-1 text-primary"></i>

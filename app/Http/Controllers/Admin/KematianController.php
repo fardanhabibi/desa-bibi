@@ -34,12 +34,10 @@ class KematianController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'penduduk_nik' => 'required|exists:penduduks,nik',
-            'tanggal_kematian' => 'required|date',
+            'nama_almarhum' => 'required|string',
+            'tanggal_meninggal' => 'required|date',
             'penyebab_kematian' => 'required|string',
-            'tempat_kematian' => 'required|string',
-            'jam_kematian' => 'nullable|date_format:H:i:s',
-            'keterangan' => 'nullable|string',
+            'nama_pelapor' => 'required|string',
         ]);
 
         Kematian::create($validated);
@@ -60,12 +58,10 @@ class KematianController extends Controller
     public function update(Request $request, Kematian $kematian)
     {
         $validated = $request->validate([
-            'penduduk_nik' => 'required|exists:penduduks,nik',
-            'tanggal_kematian' => 'required|date',
+            'nama_almarhum' => 'required|string',
+            'tanggal_meninggal' => 'required|date',
             'penyebab_kematian' => 'required|string',
-            'tempat_kematian' => 'required|string',
-            'jam_kematian' => 'nullable|date_format:H:i:s',
-            'keterangan' => 'nullable|string',
+            'nama_pelapor' => 'required|string',
         ]);
 
         $kematian->update($validated);

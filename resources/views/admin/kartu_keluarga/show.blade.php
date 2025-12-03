@@ -6,8 +6,8 @@
 <div class="page-wrapper">
     <div class="container-xl">
         <div class="page-header">
-            <div class="col">
-                <h2 class="page-title">Detail Kartu Keluarga #{{ $kartuKeluarga->id }}</h2>
+                <div class="col">
+                <h2 class="page-title">Detail Kartu Keluarga #{{ $kartu_keluarga->id }}</h2>
             </div>
         </div>
     </div>
@@ -17,12 +17,16 @@
                 <div class="col-md-8">
                     <div class="card">
                         <div class="card-body">
-                            <p><strong>No. Kartu Keluarga:</strong> {{ $kartuKeluarga->no_kartu_keluarga }}</p>
-                            <p><strong>Alamat Lengkap:</strong> {{ $kartuKeluarga->alamat_lengkap }}</p>
-                            <p><strong>Kepala Keluarga:</strong> {{ $kartuKeluarga->kepala_keluarga }}</p>
+                            <p><strong>No. Kartu Keluarga:</strong> {{ $kartu_keluarga->no_kk }}</p>
+                            <p><strong>Alamat Lengkap:</strong> {{ $kartu_keluarga->alamat }}</p>
+                            <p><strong>Kepala Keluarga:</strong> {{ $kartu_keluarga->kepala_keluarga }}</p>
+                            @if(!empty($kartu_keluarga->rt) || !empty($kartu_keluarga->rw) || !empty($kartu_keluarga->dusun))
+                                <p><strong>RT/RW/Dusun:</strong>
+                                    {{ $kartu_keluarga->rt }} / {{ $kartu_keluarga->rw }} - {{ $kartu_keluarga->dusun }}</p>
+                            @endif
                         </div>
                         <div class="card-footer text-end">
-                            <a href="{{ route('admin.kartu_keluarga.edit', $kartuKeluarga->id) }}" class="btn btn-primary">Edit</a>
+                            <a href="{{ route('admin.kartu_keluarga.edit', $kartu_keluarga->id) }}" class="btn btn-primary">Edit</a>
                             <a href="{{ route('admin.kartu_keluarga.index') }}" class="btn btn-link">Kembali</a>
                         </div>
                     </div>

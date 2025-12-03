@@ -66,12 +66,24 @@
                                 @if($pengaduan->file_lampiran)
                                     <tr>
                                         <td><strong>Lampiran</strong></td>
-                                        <td>: 
-                                            <a href="{{ asset('storage/pengaduan/' . $pengaduan->file_lampiran) }}" 
-                                               target="_blank" 
-                                               class="btn btn-sm btn-light-primary">
-                                                <i class="ti ti-download me-1"></i> Lihat File
-                                            </a>
+                                        <td>:
+                                            @php
+                                                $files = is_array($pengaduan->file_lampiran) ? $pengaduan->file_lampiran : (json_decode($pengaduan->file_lampiran, true) ?: []);
+                                            @endphp
+                                            @if(empty($files) && is_string($pengaduan->file_lampiran))
+                                                {{-- fallback single file string --}}
+                                                <a href="{{ asset('storage/pengaduan/' . $pengaduan->file_lampiran) }}" target="_blank" class="btn btn-sm btn-light-primary">
+                                                    <i class="ti ti-download me-1"></i> Lihat File
+                                                </a>
+                                            @else
+                                                @foreach($files as $f)
+                                                    @if($f)
+                                                        <a href="{{ asset('storage/pengaduan/' . $f) }}" target="_blank" class="btn btn-sm btn-light-primary me-1 mb-1">
+                                                            <i class="ti ti-download me-1"></i> {{ $loop->iteration }}
+                                                        </a>
+                                                    @endif
+                                                @endforeach
+                                            @endif
                                         </td>
                                     </tr>
                                 @endif

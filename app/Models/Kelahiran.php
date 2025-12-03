@@ -10,7 +10,7 @@ class Kelahiran extends Model
     use HasFactory;
 
     protected $table = 'kelahiran';
-    protected $fillable = ['nama_bayi', 'tanggal_lahir', 'jenis_kelamin', 'ayah_nik', 'ibu_nik', 'kk_id'];
+    protected $fillable = ['nama_bayi', 'tanggal_lahir', 'jenis_kelamin', 'ayah_nik', 'ibu_nik', 'kk_id', 'ibu_nama', 'ayah_nama', 'tempat_lahir'];
 
     protected $casts = [
         'tanggal_lahir' => 'date',

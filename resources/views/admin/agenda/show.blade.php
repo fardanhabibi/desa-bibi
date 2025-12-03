@@ -17,7 +17,7 @@
                         <div class="card-body">
                             <p><strong>Lokasi:</strong> {{ $agenda->lokasi ?? '-' }}</p>
                             <p><strong>Tanggal Mulai:</strong> {{ $agenda->tanggal_mulai?->format('d M Y') ?? '-' }}</p>
-                            <p><strong>Tanggal Selesai:</strong> {{ $agenda->tanggal_selesai?->format('d M Y') ?? '-' }}</p>
+                            <p><strong>Jam Mulai:</strong> {{ $agenda->tanggal_selesai?->format('H:i') ?? '-' }}</p>
                             <p><strong>Deskripsi:</strong></p>
                             <p>{{ $agenda->deskripsi ?? '-' }}</p>
                         </div>

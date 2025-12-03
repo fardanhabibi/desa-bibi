@@ -57,10 +57,15 @@
                             <tbody>
                                 @forelse ($migrasi as $item)
                                 <tr>
-                                    <td><strong>{{ $item->penduduk->nama ?? '-' }}</strong></td>
-                                    <td>{{ $item->asal_kabupaten }}, {{ $item->asal_kecamatan }}</td>
-                                    <td>{{ $item->tujuan_kabupaten }}, {{ $item->tujuan_kecamatan }}</td>
-                                    <td>{{ \Carbon\Carbon::parse($item->tanggal_migrasi)->format('d M Y') }}</td>
+                                    <td><strong>{{ $item->penduduk?->nama ?? ($item->penduduk_nik ?? '-') }}</strong></td>
+                                    @php
+                                        $parts = explode(' -> ', $item->asal_tujuan ?? '');
+                                        $asal = $parts[0] ?? '-';
+                                        $tujuan = $parts[1] ?? '-';
+                                    @endphp
+                                    <td>{{ $asal }}</td>
+                                    <td>{{ $tujuan }}</td>
+                                    <td>{{ optional($item->tanggal)->format('d M Y') ?? '-' }}</td>
                                     <td>
                                         <a href="{{ route('admin.migrasi.show', $item) }}" class="btn btn-sm btn-info" title="Lihat">
                                             <i class="ti ti-eye"></i>

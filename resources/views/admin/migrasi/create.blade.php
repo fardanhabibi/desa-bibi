@@ -21,9 +21,16 @@
                         @csrf
                         <div class="card-body">
                             <div class="mb-3">
-                                <label class="form-label">Nama Penduduk <span class="text-danger">*</span></label>
-                                <input type="text" name="nama_penduduk" class="form-control @error('nama_penduduk') is-invalid @enderror" value="{{ old('nama_penduduk') }}" required>
-                                @error('nama_penduduk')<span class="invalid-feedback">{{ $message }}</span>@enderror
+                                <label class="form-label">Penduduk <span class="text-danger">*</span></label>
+                                <select name="penduduk_nik" class="form-select @error('penduduk_nik') is-invalid @enderror" required>
+                                    <option value="">Pilih penduduk...</option>
+                                    @foreach($penduduk as $p)
+                                        <option value="{{ $p->nik }}" {{ old('penduduk_nik') == $p->nik ? 'selected' : '' }}>
+                                            {{ $p->nama }} ({{ $p->nik }})
+                                        </option>
+                                    @endforeach
+                                </select>
+                                @error('penduduk_nik')<span class="invalid-feedback">{{ $message }}</span>@enderror
                             </div>
 
                             <div class="mb-3">
@@ -45,7 +52,7 @@
                             </div>
 
                             <div class="mb-3">
-                                <label class="form-label">Alasan <span class="text-danger">*</span></label>
+                                <label class="form-label">Alasan / Jenis <span class="text-danger">*</span></label>
                                 <textarea name="alasan" class="form-control @error('alasan') is-invalid @enderror" rows="3" required>{{ old('alasan') }}</textarea>
                                 @error('alasan')<span class="invalid-feedback">{{ $message }}</span>@enderror
                             </div>

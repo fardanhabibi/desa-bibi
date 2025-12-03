@@ -57,10 +57,10 @@
                             <tbody>
                                 @forelse ($kelahiran as $item)
                                 <tr>
-                                    <td><strong>{{ $item->nama_anak }}</strong></td>
-                                    <td>{{ $item->ibu->nama ?? '-' }}</td>
-                                    <td>{{ \Carbon\Carbon::parse($item->tanggal_lahir)->format('d M Y') }}</td>
-                                    <td>{{ $item->tempat_lahir }}</td>
+                                    <td><strong>{{ $item->nama_bayi }}</strong></td>
+                                    <td>{{ $item->ibu_nama ?? $item->ibu?->nama ?? '-' }}</td>
+                                    <td>{{ optional($item->tanggal_lahir)->format('d M Y') ?? '-' }}</td>
+                                    <td>{{ $item->tempat_lahir ?? '-' }}</td>
                                     <td>
                                         <a href="{{ route('admin.kelahiran.show', $item) }}" class="btn btn-sm btn-info" title="Lihat">
                                             <i class="ti ti-eye"></i>

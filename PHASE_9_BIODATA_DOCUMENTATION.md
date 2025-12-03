@@ -1,8 +1,8 @@
-# 🏘️ Sistem Informasi Desa Bibi - Fitur Data Penduduk (Phase 9)
+# 🏘️ Sistem Informasi Desa Wonoayu - Fitur Data Penduduk (Phase 9)
 
 ## ✅ Status: SELESAI
 
-Fitur User Biodata (Data Penduduk) untuk sistem Desa Bibi telah berhasil diimplementasikan dengan lengkap.
+Fitur User Biodata (Data Penduduk) untuk sistem Desa Wonoayu telah berhasil diimplementasikan dengan lengkap.
 
 ---
 

@@ -10,5 +10,5 @@ class KontakDesa extends Model
     use HasFactory;
 
     protected $table = 'kontak_desa';
-    protected $fillable = ['nama', 'jabatan', 'alamat', 'no_hp', 'email', 'jenis'];
+    protected $fillable = ['nama', 'jabatan', 'alamat', 'no_hp', 'email'];
 }

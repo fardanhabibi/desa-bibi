@@ -19,9 +19,9 @@
                         <div class="card-body">
                             <p><strong>Nama Bayi:</strong> {{ $kelahiran->nama_bayi }}</p>
                             <p><strong>Tanggal Lahir:</strong> {{ $kelahiran->tanggal_lahir?->format('d M Y') ?? '-' }}</p>
-                            <p><strong>Tempat Lahir:</strong> {{ $kelahiran->tempat_lahir }}</p>
-                            <p><strong>Nama Ibu:</strong> {{ $kelahiran->nama_ibu }}</p>
-                            <p><strong>Nama Ayah:</strong> {{ $kelahiran->nama_ayah }}</p>
+                            <p><strong>Tempat Lahir:</strong> {{ $kelahiran->tempat_lahir ?? '-' }}</p>
+                            <p><strong>Nama Ibu:</strong> {{ $kelahiran->ibu_nama ?? $kelahiran->ibu?->nama ?? '-' }}</p>
+                            <p><strong>Nama Ayah:</strong> {{ $kelahiran->ayah_nama ?? $kelahiran->ayah?->nama ?? '-' }}</p>
                         </div>
                         <div class="card-footer text-end">
                             <a href="{{ route('admin.kelahiran.edit', $kelahiran->id) }}" class="btn btn-primary">Edit</a>

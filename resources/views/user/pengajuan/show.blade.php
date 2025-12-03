@@ -36,199 +36,143 @@
                 </div>
             @endif
 
+            <!-- Surat Letter Format -->
             <div class="card">
-                <div class="card-header">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div>
-                            <h5 class="mb-1">{{ $surat->nomor_pengajuan }}</h5>
-                            <span class="badge {{ $surat->status_badge }}">
-                                <i class="ti {{ $surat->status_icon }} me-1"></i>
-                                {{ $surat->status }}
-                            </span>
+                <div class="card-body p-5" style="font-family: 'Times New Roman', Times, serif; line-height: 1.8;">
+                    <!-- Header Surat -->
+                    <div style="text-align: center; margin-bottom: 30px; border-bottom: 3px double #000; padding-bottom: 20px;">
+                        <div style="font-size: 16px; font-weight: bold;">PEMERINTAH DESA URANGAGUNG</div>
+                        <div style="font-size: 14px; margin-bottom: 5px;">Kecamatan Sidoarjo, Kabupaten Sidoarjo</div>
+                        <div style="font-size: 12px; margin-bottom: 10px;">Jl. Balai Desa No.1 61261, Provinsi Jawa Timur</div>
+                        <div style="font-size: 12px; color: #666;">Telp: (031) 897-1234 | Email: info@urangagung.sidoarjokab.go.id</div>
+                    </div>
+
+                    <!-- Nomor Surat -->
+                    <div style="text-align: right; margin-bottom: 30px; font-size: 12px;">
+                        <strong>Nomor: {{ $surat->nomor_pengajuan }}/{{ now()->format('m') }}/{{ now()->year }}</strong>
+                    </div>
+
+                    <!-- Jenis Surat -->
+                    <div style="text-align: center; margin-bottom: 30px; font-weight: bold; font-size: 14px;">
+                        {{ strtoupper($surat->jenis_surat) }}
+                    </div>
+
+                    <!-- Isi Surat -->
+                    <div style="text-align: justify; margin-bottom: 20px;">
+                        <p style="margin-bottom: 15px;">
+                            Yang bertanda tangan dibawah ini, Pemerintah Desa Urangagung, Kecamatan Sidoarjo, Kabupaten Sidoarjo, Provinsi Jawa Timur, dengan ini menerangkan bahwa:
+                        </p>
+
+                        <!-- Data Pemohon -->
+                        <div style="margin: 25px 0; padding: 15px; background: #f9f9f9; border-left: 4px solid #333;">
+                            <table style="width: 100%; font-size: 13px;">
+                                <tr>
+                                    <td style="width: 150px;"><strong>Nama</strong></td>
+                                    <td>: {{ $surat->user->name }}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>NIK</strong></td>
+                                    <td>: {{ $surat->user->nik }}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Tempat/Tanggal Lahir</strong></td>
+                                    <td>: {{ $surat->user->tempat_lahir }}, {{ \Carbon\Carbon::parse($surat->user->tanggal_lahir)->format('d F Y') }}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Alamat</strong></td>
+                                    <td>: {{ $surat->user->alamat }}, {{ $surat->user->kota }}, {{ $surat->user->provinsi }}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Pekerjaan</strong></td>
+                                    <td>: {{ $surat->user->pekerjaan ?? '-' }}</td>
+                                </tr>
+                            </table>
                         </div>
-                        <a href="{{ route('user.surat.index') }}" class="btn btn-light">
-                            <i class="ti ti-arrow-left me-1"></i> Kembali
-                        </a>
+
+                        <p style="margin-bottom: 15px;">
+                            Adalah benar orang tersebut diatas, yang berdomisili dan terdaftar sebagai penduduk di Desa Urangagung, Kecamatan Sidoarjo, Kabupaten Sidoarjo.
+                        </p>
+
+                        <p style="margin-bottom: 15px;">
+                            Surat keterangan ini diberikan kepada yang bersangkutan untuk keperluan:
+                        </p>
+
+                        <p style="margin-bottom: 15px; font-weight: bold; text-decoration: underline;">
+                            {{ $surat->keperluan }}
+                        </p>
+
+                        @if($surat->keterangan)
+                            <p style="margin-bottom: 15px;">
+                                <strong>Keterangan tambahan:</strong> {{ $surat->keterangan }}
+                            </p>
+                        @endif
+
+                        <p style="margin-bottom: 30px;">
+                            Demikian surat keterangan ini diberikan untuk dapat digunakan sebagaimana perlunya.
+                        </p>
+                    </div>
+
+                    <!-- Tanda Tangan -->
+                    <div style="margin-top: 40px; display: flex; justify-content: space-between;">
+                        <div style="width: 45%; text-align: center;">
+                            <div style="font-weight: bold; margin-bottom: 50px;">Pemohon,</div>
+                            <div style="border-top: 1px solid #000; padding-top: 5px;">
+                                <strong>{{ $surat->user->name }}</strong>
+                            </div>
+                        </div>
+                        <div style="width: 45%; text-align: center;">
+                            <div style="font-weight: bold; margin-bottom: 5px;">Pemerintah Desa Urangagung,</div>
+                            <div style="font-size: 11px; margin-bottom: 50px;">Sidoarjo, {{ now()->format('d F Y') }}</div>
+                            <div style="border-top: 1px solid #000; padding-top: 5px;">
+                                <div style="margin-bottom: 5px;">..............................</div>
+                                <div style="font-size: 11px;">Kepala Desa/Petugas</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Footer Info -->
+                    <div style="margin-top: 40px; padding-top: 15px; border-top: 1px solid #ddd; font-size: 11px; color: #666; text-align: center;">
+                        <p style="margin-bottom: 5px;">Surat ini dibuat secara digital melalui Sistem Informasi Desa (SID) Urangagung</p>
+                        <p style="margin-bottom: 0;">Nomor Registrasi: {{ $surat->nomor_pengajuan }} | Status: <span class="badge {{ $surat->status_badge }}">{{ $surat->status }}</span></p>
                     </div>
                 </div>
-                <div class="card-body">
-                    <!-- Timeline Status -->
-                    <div class="mb-4">
-                        <h6 class="mb-3">Timeline Proses</h6>
-                        <div class="row">
-                            <div class="col-md-3">
-                                <div class="text-center">
-                                    <div class="avtar avtar-l {{ $surat->status !== 'Pending' ? 'bg-success' : 'bg-light-secondary' }} mb-2">
-                                        <i class="ti ti-send f-24"></i>
-                                    </div>
-                                    <h6 class="mb-1">Diajukan</h6>
-                                    <small class="text-muted">{{ $surat->created_at->format('d/m/Y H:i') }}</small>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="text-center">
-                                    <div class="avtar avtar-l {{ $surat->tanggal_diproses ? 'bg-success' : 'bg-light-secondary' }} mb-2">
-                                        <i class="ti ti-refresh f-24"></i>
-                                    </div>
-                                    <h6 class="mb-1">Diproses</h6>
-                                    <small class="text-muted">
-                                        {{ $surat->tanggal_diproses ? $surat->tanggal_diproses->format('d/m/Y H:i') : '-' }}
-                                    </small>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="text-center">
-                                    <div class="avtar avtar-l {{ $surat->status === 'Disetujui' ? 'bg-success' : 'bg-light-secondary' }} mb-2">
-                                        <i class="ti ti-check f-24"></i>
-                                    </div>
-                                    <h6 class="mb-1">Disetujui</h6>
-                                    <small class="text-muted">
-                                        {{ $surat->status === 'Disetujui' && $surat->tanggal_selesai ? $surat->tanggal_selesai->format('d/m/Y H:i') : '-' }}
-                                    </small>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="text-center">
-                                    <div class="avtar avtar-l {{ $surat->status === 'Disetujui' && $surat->file_surat ? 'bg-success' : 'bg-light-secondary' }} mb-2">
-                                        <i class="ti ti-download f-24"></i>
-                                    </div>
-                                    <h6 class="mb-1">Siap Diunduh</h6>
-                                    <small class="text-muted">
-                                        {{ $surat->status === 'Disetujui' && $surat->file_surat ? 'Tersedia' : 'Belum' }}
-                                    </small>
-                                </div>
-                            </div>
+
+                <!-- Action Buttons -->
+                <div class="card-footer bg-light">
+                    <div class="d-flex justify-content-between align-items-center flex-column flex-md-row gap-3">
+                        <a href="{{ route('user.surat.index') }}" class="btn btn-light order-2 order-md-1">
+                            <i class="ti ti-arrow-left me-1"></i> Kembali
+                        </a>
+                        <div class="d-flex gap-2 order-1 order-md-2">
+                            <button class="btn btn-primary" onclick="window.print()">
+                                <i class="ti ti-printer me-1"></i> Cetak
+                            </button>
+                            <a href="{{ route('user.surat.downloadPdf', $surat) }}" class="btn btn-success">
+                                <i class="ti ti-download me-1"></i> Download PDF
+                            </a>
                         </div>
                     </div>
-
-                    <hr>
-
-                    <!-- Informasi Pengajuan -->
-                    <div class="row mb-4">
-                        <div class="col-md-6">
-                            <table class="table table-borderless mb-0">
-                                <tr>
-                                    <td width="180"><strong>Jenis Surat</strong></td>
-                                    <td>: <span class="badge bg-light-primary">{{ $surat->jenis_surat }}</span></td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Keperluan</strong></td>
-                                    <td>: {{ $surat->keperluan }}</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Tanggal Pengajuan</strong></td>
-                                    <td>: {{ $surat->created_at->format('d F Y, H:i') }}</td>
-                                </tr>
-                            </table>
-                        </div>
-                        <div class="col-md-6">
-                            <table class="table table-borderless mb-0">
-                                <tr>
-                                    <td width="180"><strong>Status</strong></td>
-                                    <td>: 
-                                        <span class="badge {{ $surat->status_badge }}">
-                                            <i class="ti {{ $surat->status_icon }} me-1"></i>
-                                            {{ $surat->status }}
-                                        </span>
-                                    </td>
-                                </tr>
-                                @if($surat->file_pendukung)
-                                    <tr>
-                                        <td><strong>File Pendukung</strong></td>
-                                        <td>: 
-                                            <a href="{{ asset('storage/surat/pendukung/' . $surat->file_pendukung) }}" 
-                                               target="_blank" 
-                                               class="btn btn-sm btn-light-primary">
-                                                <i class="ti ti-paperclip me-1"></i> Lihat File
-                                            </a>
-                                        </td>
-                                    </tr>
-                                @endif
-                                @if($surat->admin)
-                                    <tr>
-                                        <td><strong>Diproses Oleh</strong></td>
-                                        <td>: {{ $surat->admin->name }}</td>
-                                    </tr>
-                                @endif
-                            </table>
-                        </div>
-                    </div>
-
-                    <!-- Keterangan Tambahan -->
-                    @if($surat->keterangan)
-                        <div class="mb-4">
-                            <h6 class="mb-3">Keterangan Tambahan:</h6>
-                            <div class="p-3 bg-light rounded">
-                                {!! nl2br(e($surat->keterangan)) !!}
-                            </div>
-                        </div>
-                    @endif
-
-                    <!-- Catatan Admin -->
-                    @if($surat->catatan_admin)
-                        <hr>
-                        <div class="alert {{ $surat->status === 'Disetujui' ? 'alert-success' : ($surat->status === 'Ditolak' ? 'alert-danger' : 'alert-info') }}">
-                            <div class="d-flex justify-content-between align-items-start mb-3">
-                                <h6 class="mb-0"><i class="ti ti-message-circle me-2"></i>Catatan dari Admin</h6>
-                                @if($surat->tanggal_selesai)
-                                    <small class="text-muted">
-                                        {{ $surat->tanggal_selesai->format('d F Y, H:i') }}
-                                    </small>
-                                @endif
-                            </div>
-                            <div class="p-3 bg-white rounded">
-                                {!! nl2br(e($surat->catatan_admin)) !!}
-                            </div>
-                        </div>
-                    @else
-                        @if($surat->status === 'Pending')
-                            <div class="alert alert-info">
-                                <i class="ti ti-clock me-2"></i>
-                                Pengajuan surat Anda sedang menunggu untuk diproses oleh admin.
-                            </div>
-                        @elseif($surat->status === 'Diproses')
-                            <div class="alert alert-info">
-                                <i class="ti ti-refresh me-2"></i>
-                                Surat Anda sedang dalam proses pembuatan. Harap bersabar.
-                            </div>
-                        @endif
-                    @endif
-
-                    <!-- Download Button -->
-                    @if($surat->status === 'Disetujui' && $surat->file_surat)
-                        <div class="alert alert-success">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div>
-                                    <i class="ti ti-circle-check me-2"></i>
-                                    <strong>Surat Anda sudah siap!</strong>
-                                    <p class="mb-0 mt-1">Silakan download surat Anda dengan mengklik tombol di samping.</p>
-                                </div>
-                                <a href="{{ route('user.surat.download', $surat) }}" class="btn btn-success">
-                                    <i class="ti ti-download me-1"></i> Download Surat
-                                </a>
-                            </div>
-                        </div>
-                    @endif
-
-                    <!-- Tombol Aksi -->
-                    @if($surat->status === 'Pending')
-                        <hr>
-                        <div class="text-end">
-                            <form action="{{ route('user.surat.destroy', $surat) }}" 
-                                  method="POST" 
-                                  class="d-inline"
-                                  onsubmit="return confirm('Yakin ingin membatalkan pengajuan surat ini?')">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-danger">
-                                    <i class="ti ti-trash me-1"></i> Batalkan Pengajuan
-                                </button>
-                            </form>
-                        </div>
-                    @endif
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<style>
+    @media print {
+        body {
+            margin: 0;
+            padding: 0;
+        }
+        .page-header,
+        .card-footer,
+        .btn {
+            display: none;
+        }
+        .card {
+            box-shadow: none;
+            border: none;
+        }
+    }
+</style>
 @endsection

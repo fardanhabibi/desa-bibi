@@ -50,12 +50,6 @@
                                 <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" value="{{ old('email', $kontak->email) }}" required>
                                 @error('email')<span class="invalid-feedback">{{ $message }}</span>@enderror
                             </div>
-
-                            <div class="mb-3">
-                                <label class="form-label">Jenis <span class="text-danger">*</span></label>
-                                <input type="text" name="jenis" class="form-control @error('jenis') is-invalid @enderror" value="{{ old('jenis', $kontak->jenis) }}" required>
-                                @error('jenis')<span class="invalid-feedback">{{ $message }}</span>@enderror
-                            </div>
                         </div>
 
                         <div class="card-footer text-end">

@@ -47,20 +47,20 @@
                         <table class="table table-hover table-borderless">
                             <thead class="table-light">
                                 <tr>
-                                    <th>Nama Penduduk</th>
-                                    <th>Tanggal Kematian</th>
-                                    <th>Penyebab</th>
-                                    <th>Tempat</th>
+                                    <th>Nama Almarhum</th>
+                                    <th>Tanggal Meninggal</th>
+                                    <th>Penyebab Kematian</th>
+                                    <th>Nama Pelapor</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @forelse ($kematian as $item)
                                 <tr>
-                                    <td><strong>{{ $item->penduduk->nama ?? '-' }}</strong></td>
-                                    <td>{{ \Carbon\Carbon::parse($item->tanggal_kematian)->format('d M Y') }}</td>
-                                    <td>{{ Str::limit($item->penyebab_kematian, 20) }}</td>
-                                    <td>{{ Str::limit($item->tempat_kematian, 20) }}</td>
+                                    <td><strong>{{ $item->nama_almarhum ?? '-' }}</strong></td>
+                                    <td>{{ $item->tanggal_meninggal?->format('d M Y') ?? '-' }}</td>
+                                    <td>{{ Str::limit($item->penyebab_kematian, 30) }}</td>
+                                    <td>{{ $item->nama_pelapor ?? '-' }}</td>
                                     <td>
                                         <a href="{{ route('admin.kematian.show', $item) }}" class="btn btn-sm btn-info" title="Lihat">
                                             <i class="ti ti-eye"></i>

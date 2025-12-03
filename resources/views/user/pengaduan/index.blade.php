@@ -45,11 +45,73 @@
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h5 class="mb-0">Daftar Pengaduan</h5>
-                    <a href="{{ route('user.pengaduan.create') }}" class="btn btn-primary">
-                        <i class="ti ti-plus me-1"></i> Ajukan Pengaduan Baru
-                    </a>
+                    <div class="d-flex gap-2 align-items-center">
+                        <form method="GET" class="d-flex" style="min-width:300px">
+                            <input type="text" name="search" class="form-control form-control-sm me-2" placeholder="Cari nomor atau judul..." value="{{ request('search') }}">
+                            <button class="btn btn-sm btn-outline-primary" type="submit"><i class="ti ti-search"></i></button>
+                        </form>
+                        <a href="{{ route('user.pengaduan.create') }}" class="btn btn-primary">
+                            <i class="ti ti-plus me-1"></i> Ajukan Pengaduan Baru
+                        </a>
+                    </div>
                 </div>
                 <div class="card-body">
+                    {{-- Statistik singkat --}}
+                    <div class="row mb-3">
+                        <div class="col-md-3">
+                            <div class="card">
+                                <div class="card-body d-flex align-items-center">
+                                    <div class="flex-shrink-0 me-3">
+                                        <div class="avtar avtar-s bg-light-secondary"><i class="ti ti-file-text f-18"></i></div>
+                                    </div>
+                                    <div class="flex-grow-1">
+                                        <small class="text-muted">Total Pengaduan</small>
+                                        <div class="h5 mb-0">{{ $stats['total'] ?? 0 }}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card">
+                                <div class="card-body d-flex align-items-center">
+                                    <div class="flex-shrink-0 me-3">
+                                        <div class="avtar avtar-s bg-light-warning"><i class="ti ti-clock f-18"></i></div>
+                                    </div>
+                                    <div class="flex-grow-1">
+                                        <small class="text-muted">Pending</small>
+                                        <div class="h5 mb-0">{{ $stats['pending'] ?? 0 }}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card">
+                                <div class="card-body d-flex align-items-center">
+                                    <div class="flex-shrink-0 me-3">
+                                        <div class="avtar avtar-s bg-light-info"><i class="ti ti-refresh f-18"></i></div>
+                                    </div>
+                                    <div class="flex-grow-1">
+                                        <small class="text-muted">Diproses</small>
+                                        <div class="h5 mb-0">{{ $stats['diproses'] ?? 0 }}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card">
+                                <div class="card-body d-flex align-items-center">
+                                    <div class="flex-shrink-0 me-3">
+                                        <div class="avtar avtar-s bg-light-success"><i class="ti ti-check f-18"></i></div>
+                                    </div>
+                                    <div class="flex-grow-1">
+                                        <small class="text-muted">Selesai</small>
+                                        <div class="h5 mb-0">{{ $stats['selesai'] ?? 0 }}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     @if($pengaduans->count() > 0)
                         <div class="table-responsive">
                             <table class="table table-hover">

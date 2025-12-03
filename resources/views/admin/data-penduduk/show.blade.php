@@ -202,7 +202,7 @@
                                     <strong>Status Akses:</strong>
                                     @if($resident->is_verified)
                                         <span class="badge bg-success ms-2">Dapat Mengakses Sistem</span>
-                                        <p class="mt-2 mb-0 text-muted"><small>Penduduk ini dapat login dan menggunakan semua fitur sistem Desa Bibi</small></p>
+                                        <p class="mt-2 mb-0 text-muted"><small>Penduduk ini dapat login dan menggunakan semua fitur sistem Desa Urangagung</small></p>
                                     @else
                                         <span class="badge bg-warning ms-2">Akses Dibatasi</span>
                                         <p class="mt-2 mb-0 text-muted"><small>Penduduk belum dapat login hingga diverifikasi oleh admin</small></p>
@@ -263,7 +263,7 @@
                             </li>
                             <li>
                                 <small class="text-muted d-block mb-1">Tipe Pendaftar</small>
-                                <span class="fw-600">Sistem Desa Bibi</span>
+                                <span class="fw-600">Sistem Desa Urangagung</span>
                             </li>
                         </ul>
                     </div>
