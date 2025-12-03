@@ -178,6 +178,57 @@
                             </div>
                         </div>
                     @endif
+
+                    @if(!empty($surat->detail) && is_array($surat->detail))
+                        <hr>
+                        <div>
+                            <label class="text-muted small">Isi Form Pengajuan</label>
+                            <div class="p-3 bg-white rounded mt-2">
+                                @php
+                                    $labels = [
+                                        'alamat' => 'Alamat',
+                                        'lama_tinggal' => 'Lama Tinggal (tahun)',
+                                        'nama_usaha' => 'Nama Usaha',
+                                        'alamat_usaha' => 'Alamat Usaha',
+                                        'kondisi_ekonomi' => 'Keterangan Kondisi Ekonomi',
+                                        'jumlah_tanggungan' => 'Jumlah Tanggungan',
+                                        'nama_bayi' => 'Nama Bayi',
+                                        'tanggal_lahir' => 'Tanggal Lahir',
+                                        'tempat_lahir' => 'Tempat Lahir',
+                                        'nama_almarhum' => 'Nama Almarhum',
+                                        'tanggal_meninggal' => 'Tanggal Meninggal',
+                                        'sebab' => 'Sebab Kematian',
+                                        'tujuan' => 'Tujuan Pengantar',
+                                        'keterangan_pengantar' => 'Keterangan Pengantar',
+                                        'nama_lama' => 'Nama Lama',
+                                        'nama_baru' => 'Nama Baru',
+                                        'alasan_perubahan' => 'Alasan Perubahan Nama',
+                                        'alamat_tujuan' => 'Alamat Tujuan Migrasi',
+                                        'alasan_migrasi' => 'Alasan Migrasi',
+                                        'judul' => 'Judul / Perihal',
+                                        'rincian' => 'Rincian',
+                                    ];
+                                @endphp
+
+                                <div class="row">
+                                    @foreach($surat->detail as $k => $v)
+                                        @continue($v === null || $v === '')
+                                        @php
+                                            $label = $labels[$k] ?? ucwords(str_replace(['_','-'], [' ',' '], $k));
+                                            $value = $v;
+                                            if(str_contains(strtolower($k), 'tanggal') && !empty($v)){
+                                                try{ $value = \Carbon\Carbon::parse($v)->format('d F Y'); } catch(\Exception $e) { }
+                                            }
+                                        @endphp
+                                        <div class="col-md-6 mb-2">
+                                            <div class="text-muted small">{{ $label }}</div>
+                                            <div class="fw-bold">{{ $value }}</div>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>
+                    @endif
                 </div>
             </div>
 
