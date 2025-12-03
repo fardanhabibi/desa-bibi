@@ -16,6 +16,7 @@ class PengajuanSurat extends Model
         'jenis_surat_id',
         'keperluan',
         'keterangan',
+        'detail',
         'status',
         'catatan_admin',
         'file_surat',
@@ -25,6 +26,7 @@ class PengajuanSurat extends Model
 
     protected $casts = [
         'tanggal_verifikasi' => 'datetime',
+        'detail' => 'array',
     ];
 
     /**

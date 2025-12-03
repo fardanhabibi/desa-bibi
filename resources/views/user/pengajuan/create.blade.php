@@ -28,7 +28,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <form action="{{ route('user.surat.store') }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('user.surat.store') }}" method="POST" enctype="multipart/form-data" id="pengajuanForm">
                         @csrf
                         
                         <div class="row">
@@ -42,11 +42,11 @@
                                         <option value="">Pilih Jenis Surat</option>
                                         @foreach($jenisSurat as $jenis)
                                             @if(is_object($jenis))
-                                                <option value="{{ $jenis->id }}" {{ old('jenis_surat') == $jenis->id ? 'selected' : '' }}>
+                                                <option value="{{ $jenis->id }}" data-label="{{ strtolower(str_replace(' ', '-', $jenis->nama_surat)) }}" {{ old('jenis_surat') == $jenis->id ? 'selected' : '' }}>
                                                     {{ $jenis->nama_surat }}
                                                 </option>
                                             @else
-                                                <option value="{{ $jenis }}" {{ old('jenis_surat') == $jenis ? 'selected' : '' }}>
+                                                <option value="{{ $jenis }}" data-label="{{ strtolower(str_replace(' ', '-', $jenis)) }}" {{ old('jenis_surat') == $jenis ? 'selected' : '' }}>
                                                     {{ $jenis }}
                                                 </option>
                                             @endif
@@ -58,6 +58,25 @@
                                 </div>
                             </div>
                             
+                            <!-- Form sections dinamis untuk setiap jenis surat -->
+                            <div class="col-12 mt-3">
+                                <div class="alert alert-info">
+                                    <i class="ti ti-info-circle me-2"></i>
+                                    Silakan isi form detail sesuai dengan jenis surat yang dipilih.
+                                </div>
+                            </div>
+
+                            <!-- Include all form partials -->
+                            @include('user.pengajuan.forms._domisili')
+                            @include('user.pengajuan.forms._usaha')
+                            @include('user.pengajuan.forms._tidak_mampu')
+                            @include('user.pengajuan.forms._kelahiran')
+                            @include('user.pengajuan.forms._kematian')
+                            @include('user.pengajuan.forms._pengantar')
+                            @include('user.pengajuan.forms._beda_nama')
+                            @include('user.pengajuan.forms._migrasi')
+                            @include('user.pengajuan.forms._lainnya')
+
                             <div class="col-12">
                                 <div class="mb-3">
                                     <label for="keperluan" class="form-label">Keperluan <span class="text-danger">*</span></label>
@@ -119,4 +138,36 @@
         </div>
     </div>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const jenisSuratSelect = document.getElementById('jenis_surat');
+    
+    // Function to toggle form sections
+    function toggleFormSections() {
+        const selectedOption = jenisSuratSelect.options[jenisSuratSelect.selectedIndex];
+        const selectedLabel = selectedOption.getAttribute('data-label');
+        
+        // Hide all form sections
+        document.querySelectorAll('.form-section').forEach(section => {
+            section.style.display = 'none';
+        });
+        
+        // Show selected form section
+        if (selectedLabel) {
+            const sectionClass = 'form-' + selectedLabel;
+            const section = document.querySelector('.' + sectionClass);
+            if (section) {
+                section.style.display = 'block';
+            }
+        }
+    }
+    
+    // Initial toggle on page load
+    toggleFormSections();
+    
+    // Toggle on change
+    jenisSuratSelect.addEventListener('change', toggleFormSections);
+});
+</script>
 @endsection

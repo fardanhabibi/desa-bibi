@@ -100,7 +100,8 @@ class PengajuanSuratController extends Controller
             'jenis_surat' => 'required|integer|exists:jenis_surat,id',
             'keperluan' => 'required|string|max:500',
             'keterangan' => 'nullable|string|max:1000',
-            'file_lampiran' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:2048'
+            'file_lampiran' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:2048',
+            'detail' => 'nullable|array'
         ], [
             'jenis_surat.required' => 'Jenis surat harus dipilih',
             'keperluan.required' => 'Keperluan harus diisi',
@@ -123,6 +124,7 @@ class PengajuanSuratController extends Controller
             'keperluan' => $request->keperluan,
             'keterangan' => $request->keterangan,
             'status' => 'Pending',
+            'detail' => json_encode($request->input('detail', []))
         ];
 
         // Handle file upload
