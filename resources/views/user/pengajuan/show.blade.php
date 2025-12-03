@@ -41,7 +41,16 @@
                         </div>
                     </div>
 
-                    @if(!empty($surat->detail) && is_array($surat->detail))
+                    @php
+                        $detail = [];
+                        if (is_array($surat->detail)) {
+                            $detail = $surat->detail;
+                        } elseif (is_string($surat->detail) && !empty($surat->detail)) {
+                            $detail = json_decode($surat->detail, true) ?: [];
+                        }
+                    @endphp
+
+                    @if(!empty($detail) && is_array($detail))
                         <hr>
                         <h6 class="mt-3">Isi Form</h6>
                         <div class="row">
@@ -75,7 +84,7 @@
                                             ];
                                         @endphp
 
-                                        @foreach($surat->detail as $k => $v)
+                                        @foreach($detail as $k => $v)
                                             @continue($v === null || $v === '')
                                             @php
                                                 $label = $labels[$k] ?? ucwords(str_replace(['_','-'], [' ',' '], $k));

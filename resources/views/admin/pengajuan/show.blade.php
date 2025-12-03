@@ -179,7 +179,16 @@
                         </div>
                     @endif
 
-                    @if(!empty($surat->detail) && is_array($surat->detail))
+                    @php
+                        $detail = [];
+                        if (is_array($surat->detail)) {
+                            $detail = $surat->detail;
+                        } elseif (is_string($surat->detail) && !empty($surat->detail)) {
+                            $detail = json_decode($surat->detail, true) ?: [];
+                        }
+                    @endphp
+
+                    @if(!empty($detail) && is_array($detail))
                         <hr>
                         <div>
                             <label class="text-muted small">Isi Form Pengajuan</label>
@@ -211,7 +220,7 @@
                                 @endphp
 
                                 <div class="row">
-                                    @foreach($surat->detail as $k => $v)
+                                    @foreach($detail as $k => $v)
                                         @continue($v === null || $v === '')
                                         @php
                                             $label = $labels[$k] ?? ucwords(str_replace(['_','-'], [' ',' '], $k));
