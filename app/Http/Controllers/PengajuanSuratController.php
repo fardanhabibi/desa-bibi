@@ -206,12 +206,29 @@ class PengajuanSuratController extends Controller
         // Generate HTML dari view
         $html = view('user.pengajuan.print', compact('surat'))->render();
 
-        // Gunakan Dompdf untuk convert HTML ke PDF
+        // Coba beberapa cara untuk menghasilkan PDF. Prioritaskan wrapper/facade,
+        // jika gagal gunakan Dompdf langsung dari vendor.
         try {
-            $dompdf = new \Dompdf\Dompdf();
-            $options = $dompdf->getOptions();
-            $options->setDefaultFont('Courier');
-            $dompdf->setOptions($options);
+            if (app()->bound('dompdf.wrapper')) {
+                $pdf = app('dompdf.wrapper');
+                $pdf->loadView('user.pengajuan.print', compact('surat'));
+                $pdf->setPaper('a4', 'portrait');
+                return $pdf->download($filename);
+            }
+
+            if (class_exists('\\Barryvdh\\DomPDF\\Facade\\Pdf') || class_exists('PDF')) {
+                $pdf = \PDF::loadView('user.pengajuan.print', compact('surat'));
+                $pdf->setPaper('a4', 'portrait');
+                return $pdf->download($filename);
+            }
+
+            // Pastikan kelas Dompdf tersedia sebelum mencoba instantiate
+            if (!class_exists(Dompdf::class)) {
+                throw new \RuntimeException('Dompdf class not available. Please run composer install and ensure ext-mbstring/ext-dom are enabled.');
+            }
+            $options = new Options();
+            $options->set('isRemoteEnabled', true);
+            $dompdf = new Dompdf($options);
             $dompdf->loadHtml($html);
             $dompdf->setPaper('A4', 'portrait');
             $dompdf->render();
@@ -221,7 +238,8 @@ class PengajuanSuratController extends Controller
                 'Content-Disposition' => 'attachment; filename="' . $filename . '"',
             ]);
         } catch (\Exception $e) {
-            // Jika dompdf gagal, fallback ke view HTML yang bisa dicetak di browser
+            report($e);
+            // Jika semua cara gagal, fallback ke view HTML agar masih bisa dicetak di browser
             return view('user.pengajuan.print', compact('surat'));
         }
     }
@@ -337,6 +355,9 @@ class PengajuanSuratController extends Controller
                 return $pdf->download($filename);
             }
 
+            if (!class_exists(Dompdf::class)) {
+                throw new \RuntimeException('Dompdf class not available. Please run composer install and ensure ext-mbstring/ext-dom are enabled.');
+            }
             $options = new Options();
             $options->set('isRemoteEnabled', true);
             $dompdf = new Dompdf($options);
