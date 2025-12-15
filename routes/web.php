@@ -176,6 +176,8 @@ Route::middleware(['auth', 'web', TrackVisits::class])->group(function () {
             Route::get('/{surat}', [PengajuanSuratController::class, 'show'])->name('show');
             Route::delete('/{surat}', [PengajuanSuratController::class, 'destroy'])->name('destroy');
             Route::get('/{surat}/download', [PengajuanSuratController::class, 'downloadSurat'])->name('download');
+            Route::get('/{surat}/download-pdf', [PengajuanSuratController::class, 'downloadPdf'])->name('downloadPdf');
+            Route::get('/{surat}/print', [PengajuanSuratController::class, 'printSurat'])->name('print');
         });
     });
 
