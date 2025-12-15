@@ -176,63 +176,66 @@
 
         /* ========== SIGNATURE SECTION ========== */
         .surat-ttd {
-            margin-top: 15px;
-            display: table;
+            margin-top: 20px;
             width: 100%;
             page-break-inside: avoid;
         }
 
-        .ttd-row {
-            display: table-row;
-        }
-
-        .ttd-left, .ttd-right {
-            display: table-cell;
-            width: 50%;
+        .ttd-table {
+            width: 100%;
+            border-collapse: collapse;
             font-size: 10px;
-            padding: 0 8px;
-            text-align: center;
-            vertical-align: top;
         }
 
-        .ttd-left {
+        .ttd-cell {
+            padding: 0 12px;
+            vertical-align: top;
+            width: 50%;
+            text-align: center;
+        }
+
+        .ttd-cell.left {
             text-align: left;
         }
 
-        .ttd-right {
+        .ttd-cell.right {
             text-align: right;
         }
 
         .ttd-title {
             font-weight: bold;
-            margin-bottom: 1px;
+            margin-bottom: 2px;
             font-size: 10px;
+            padding: 0 12px;
         }
 
         .ttd-date {
             font-size: 9px;
             color: #666;
-            margin-bottom: 5px;
+            margin-bottom: 8px;
+            padding: 0 12px;
         }
 
         .ttd-space {
-            height: 35px;
-            border-bottom: none;
+            height: 40px;
+            padding: 0 12px;
         }
 
         .ttd-signature {
             border-top: 1px solid #000;
-            padding-top: 3px;
+            padding: 4px 12px 0 12px;
             font-weight: bold;
-            height: 24px;
-            line-height: 1.2;
             font-size: 10px;
+            line-height: 1.3;
+            height: 28px;
+            overflow: hidden;
         }
 
         .ttd-position {
             font-size: 9px;
-            margin-top: 2px;
+            margin-top: 3px;
             color: #333;
+            padding: 0 12px;
         }
 
         /* ========== FOOTER SECTION ========== */
@@ -448,20 +451,28 @@
 
         <!-- Tanda Tangan -->
         <div class="surat-ttd">
-            <div class="ttd-row">
-                <div class="ttd-left">
-                    <div class="ttd-title">Pemohon,</div>
-                    <div class="ttd-space"></div>
-                    <div class="ttd-signature">{{ $surat->user->name }}</div>
-                </div>
-                <div class="ttd-right">
-                    <div class="ttd-title">Pemerintah Desa Urangagung,</div>
-                    <div class="ttd-date">Sidoarjo, {{ now()->format('d F Y') }}</div>
-                    <div class="ttd-space"></div>
-                    <div class="ttd-signature">..............................</div>
-                    <div class="ttd-position">Kepala Desa/Petugas</div>
-                </div>
-            </div>
+            <table class="ttd-table">
+                <tr>
+                    <td class="ttd-cell left"><div class="ttd-title" style="text-align: left;">Pemohon,</div></td>
+                    <td class="ttd-cell right"><div class="ttd-title" style="text-align: right;">Pemerintah Desa Urangagung,</div></td>
+                </tr>
+                <tr>
+                    <td class="ttd-cell left"></td>
+                    <td class="ttd-cell right"><div class="ttd-date">Sidoarjo, {{ now()->format('d F Y') }}</div></td>
+                </tr>
+                <tr>
+                    <td class="ttd-cell left"><div class="ttd-space"></div></td>
+                    <td class="ttd-cell right"><div class="ttd-space"></div></td>
+                </tr>
+                <tr>
+                    <td class="ttd-cell left"><div class="ttd-signature">{{ $surat->user->name }}</div></td>
+                    <td class="ttd-cell right"><div class="ttd-signature">..............................</div></td>
+                </tr>
+                <tr>
+                    <td class="ttd-cell left"></td>
+                    <td class="ttd-cell right"><div class="ttd-position">Kepala Desa/Petugas</div></td>
+                </tr>
+            </table>
         </div>
 
         <!-- Footer -->
