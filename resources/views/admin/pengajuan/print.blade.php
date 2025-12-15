@@ -118,54 +118,54 @@
 
         /* ========== KONTEN UTAMA ========== */
         .surat-content {
-            margin-bottom: 12px;
+            margin-bottom: 8px;
             text-align: justify;
             page-break-inside: avoid;
         }
 
         .surat-content p {
-            margin-bottom: 8px;
-            text-indent: 1.0cm;
-            font-size: 11px;
-            line-height: 1.4;
+            margin-bottom: 4px;
+            text-indent: 0.7cm;
+            font-size: 9px;
+            line-height: 1.3;
         }
 
         .surat-content p.no-indent {
             text-indent: 0;
-            margin-bottom: 9px;
+            margin-bottom: 4px;
         }
 
         /* ========== DATA PEMOHON SECTION ========== */
         .data-pemohon {
-            margin: 12px 0;
-            padding: 10px 12px;
+            margin: 4px 0;
+            padding: 6px 8px;
             background: #fafafa;
-            border-left: 4px solid #333;
+            border-left: 3px solid #333;
             page-break-inside: avoid;
         }
 
         .data-table {
             width: 100%;
             border-collapse: collapse;
-            margin-bottom: 6px;
-            font-size: 10px;
-            line-height: 1.4;
+            margin-bottom: 4px;
+            font-size: 9px;
+            line-height: 1.2;
         }
 
         .data-table td {
             vertical-align: top;
-            padding: 2px 4px;
+            padding: 1px 3px;
         }
 
         .data-label {
-            width: 160px;
+            width: 130px;
             font-weight: bold;
-            padding-right: 6px;
+            padding-right: 4px;
             white-space: nowrap;
         }
 
         .data-separator {
-            width: 10px;
+            width: 8px;
             text-align: center;
             font-weight: bold;
         }
@@ -176,7 +176,7 @@
 
         /* ========== SIGNATURE SECTION ========== */
         .surat-ttd {
-            margin-top: 20px;
+            margin-top: 12px;
             width: 100%;
             page-break-inside: avoid;
         }
@@ -184,11 +184,11 @@
         .ttd-table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 10px;
+            font-size: 9px;
         }
 
         .ttd-cell {
-            padding: 0 12px;
+            padding: 0 6px;
             vertical-align: top;
             width: 50%;
             text-align: center;
@@ -204,46 +204,46 @@
 
         .ttd-title {
             font-weight: bold;
-            margin-bottom: 2px;
-            font-size: 10px;
-            padding: 0 12px;
+            margin-bottom: 1px;
+            font-size: 9px;
+            padding: 0 6px;
         }
 
         .ttd-date {
-            font-size: 9px;
+            font-size: 8px;
             color: #666;
-            margin-bottom: 8px;
-            padding: 0 12px;
+            margin-bottom: 4px;
+            padding: 0 6px;
         }
 
         .ttd-space {
-            height: 40px;
-            padding: 0 12px;
+            height: 24px;
+            padding: 0 6px;
         }
 
         .ttd-signature {
             border-top: 1px solid #000;
-            padding: 4px 12px 0 12px;
+            padding: 2px 6px 0 6px;
             font-weight: bold;
-            font-size: 10px;
-            line-height: 1.3;
-            height: 28px;
+            font-size: 8px;
+            line-height: 1.2;
+            height: 20px;
             overflow: hidden;
         }
 
         .ttd-position {
-            font-size: 9px;
-            margin-top: 3px;
+            font-size: 8px;
+            margin-top: 1px;
             color: #333;
-            padding: 0 12px;
+            padding: 0 6px;
         }
 
         /* ========== FOOTER SECTION ========== */
         .footer-info {
-            margin-top: 12px;
-            padding-top: 8px;
+            margin-top: 4px;
+            padding-top: 4px;
             border-top: 1px solid #ddd;
-            font-size: 9px;
+            font-size: 8px;
             color: #666;
             text-align: center;
             page-break-inside: avoid;
