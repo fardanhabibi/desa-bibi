@@ -144,27 +144,33 @@
             page-break-inside: avoid;
         }
 
-        .data-row {
-            display: flex;
-            margin-bottom: 4px;
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 6px;
             font-size: 10px;
             line-height: 1.4;
         }
 
+        .data-table td {
+            vertical-align: top;
+            padding: 2px 4px;
+        }
+
         .data-label {
-            width: 130px;
+            width: 160px;
             font-weight: bold;
-            flex-shrink: 0;
+            padding-right: 6px;
+            white-space: nowrap;
         }
 
         .data-separator {
-            width: 8px;
+            width: 10px;
             text-align: center;
             font-weight: bold;
         }
 
         .data-value {
-            flex: 1;
             word-break: break-word;
         }
 
@@ -330,31 +336,33 @@
 
             <!-- Data Pemohon -->
             <div class="data-pemohon">
-                <div class="data-row">
-                    <div class="data-label">Nama</div>
-                    <div class="data-separator">:</div>
-                    <div class="data-value">{{ $surat->user->name }}</div>
-                </div>
-                <div class="data-row">
-                    <div class="data-label">NIK</div>
-                    <div class="data-separator">:</div>
-                    <div class="data-value">{{ $surat->user->nik }}</div>
-                </div>
-                <div class="data-row">
-                    <div class="data-label">Tempat/Tanggal Lahir</div>
-                    <div class="data-separator">:</div>
-                    <div class="data-value">{{ $surat->user->tempat_lahir }}, {{ \Carbon\Carbon::parse($surat->user->tanggal_lahir)->format('d F Y') }}</div>
-                </div>
-                <div class="data-row">
-                    <div class="data-label">Alamat</div>
-                    <div class="data-separator">:</div>
-                    <div class="data-value">{{ $surat->user->alamat }}, {{ $surat->user->kota }}, {{ $surat->user->provinsi }}</div>
-                </div>
-                <div class="data-row">
-                    <div class="data-label">Pekerjaan</div>
-                    <div class="data-separator">:</div>
-                    <div class="data-value">{{ $surat->user->pekerjaan ?? '-' }}</div>
-                </div>
+                <table class="data-table">
+                    <tr>
+                        <td class="data-label">Nama</td>
+                        <td class="data-separator">:</td>
+                        <td class="data-value">{{ $surat->user->name }}</td>
+                    </tr>
+                    <tr>
+                        <td class="data-label">NIK</td>
+                        <td class="data-separator">:</td>
+                        <td class="data-value">{{ $surat->user->nik }}</td>
+                    </tr>
+                    <tr>
+                        <td class="data-label">Tempat/Tanggal Lahir</td>
+                        <td class="data-separator">:</td>
+                        <td class="data-value">{{ $surat->user->tempat_lahir }}, {{ \Carbon\Carbon::parse($surat->user->tanggal_lahir)->format('d F Y') }}</td>
+                    </tr>
+                    <tr>
+                        <td class="data-label">Alamat</td>
+                        <td class="data-separator">:</td>
+                        <td class="data-value">{{ $surat->user->alamat }}, {{ $surat->user->kota }}, {{ $surat->user->provinsi }}</td>
+                    </tr>
+                    <tr>
+                        <td class="data-label">Pekerjaan</td>
+                        <td class="data-separator">:</td>
+                        <td class="data-value">{{ $surat->user->pekerjaan ?? '-' }}</td>
+                    </tr>
+                </table>
             </div>
 
             <p class="no-indent">
@@ -406,23 +414,29 @@
                                 ];
                             @endphp
 
-                            @foreach($surat->detail as $k => $v)
-                                @if($v === null || $v === '')
-                                    @continue
-                                @endif
-                                @php
-                                    $label = $labels[$k] ?? ucwords(str_replace(['_','-'], [' ',' '], $k));
-                                    $value = $v;
-                                    if(str_contains(strtolower($k), 'tanggal') && !empty($v)){
-                                        try{
-                                            $value = \Carbon\Carbon::parse($v)->format('d F Y');
-                                        } catch(\Exception $e) {
-                                            // keep raw
+                            <table class="data-table">
+                                @foreach($surat->detail as $k => $v)
+                                    @if($v === null || $v === '')
+                                        @continue
+                                    @endif
+                                    @php
+                                        $label = $labels[$k] ?? ucwords(str_replace(['_','-'], [' ',' '], $k));
+                                        $value = $v;
+                                        if(str_contains(strtolower($k), 'tanggal') && !empty($v)){
+                                            try{
+                                                $value = \Carbon\Carbon::parse($v)->format('d F Y');
+                                            } catch(\Exception $e) {
+                                                // keep raw
+                                            }
                                         }
-                                    }
-                                @endphp
-                                <div style="margin-bottom:4px;"><strong>{{ $label }}:</strong> {{ $value }}</div>
-                            @endforeach
+                                    @endphp
+                                    <tr>
+                                        <td class="data-label">{{ $label }}</td>
+                                        <td class="data-separator">:</td>
+                                        <td class="data-value">{{ $value }}</td>
+                                    </tr>
+                                @endforeach
+                            </table>
                         </div>
                     </div>
                 </div>
