@@ -189,64 +189,6 @@ class PengajuanSuratController extends Controller
     }
 
     /**
-     * Download surat yang sudah disetujui sebagai PDF
-     */
-    public function downloadSurat(PengajuanSurat $surat)
-    {
-        // Pastikan user hanya bisa mendownload suratnya sendiri dan status sudah disetujui
-        if ($surat->user_id !== Auth::id() || $surat->status !== 'Disetujui') {
-            abort(403);
-        }
-
-        // Generate nama file
-        $filename = 'Surat-' . $surat->nomor_pengajuan . '-' . now()->format('Y-m-d') . '.pdf';
-        
-        // Return view yang bisa dicetak sebagai PDF
-        return view('user.pengajuan.print', compact('surat'))
-            ->render();
-    }
-
-    /**
-     * Download surat sebagai HTML file
-     */
-    public function downloadPdf(PengajuanSurat $surat)
-    {
-        // Pastikan user hanya bisa mendownload suratnya sendiri
-        if ($surat->user_id !== Auth::id()) {
-            abort(403);
-        }
-        // Generate nama file (PDF preferred)
-        $filename = 'Surat-' . $surat->nomor_pengajuan . '-' . now()->format('Y-m-d') . '.pdf';
-
-        // Jika dompdf tersedia di app container, gunakan untuk generate PDF server-side
-        try {
-            if (app()->bound('dompdf.wrapper')) {
-                $pdf = app('dompdf.wrapper');
-                $pdf->loadView('user.pengajuan.print', compact('surat'));
-                $pdf->setPaper('a4', 'portrait');
-                return $pdf->download($filename);
-            }
-
-            // Fallback ke facade PDF jika tersedia
-            if (class_exists('\Barryvdh\DomPDF\Facade\Pdf') || class_exists('PDF')) {
-                $pdf = \PDF::loadView('user.pengajuan.print', compact('surat'));
-                $pdf->setPaper('a4', 'portrait');
-                return $pdf->download($filename);
-            }
-        } catch (\Exception $e) {
-            // kalau gagal generate PDF, lanjut ke fallback HTML download
-        }
-
-        // Fallback: kembalikan HTML agar styling tetap utuh (user dapat save as PDF di browser)
-        $filenameHtml = 'Surat-' . $surat->nomor_pengajuan . '-' . now()->format('Y-m-d') . '.html';
-        $html = view('user.pengajuan.print', compact('surat'))->render();
-        return response($html, 200, [
-            'Content-Type' => 'text/html; charset=UTF-8',
-            'Content-Disposition' => 'attachment; filename="' . $filenameHtml . '"',
-        ]);
-    }
-
-    /**
      * Download surat sebagai PDF
      */
     public function downloadPdf(PengajuanSurat $surat)
@@ -285,19 +227,6 @@ class PengajuanSuratController extends Controller
             'Content-Type' => 'text/html; charset=UTF-8',
             'Content-Disposition' => 'attachment; filename="' . $filenameHtml . '"',
         ]);
-    }
-
-    /**
-     * Print/Preview surat yang sudah disetujui
-     */
-    public function printSurat(PengajuanSurat $surat)
-    {
-        // Pastikan user hanya bisa melihat suratnya sendiri dan status sudah disetujui
-        if ($surat->user_id !== Auth::id() || $surat->status !== 'Disetujui') {
-            abort(403);
-        }
-
-        return view('user.pengajuan.print', compact('surat'));
     }
 
     /**
