@@ -36,27 +36,38 @@ class AuthController extends Controller
         $input = $request->input('email_or_nik');
         $password = $request->input('password');
         $remember = $request->has('remember');
-
-        // Check if input is NIK (16 digits) or email
-        $credentials = [];
+        // Determine whether input is NIK or email and attempt to find the user
+        $user = null;
         if (preg_match('/^[0-9]{16}$/', $input)) {
-            // Input adalah NIK
-            $credentials = ['nik' => $input, 'password' => $password];
+            $user = User::where('nik', $input)->first();
         } else {
-            // Input adalah email
-            $credentials = ['email' => $input, 'password' => $password];
+            $user = User::where('email', $input)->first();
         }
 
-        // Attempt to log the user in
-        if (Auth::attempt($credentials, $remember)) {
-            $request->session()->regenerate();
-            return redirect()->intended('dashboard');
+        if (!$user) {
+            return back()->withErrors([
+                'email_or_nik' => 'User tidak ditemukan dengan email atau NIK tersebut.'
+            ])->withInput($request->only('email_or_nik'));
         }
 
-        // If authentication fails, redirect back with an error
-        return back()->withErrors([
-            'email_or_nik' => 'The provided credentials do not match our records.',
-        ])->withInput($request->only('email_or_nik'));
+        // If password is null or empty, disallow login
+        if (empty($user->password)) {
+            return back()->withErrors([
+                'email_or_nik' => 'Akun ini belum memiliki password. Silakan reset password.'
+            ])->withInput($request->only('email_or_nik'));
+        }
+
+        // Verify password
+        if (!Hash::check($password, $user->password)) {
+            return back()->withErrors([
+                'email_or_nik' => 'Password salah.'
+            ])->withInput($request->only('email_or_nik'));
+        }
+
+        // Login the user and regenerate session
+        Auth::login($user, $remember);
+        $request->session()->regenerate();
+        return redirect()->intended('dashboard');
     }
 
     public function showRegistrationForm()
@@ -91,6 +102,32 @@ class AuthController extends Controller
             'email' => $request->email,
             'password' => bcrypt($request->password),
             'role' => $request->role ?? 'user',
+        ]);
+
+        // Map human-readable marital status to DB enum values used in penduduk table
+        $statusMapping = [
+            'Belum Kawin' => 'belum_kawin',
+            'Kawin' => 'kawin',
+            'Cerai Hidup' => 'cerai_hidup',
+            'Cerai Mati' => 'cerai_mati',
+        ];
+
+        $statusKawin = null;
+        if ($request->filled('status_perkawinan')) {
+            $statusKawin = $statusMapping[$request->status_perkawinan] ?? null;
+        }
+
+        // Also create Penduduk record for admin data
+        \App\Models\Penduduk::create([
+            'nik' => $request->nik,
+            'nama' => $request->name,
+            'tempat_lahir' => $request->tempat_lahir,
+            'tanggal_lahir' => $request->tanggal_lahir,
+            'pekerjaan' => $request->pekerjaan,
+            'email' => $request->email,
+            'no_hp' => $request->nomor_telpon,
+            'status_kawin' => $statusKawin,
+            // Tambahkan field lain jika ada di form dan model
         ]);
 
         // Set session with the registered email

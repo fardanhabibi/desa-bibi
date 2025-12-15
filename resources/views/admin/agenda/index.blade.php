@@ -40,7 +40,7 @@
                                         <th>Nama Acara</th>
                                         <th>Lokasi</th>
                                         <th>Tanggal Mulai</th>
-                                        <th>Tanggal Selesai</th>
+                                        <th>Jam Mulai</th>
                                         <th style="width: 100px">Aksi</th>
                                     </tr>
                                 </thead>
@@ -51,7 +51,7 @@
                                             <td>{{ $item->nama_acara }}</td>
                                             <td>{{ $item->lokasi ?? '-' }}</td>
                                             <td>{{ $item->tanggal_mulai?->format('d M Y') ?? '-' }}</td>
-                                            <td>{{ $item->tanggal_selesai?->format('d M Y') ?? '-' }}</td>
+                                            <td>{{ $item->tanggal_selesai?->format('H:i') ?? '-' }}</td>
                                             <td>
                                                 <div class="btn-list">
                                                     <a href="{{ route('admin.agenda.show', $item->id) }}" class="btn btn-icon btn-ghost-primary btn-sm">

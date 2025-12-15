@@ -67,11 +67,21 @@
                                             <td><span class="font-monospace">{{ $item->nik }}</span></td>
                                             <td>{{ $item->nama }}</td>
                                             <td>
-                                                @if($item->jenis_kelamin == 'L')
-                                                    <span class="badge bg-blue">Laki-laki</span>
-                                                @elseif($item->jenis_kelamin == 'P')
-                                                    <span class="badge bg-pink">Perempuan</span>
-                                                @endif
+                                                @php
+                                                    $jk = strtolower(trim($item->jenis_kelamin ?? ''));
+                                                    if (in_array($jk, ['l', 'laki', 'laki-laki', 'male'])) {
+                                                        $jkLabel = 'Laki-laki';
+                                                        $jkClass = 'bg-blue';
+                                                    } elseif (in_array($jk, ['p', 'perempuan', 'female'])) {
+                                                        $jkLabel = 'Perempuan';
+                                                        $jkClass = 'bg-pink';
+                                                    } else {
+                                                        $jkLabel = $item->jenis_kelamin ?? '-';
+                                                        $jkClass = 'bg-secondary';
+                                                    }
+                                                @endphp
+                                                <span class="badge {{ $jkClass }}">{{ $jkLabel }}</span>
+                                                <small class="text-muted ms-1">{{ $jkLabel }}</small>
                                             </td>
                                             <td>{{ Str::limit($item->alamat ?? '-', 30) }}</td>
                                             <td>{{ $item->no_hp ?? '-' }}</td>

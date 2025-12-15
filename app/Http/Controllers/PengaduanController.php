@@ -10,13 +10,31 @@ use Illuminate\Support\Facades\Storage;
 class PengaduanController extends Controller
 {
     // User Methods
-    public function index()
+    public function index(Request $request)
     {
-        $pengaduans = Pengaduan::where('user_id', Auth::id())
-            ->orderBy('created_at', 'desc')
-            ->paginate(10);
-        
-        return view('user.pengaduan.index', compact('pengaduans'));
+        $query = Pengaduan::where('user_id', Auth::id())->orderBy('created_at', 'desc');
+
+        // Search by nomor_pengaduan or judul
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->where(function($q) use ($search) {
+                $q->where('nomor_pengaduan', 'like', "%{$search}%")
+                  ->orWhere('judul', 'like', "%{$search}%");
+            });
+        }
+
+        $pengaduans = $query->paginate(10)->withQueryString();
+
+        // Statistik untuk pengguna saat ini
+        $stats = [
+            'total' => Pengaduan::where('user_id', Auth::id())->count(),
+            'pending' => Pengaduan::where('user_id', Auth::id())->where('status', 'Pending')->count(),
+            'diproses' => Pengaduan::where('user_id', Auth::id())->where('status', 'Diproses')->count(),
+            'selesai' => Pengaduan::where('user_id', Auth::id())->where('status', 'Selesai')->count(),
+            'ditolak' => Pengaduan::where('user_id', Auth::id())->where('status', 'Ditolak')->count(),
+        ];
+
+        return view('user.pengaduan.index', compact('pengaduans', 'stats'));
     }
 
     public function create()
@@ -28,15 +46,14 @@ class PengaduanController extends Controller
     {
         $request->validate([
             'judul' => 'required|string|max:255',
-            'kategori' => 'required|in:Fasilitas,Akademik,Administrasi,Lainnya',
             'isi_pengaduan' => 'required|string',
-            'file_lampiran' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:2048'
+            'file_lampiran' => 'nullable|array',
+            'file_lampiran.*' => 'file|mimes:pdf,jpg,jpeg,png|max:2048'
         ], [
             'judul.required' => 'Judul pengaduan harus diisi',
-            'kategori.required' => 'Kategori harus dipilih',
             'isi_pengaduan.required' => 'Isi pengaduan harus diisi',
-            'file_lampiran.mimes' => 'File harus berformat PDF, JPG, JPEG, atau PNG',
-            'file_lampiran.max' => 'Ukuran file maksimal 2MB'
+            'file_lampiran.*.mimes' => 'File harus berformat PDF, JPG, JPEG, atau PNG',
+            'file_lampiran.*.max' => 'Ukuran file maksimal 2MB per file'
         ]);
 
         $data = $request->except('file_lampiran');
@@ -44,12 +61,18 @@ class PengaduanController extends Controller
         $data['nomor_pengaduan'] = Pengaduan::generateNomorPengaduan();
         $data['status'] = 'Pending';
 
-        // Handle file upload
+        // Handle multiple file uploads
         if ($request->hasFile('file_lampiran')) {
-            $file = $request->file('file_lampiran');
-            $filename = time() . '_' . $file->getClientOriginalName();
-            $file->storeAs('pengaduan', $filename, 'public');
-            $data['file_lampiran'] = $filename;
+            $uploaded = $request->file('file_lampiran');
+            $filenames = [];
+            foreach ($uploaded as $file) {
+                if (!$file->isValid()) continue;
+                $filename = time() . '_' . uniqid() . '_' . preg_replace('/\s+/', '_', $file->getClientOriginalName());
+                $file->storeAs('pengaduan', $filename, 'public');
+                $filenames[] = $filename;
+            }
+            // Save as JSON array
+            $data['file_lampiran'] = json_encode($filenames);
         }
 
         Pengaduan::create($data);
@@ -80,9 +103,25 @@ class PengaduanController extends Controller
             return back()->withErrors(['error' => 'Pengaduan yang sudah diproses tidak dapat dihapus']);
         }
 
-        // Hapus file jika ada
+        // Hapus file jika ada (mendukung multiple)
         if ($pengaduan->file_lampiran) {
-            Storage::disk('public')->delete('pengaduan/' . $pengaduan->file_lampiran);
+            $files = [];
+            if (is_array($pengaduan->file_lampiran)) {
+                $files = $pengaduan->file_lampiran;
+            } else {
+                $decoded = json_decode($pengaduan->file_lampiran, true);
+                if (is_array($decoded)) {
+                    $files = $decoded;
+                } else {
+                    $files = [$pengaduan->file_lampiran];
+                }
+            }
+
+            foreach ($files as $f) {
+                if ($f) {
+                    Storage::disk('public')->delete('pengaduan/' . $f);
+                }
+            }
         }
 
         $pengaduan->delete();
@@ -161,9 +200,25 @@ class PengaduanController extends Controller
 
     public function adminDestroy(Pengaduan $pengaduan)
     {
-        // Hapus file jika ada
+        // Hapus file jika ada (mendukung multiple)
         if ($pengaduan->file_lampiran) {
-            Storage::disk('public')->delete('pengaduan/' . $pengaduan->file_lampiran);
+            $files = [];
+            if (is_array($pengaduan->file_lampiran)) {
+                $files = $pengaduan->file_lampiran;
+            } else {
+                $decoded = json_decode($pengaduan->file_lampiran, true);
+                if (is_array($decoded)) {
+                    $files = $decoded;
+                } else {
+                    $files = [$pengaduan->file_lampiran];
+                }
+            }
+
+            foreach ($files as $f) {
+                if ($f) {
+                    Storage::disk('public')->delete('pengaduan/' . $f);
+                }
+            }
         }
 
         $pengaduan->delete();

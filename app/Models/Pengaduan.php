@@ -20,8 +20,10 @@ class Pengaduan extends Model
         'admin_id'
     ];
 
+    // Cast fields
     protected $casts = [
         'tanggal_tanggapan' => 'datetime',
+        'file_lampiran' => 'array',
     ];
 
     public function user(): BelongsTo

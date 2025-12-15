@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row row-equal">
     <!-- [ statistics ] start -->
     <div class="col-md-6 col-xl-3">
         <div class="card modern-card">
@@ -78,6 +78,12 @@
             </div>
         </div>
     </div>
+    
+    <style>
+    /* Equalize top statistic cards */
+    .row-equal > [class*="col-"] > .modern-card { height: 100%; }
+    .row-equal > [class*="col-"] > .modern-card .card-body { display:flex; flex-direction:column; justify-content:space-between; }
+    </style>
     <div class="col-md-12 col-xl-4">
         <h5 class="mb-3">Ringkasan Aktivitas</h5>
         <div class="card modern-card">

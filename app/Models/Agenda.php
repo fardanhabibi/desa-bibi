@@ -14,6 +14,6 @@ class Agenda extends Model
 
     protected $casts = [
         'tanggal_mulai' => 'date',
-        'tanggal_selesai' => 'date',
+        'tanggal_selesai' => 'date', // This is now stored as time but cast as date for compatibility
     ];
 }

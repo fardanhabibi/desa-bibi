@@ -69,12 +69,6 @@
                 <span class="pc-mtext">FAQ</span>
             </a>
         </li>
-        <li class="pc-item {{ request()->is('admin/formulir*') ? 'active' : '' }}">
-            <a class="pc-link" href="{{ route('admin.formulir.index') }}">
-                <span class="pc-micon"><i class="ti ti-download"></i></span>
-                <span class="pc-mtext">Formulir</span>
-            </a>
-        </li>
         <li class="pc-item {{ request()->is('admin/kontak*') ? 'active' : '' }}">
             <a class="pc-link" href="{{ route('admin.kontak.index') }}">
                 <span class="pc-micon"><i class="ti ti-phone"></i></span>
@@ -113,7 +107,7 @@
 <li class="pc-item">
     <a href="{{ route('admin.pengajuan.index') }}" class="pc-link">
         <span class="pc-micon"><i class="ti ti-report"></i></span>
-        <span class="pc-mtext">Laporan</span>
+        <span class="pc-mtext">Kelola Surat</span>
     </a>
 </li>
 <li class="pc-item {{ request()->is('admin/pengaduan*') ? 'active' : '' }}">

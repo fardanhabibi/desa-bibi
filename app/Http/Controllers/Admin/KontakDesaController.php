@@ -14,8 +14,8 @@ class KontakDesaController extends Controller
         $kontak = KontakDesa::query();
 
         if ($search) {
-            $kontak->where('nama_kontak', 'like', "%{$search}%")
-                ->orWhere('nomor_telepon', 'like', "%{$search}%");
+            $kontak->where('nama', 'like', "%{$search}%")
+                ->orWhere('no_hp', 'like', "%{$search}%");
         }
 
         $kontak = $kontak->paginate(15);

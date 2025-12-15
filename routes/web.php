@@ -6,6 +6,7 @@ use App\Http\Controllers\BiodataController;
 use App\Http\Controllers\PengaduanController;
 use App\Http\Controllers\PengajuanSuratController;
 use App\Http\Controllers\DataPendudukController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Middleware\TrackVisits;
 
 // Include admin routes
@@ -48,9 +49,9 @@ Route::middleware(['auth', 'web', TrackVisits::class])->group(function () {
     Route::get('/dashboard', function () {
         $user = auth()->user();
         
-        // Get dashboard data for admin
+        // Redirect based on role
         if ($user->role == 'admin') {
-            // Total pengunjung sistem (user unik yang pernah login)
+            // Get dashboard data for admin
             $totalVisitors = \App\Models\Visit::distinct('user_id')->count('user_id');
             $totalVisits = \App\Models\Visit::count();
             
@@ -78,35 +79,30 @@ Route::middleware(['auth', 'web', TrackVisits::class])->group(function () {
             // Berita/Pengumuman
             $totalBerita = \App\Models\Pengaduan::count();
             $pendingBerita = \App\Models\Pengaduan::where('status', 'pending')->count();
-        } else {
-            // For regular users
-            $totalVisitors = $visitorsThisMonth = $visitorGrowth = 0;
-            $registeredResidents = $newResidentsThisMonth = $residentGrowth = 0;
-            $totalPengajuan = $pengajuanApprovalRate = 0;
-            $totalBerita = $pendingBerita = 0;
-            $user = auth()->user();
-        }
 
-        return view('dashboard', compact(
-            'totalVisitors',
-            'visitorsThisMonth',
-            'visitorGrowth',
-            'registeredResidents',
-            'newResidentsThisMonth',
-            'residentGrowth',
-            'totalPengajuan',
-            'pengajuanApprovalRate',
-            'totalBerita',
-            'pendingBerita',
-            'user'
-        ));
+            return view('dashboard', compact(
+                'totalVisitors',
+                'visitorsThisMonth',
+                'visitorGrowth',
+                'registeredResidents',
+                'newResidentsThisMonth',
+                'residentGrowth',
+                'totalPengajuan',
+                'pengajuanApprovalRate',
+                'totalBerita',
+                'pendingBerita',
+                'user'
+            ));
+        } else {
+            // For regular users - show user dashboard
+            return view('user.dashboard', compact('user'));
+        }
     })->name('dashboard');
 
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-    Route::get('/myprofile', function () {
-        return view('myprofile');
-    })->name('myprofile');
+    Route::get('/myprofile', [ProfileController::class, 'show'])->name('myprofile');
+    Route::post('/myprofile', [ProfileController::class, 'update'])->name('myprofile.update');
 
     // User-facing public routes (view only)
     Route::get('/berita', function () {
@@ -175,6 +171,7 @@ Route::middleware(['auth', 'web', TrackVisits::class])->group(function () {
             Route::post('/', [PengajuanSuratController::class, 'store'])->name('store');
             Route::get('/{surat}', [PengajuanSuratController::class, 'show'])->name('show');
             Route::delete('/{surat}', [PengajuanSuratController::class, 'destroy'])->name('destroy');
+            Route::get('/{surat}/print', [PengajuanSuratController::class, 'printSurat'])->name('print');
             Route::get('/{surat}/download', [PengajuanSuratController::class, 'downloadSurat'])->name('download');
             Route::get('/{surat}/download-pdf', [PengajuanSuratController::class, 'downloadPdf'])->name('downloadPdf');
             Route::get('/{surat}/print', [PengajuanSuratController::class, 'printSurat'])->name('print');
@@ -219,6 +216,8 @@ Route::middleware(['auth', 'web', TrackVisits::class])->group(function () {
             Route::put('/{surat}', [PengajuanSuratController::class, 'adminUpdate'])->name('update');
             Route::delete('/{surat}', [PengajuanSuratController::class, 'adminDestroy'])->name('destroy');
             Route::get('/{surat}/download', [PengajuanSuratController::class, 'adminDownloadSurat'])->name('download');
+            Route::get('/{surat}/download-pdf', [PengajuanSuratController::class, 'adminDownloadPdf'])->name('downloadPdf');
+            Route::get('/{surat}/print', [PengajuanSuratController::class, 'printSurat'])->name('print');
         });
 
         // Pengaduan Management Routes - ADMIN
@@ -236,6 +235,28 @@ Route::middleware(['auth', 'web', TrackVisits::class])->group(function () {
             Route::put('/{surat}', [PengajuanSuratController::class, 'adminUpdate'])->name('update');
             Route::delete('/{surat}', [PengajuanSuratController::class, 'adminDestroy'])->name('destroy');
             Route::get('/{surat}/download', [PengajuanSuratController::class, 'adminDownloadSurat'])->name('download');
+        });
+
+        // Temporary debug route to inspect kelahiran schema and latest row (remove after debugging)
+        Route::get('/_debug/kelahiran', function () {
+            // Only allow on local or when app.debug is enabled
+            if (!app()->environment('local') && !config('app.debug')) {
+                abort(404);
+            }
+
+            $hasIbuNama = \Illuminate\Support\Facades\Schema::hasColumn('kelahiran', 'ibu_nama');
+            $hasAyahNama = \Illuminate\Support\Facades\Schema::hasColumn('kelahiran', 'ayah_nama');
+            $hasTempatLahir = \Illuminate\Support\Facades\Schema::hasColumn('kelahiran', 'tempat_lahir');
+            $latest = \App\Models\Kelahiran::latest()->first();
+
+            return response()->json([
+                'has_columns' => [
+                    'ibu_nama' => $hasIbuNama,
+                    'ayah_nama' => $hasAyahNama,
+                    'tempat_lahir' => $hasTempatLahir,
+                ],
+                'latest_kelahiran' => $latest,
+            ]);
         });
     });
 });

@@ -19,7 +19,7 @@
                     <h1 class="mt-sm-3 text-white mb-4 f-w-600 wow fadeInUp" data-wow-delay="0.2s" style="font-size: 3.5rem; font-weight: 800;">
                         Selamat Datang di
                         <br>
-                        <span class="text-warning" style="background: linear-gradient(135deg, #ffd700, #ffed4e); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Sistem Informasi Desa Bibi</span>
+                        <span class="text-warning" style="background: linear-gradient(135deg, #ffd700, #ffed4e); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Sistem Informasi Desa Urangagung</span>
                     </h1>
                     <h5 class="mb-4 text-white opacity-90 wow fadeInUp" data-wow-delay="0.4s" style="font-size: 1.25rem; font-weight: 300;">
                         Transparansi, Partisipasi, dan Pemberdayaan Masyarakat
@@ -60,16 +60,7 @@
         </div>
         <div class="container">
             <div class="row align-items-center justify-content-center">
-                <div class="col-sm-6 col-lg-4">
-                    <div class="card wow fadeInUp" data-wow-delay="0.4s">
-                        <div class="card-body">
-                            <i class="ti ti-lock-open f-36 text-primary" style="margin-bottom: 1rem;"></i>
-                            <h5 class="my-3">Transparansi Data</h5>
-                            <p class="mb-0 text-muted">Akses laporan keuangan, anggaran, dan penggunaan dana publik secara real-time
-                                dengan format yang mudah dipahami.</p>
-                        </div>
-                    </div>
-                </div>
+                <!-- Transparansi Data card removed per request -->
                 <div class="col-sm-6 col-lg-4">
                     <div class="card wow fadeInUp" data-wow-delay="0.6s">
                         <div class="card-body">
@@ -186,148 +177,7 @@
     </section>
     <!-- [ CTA ] End -->
 
-    <!-- [ Statistik ] start -->
-    <section class="bg-white">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-6 col-lg-4">
-                    <div class="card border-0 wow fadeInUp" data-wow-delay="0.2s">
-                        <div class="card-body">
-                            <div class="d-flex align-items-center">
-                                <div class="flex-shrink-0">
-                                    <h2 class="m-0 text-primary">3,500+</h2>
-                                </div>
-                                <div class="flex-grow-1 ms-3">
-                                    <h4 class="mb-2">Penduduk Desa</h4>
-                                    <p class="mb-0">Komunitas aktif yang berkomitmen untuk kemajuan bersama dan transparansi desa.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-lg-4">
-                    <div class="card border-0 wow fadeInUp" data-wow-delay="0.4s">
-                        <div class="card-body">
-                            <div class="d-flex align-items-center">
-                                <div class="flex-shrink-0">
-                                    <h2 class="m-0 text-primary">850+</h2>
-                                </div>
-                                <div class="flex-grow-1 ms-3">
-                                    <h4 class="mb-2">Keluarga Terdaftar</h4>
-                                    <p class="mb-0">Kepala keluarga yang telah terdaftar dan terverifikasi dalam sistem.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-lg-4">
-                    <div class="card border-0 wow fadeInUp" data-wow-delay="0.6s">
-                        <div class="card-body">
-                            <div class="d-flex align-items-center">
-                                <div class="flex-shrink-0">
-                                    <h2 class="m-0 text-primary">2,100+</h2>
-                                </div>
-                                <div class="flex-grow-1 ms-3">
-                                    <h4 class="mb-2">Berita & Laporan</h4>
-                                    <p class="mb-0">Informasi transparan tentang perkembangan dan kebijakan desa.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- [ Statistik ] End -->
+    <!-- Statistik section removed -->
 
-    <!-- [ Testimoni ] start -->
-    <section class="pt-0">
-        <div class="container title">
-            <div class="row justify-content-center text-center wow fadeInUp" data-wow-delay="0.2s">
-                <div class="col-md-10 col-xl-6">
-                    <h5 class="text-primary mb-0">Testimoni</h5>
-                    <h2 class="my-3">Apa Kata Mereka?</h2>
-                    <p class="mb-0">Dengarkan pengalaman warga desa dan perangkat desa yang telah merasakan manfaat 
-                        dari sistem informasi desa yang transparan dan mudah diakses.</p>
-                </div>
-            </div>
-        </div>
-        <div class="container-fluid">
-            <div class="row cust-slider">
-                <div class="col-md-6 col-lg-4">
-                    <div class="card wow fadeInRight" data-wow-delay="0.2s">
-                        <div class="card-body">
-                            <div class="d-flex">
-                                <div class="flex-shrink-0">
-                                    <img src="{{ asset('assets/images/user/avatar-1.jpg') }}"
-                                        alt="Warga desa pria" class="img-fluid wid-40 rounded-circle">
-                                </div>
-                                <div class="flex-grow-1 ms-3">
-                                    <h5 class="mb-1">Transparansi Sangat Terjaga</h5>
-                                    <div class="star f-12 mb-3">
-                                        <i class="fas fa-star text-warning"></i><i class="fas fa-star text-warning"></i><i
-                                            class="fas fa-star text-warning"></i><i
-                                            class="fas fa-star text-warning"></i><i class="fas fa-star text-warning"></i>
-                                    </div>
-                                    <p class="mb-2 text-muted">Dengan sistem ini, saya bisa memantau anggaran desa dan 
-                                        laporan keuangan dengan jelas. Ini memberikan kepercayaan kepada warga seperti saya.</p>
-                                    <h6 class="mb-0">Budi Santoso, Warga Desa</h6>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-4">
-                    <div class="card wow fadeInRight" data-wow-delay="0.4s">
-                        <div class="card-body">
-                            <div class="d-flex">
-                                <div class="flex-shrink-0">
-                                    <img src="{{ asset('assets/images/user/avatar-2.jpg') }}"
-                                        alt="Perangkat desa wanita"
-                                        class="img-fluid wid-40 rounded-circle">
-                                </div>
-                                <div class="flex-grow-1 ms-3">
-                                    <h5 class="mb-1">Pelayanan Lebih Efisien</h5>
-                                    <div class="star f-12 mb-3">
-                                        <i class="fas fa-star text-warning"></i><i class="fas fa-star text-warning"></i><i
-                                            class="fas fa-star text-warning"></i><i
-                                            class="fas fa-star text-warning"></i><i
-                                            class="fas fa-star-half-alt text-warning"></i>
-                                    </div>
-                                    <p class="mb-2 text-muted">Sebagai perangkat desa, sistem ini mempermudah pekerjaan kami 
-                                        dalam mengelola surat-surat dan melayani warga dengan lebih cepat dan terorganisir.</p>
-                                    <h6 class="mb-0">Rina Wulandari, Perangkat Desa</h6>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-4">
-                    <div class="card wow fadeInRight" data-wow-delay="0.6s">
-                        <div class="card-body">
-                            <div class="d-flex">
-                                <div class="flex-shrink-0">
-                                    <img src="{{ asset('assets/images/user/avatar-3.jpg') }}"
-                                        alt="Warga desa wanita berhijab"
-                                        class="img-fluid wid-40 rounded-circle">
-                                </div>
-                                <div class="flex-grow-1 ms-3">
-                                    <h5 class="mb-1">Partisipasi Lebih Mudah</h5>
-                                    <div class="star f-12 mb-3">
-                                        <i class="fas fa-star text-warning"></i><i class="fas fa-star text-warning"></i><i
-                                            class="fas fa-star text-warning"></i><i
-                                            class="fas fa-star text-warning"></i><i class="fas fa-star text-warning"></i>
-                                    </div>
-                                    <p class="mb-2 text-muted">Platform ini membuat saya lebih aktif berpartisipasi dalam 
-                                        keputusan desa. Suara warga jadi lebih didengar dan dipertimbangkan dengan baik.</p>
-                                    <h6 class="mb-0">Siti Aminah, Warga Desa</h6>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- [ Testimoni ] End -->
+    <!-- Testimoni section removed -->
 @endsection

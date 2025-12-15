@@ -27,11 +27,10 @@
                             <p class="text-muted">{{ $item->deskripsi }}</p>
                         </div>
                         <div class="col-md-4 text-end">
-                            <div class="badge badge-info p-2">
-                                <i class="ti ti-calendar me-1"></i>
-                                {{ $item->tanggal_mulai->format('d M Y') }}
-                                @if ($item->tanggal_selesai != $item->tanggal_mulai)
-                                s/d {{ $item->tanggal_selesai->format('d M Y') }}
+                            <div class="mb-2">
+                                <p class="text-muted mb-1"><i class="ti ti-calendar me-1"></i>{{ $item->tanggal_mulai->format('d M Y') }}</p>
+                                @if ($item->tanggal_selesai)
+                                    <p class="text-muted mb-0"><i class="ti ti-clock me-1"></i>{{ \Carbon\Carbon::parse($item->tanggal_selesai)->format('H:i') }}</p>
                                 @endif
                             </div>
                         </div>

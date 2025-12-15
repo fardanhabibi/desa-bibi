@@ -38,7 +38,15 @@ class KartuKeluargaController extends Controller
             'dusun' => 'nullable|string',
         ]);
 
-        KartuKeluarga::create($validated);
+        // Sesuaikan key dengan field di model
+        KartuKeluarga::create([
+            'no_kk' => $validated['no_kk'],
+            'kepala_keluarga' => $validated['kepala_keluarga'],
+            'alamat' => $validated['alamat'],
+            'rt' => $validated['rt'] ?? null,
+            'rw' => $validated['rw'] ?? null,
+            'dusun' => $validated['dusun'] ?? null,
+        ]);
         return redirect()->route('admin.kartu_keluarga.index')->with('success', 'Kartu Keluarga berhasil ditambahkan');
     }
 
@@ -63,7 +71,14 @@ class KartuKeluargaController extends Controller
             'dusun' => 'nullable|string',
         ]);
 
-        $kartu_keluarga->update($validated);
+        $kartu_keluarga->update([
+            'no_kk' => $validated['no_kk'],
+            'kepala_keluarga' => $validated['kepala_keluarga'],
+            'alamat' => $validated['alamat'],
+            'rt' => $validated['rt'] ?? null,
+            'rw' => $validated['rw'] ?? null,
+            'dusun' => $validated['dusun'] ?? null,
+        ]);
         return redirect()->route('admin.kartu_keluarga.index')->with('success', 'Kartu Keluarga berhasil diperbarui');
     }
 

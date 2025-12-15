@@ -122,6 +122,56 @@
                     </a>
                 </div>
                 <div class="card-body">
+                    <!-- Filter & Search (mirip admin) -->
+                    <form method="GET" action="{{ route('user.pengajuan.index') }}" class="mb-4">
+                        <div class="row g-3">
+                            <div class="col-md-3">
+                                <select name="status" class="form-select" onchange="this.form.submit()">
+                                    <option value="">Semua Status</option>
+                                    <option value="Pending" {{ request('status') == 'Pending' ? 'selected' : '' }}>Pending</option>
+                                    <option value="Diproses" {{ request('status') == 'Diproses' ? 'selected' : '' }}>Diproses</option>
+                                    <option value="Disetujui" {{ request('status') == 'Disetujui' ? 'selected' : '' }}>Disetujui</option>
+                                    <option value="Ditolak" {{ request('status') == 'Ditolak' ? 'selected' : '' }}>Ditolak</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <select name="jenis_surat" class="form-select" onchange="this.form.submit()">
+                                    <option value="">Semua Jenis Surat</option>
+                                    @if(isset($jenisSurat) && $jenisSurat->isNotEmpty())
+                                        @foreach($jenisSurat as $jenis)
+                                            <option value="{{ $jenis->id }}" {{ (string)request('jenis_surat') === (string)$jenis->id ? 'selected' : '' }}>{{ $jenis->nama_surat }}</option>
+                                        @endforeach
+                                    @else
+                                        <option value="Surat Keterangan Domisili" {{ request('jenis_surat') == 'Surat Keterangan Domisili' ? 'selected' : '' }}>Surat Keterangan Domisili</option>
+                                        <option value="Surat Keterangan Usaha" {{ request('jenis_surat') == 'Surat Keterangan Usaha' ? 'selected' : '' }}>Surat Keterangan Usaha</option>
+                                        <option value="Surat Keterangan Tidak Mampu" {{ request('jenis_surat') == 'Surat Keterangan Tidak Mampu' ? 'selected' : '' }}>Surat Keterangan Tidak Mampu</option>
+                                        <option value="Surat Keterangan Kelahiran" {{ request('jenis_surat') == 'Surat Keterangan Kelahiran' ? 'selected' : '' }}>Surat Keterangan Kelahiran</option>
+                                        <option value="Surat Keterangan Kematian" {{ request('jenis_surat') == 'Surat Keterangan Kematian' ? 'selected' : '' }}>Surat Keterangan Kematian</option>
+                                        <option value="Surat Pengantar" {{ request('jenis_surat') == 'Surat Pengantar' ? 'selected' : '' }}>Surat Pengantar</option>
+                                        <option value="Surat Keterangan Beda Nama" {{ request('jenis_surat') == 'Surat Keterangan Beda Nama' ? 'selected' : '' }}>Surat Keterangan Beda Nama</option>
+                                        <option value="Surat Keterangan Lainnya" {{ request('jenis_surat') == 'Surat Keterangan Lainnya' ? 'selected' : '' }}>Surat Keterangan Lainnya</option>
+                                    @endif
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="input-group">
+                                    <input type="text" 
+                                           name="search" 
+                                           class="form-control" 
+                                           placeholder="Cari nomor pengajuan, keperluan, atau jenis surat..." 
+                                           value="{{ request('search') }}">
+                                    <button class="btn btn-primary" type="submit">
+                                        <i class="ti ti-search"></i> Cari
+                                    </button>
+                                    @if(request()->hasAny(['status', 'jenis_surat', 'search']))
+                                        <a href="{{ route('user.pengajuan.index') }}" class="btn btn-light">
+                                            <i class="ti ti-x"></i> Reset
+                                        </a>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                    </form>
                     @if($pengajuans->count() > 0)
                         <div class="table-responsive">
                             <table class="table table-hover">
@@ -141,7 +191,7 @@
                                             <td><strong>{{ $pengajuan->nomor_pengajuan }}</strong></td>
                                             <td>
                                                 <span class="badge bg-light-primary">
-                                                    {{ $pengajuan->jenis_surat }}
+                                                    {{ $pengajuan->jenisSurat->nama_surat ?? $pengajuan->jenis_surat }}
                                                 </span>
                                             </td>
                                             <td>{{ Str::limit($pengajuan->keperluan, 40) }}</td>

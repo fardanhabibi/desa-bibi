@@ -14,5 +14,6 @@ class Kematian extends Model
 
     protected $casts = [
         'tanggal' => 'date',
+        'tanggal_meninggal' => 'date',
     ];
 }

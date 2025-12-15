@@ -20,13 +20,18 @@
         <div class="col-md-6 col-lg-4 mb-3">
             <div class="card">
                 <div class="card-body">
-                    <h6 class="card-title">{{ $item->nama_kontak }}</h6>
-                    <div class="mb-3">
-                        <span class="badge badge-info">{{ $item->kategori }}</span>
+                    <h6 class="card-title">{{ $item->nama }}</h6>
+                    <div class="mb-2">
+                        <span class="text-muted small me-3">
+                            <i class="ti ti-briefcase me-1"></i>{{ $item->jabatan ?? '-' }}
+                        </span>
+                        <span class="text-muted small">
+                            <i class="ti ti-calendar me-1"></i>{{ $item->created_at ? $item->created_at->format('d F Y') : '-' }}
+                        </span>
                     </div>
                     <p class="mb-2">
                         <i class="ti ti-phone me-2"></i>
-                        <a href="tel:{{ $item->nomor_telepon }}">{{ $item->nomor_telepon }}</a>
+                        <a href="tel:{{ $item->no_hp }}">{{ $item->no_hp }}</a>
                     </p>
                     @if ($item->email)
                     <p class="mb-2">
@@ -37,11 +42,6 @@
                     @if ($item->alamat)
                     <p class="text-muted text-sm mb-2">
                         <i class="ti ti-map-pin me-2"></i>{{ $item->alamat }}
-                    </p>
-                    @endif
-                    @if ($item->jam_operasional)
-                    <p class="text-muted text-sm">
-                        <i class="ti ti-clock me-2"></i>{{ $item->jam_operasional }}
                     </p>
                     @endif
                 </div>

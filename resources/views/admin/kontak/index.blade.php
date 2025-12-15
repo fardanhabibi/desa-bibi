@@ -47,9 +47,9 @@
                         <table class="table table-hover table-borderless">
                             <thead class="table-light">
                                 <tr>
-                                    <th>Nama Kontak</th>
-                                    <th>Kategori</th>
-                                    <th>Telepon</th>
+                                    <th>Nama</th>
+                                    <th>Jabatan</th>
+                                    <th>No. HP</th>
                                     <th>Email</th>
                                     <th>Aksi</th>
                                 </tr>
@@ -57,9 +57,9 @@
                             <tbody>
                                 @forelse ($kontak as $item)
                                 <tr>
-                                    <td><strong>{{ $item->nama_kontak }}</strong></td>
-                                    <td><span class="badge badge-info">{{ $item->kategori }}</span></td>
-                                    <td>{{ $item->nomor_telepon }}</td>
+                                    <td><strong>{{ $item->nama }}</strong></td>
+                                    <td>{{ $item->jabatan }}</td>
+                                    <td>{{ $item->no_hp }}</td>
                                     <td>{{ $item->email ?? '-' }}</td>
                                     <td>
                                         <a href="{{ route('admin.kontak.show', $item) }}" class="btn btn-sm btn-info" title="Lihat">

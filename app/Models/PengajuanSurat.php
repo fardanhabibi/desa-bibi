@@ -13,16 +13,20 @@ class PengajuanSurat extends Model
         'user_id',
         'nomor_pengajuan',
         'jenis_surat',
+        'jenis_surat_id',
         'keperluan',
         'keterangan',
+        'detail',
         'status',
         'catatan_admin',
         'file_surat',
+        'file_lampiran',
         'tanggal_verifikasi',
     ];
 
     protected $casts = [
         'tanggal_verifikasi' => 'datetime',
+        'detail' => 'array',
     ];
 
     /**
@@ -31,6 +35,14 @@ class PengajuanSurat extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    /**
+     * Relasi dengan jenis surat (tabel jenis_surat)
+     */
+    public function jenisSurat()
+    {
+        return $this->belongsTo(JenisSurat::class, 'jenis_surat_id');
     }
 
     /**
