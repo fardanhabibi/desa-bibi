@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Dompdf\Dompdf;
+use Dompdf\Options;
 
 class PengajuanSuratController extends Controller
 {
@@ -198,35 +200,30 @@ class PengajuanSuratController extends Controller
             abort(403);
         }
         
-        // Generate nama file (PDF preferred)
+        // Generate nama file
         $filename = 'Surat-' . $surat->nomor_pengajuan . '-' . now()->format('Y-m-d') . '.pdf';
 
-        // Jika dompdf tersedia di app container, gunakan untuk generate PDF server-side
-        try {
-            if (app()->bound('dompdf.wrapper')) {
-                $pdf = app('dompdf.wrapper');
-                $pdf->loadView('user.pengajuan.print', compact('surat'));
-                $pdf->setPaper('a4', 'portrait');
-                return $pdf->download($filename);
-            }
-
-            // Fallback ke facade PDF jika tersedia
-            if (class_exists('\Barryvdh\DomPDF\Facade\Pdf') || class_exists('PDF')) {
-                $pdf = \PDF::loadView('user.pengajuan.print', compact('surat'));
-                $pdf->setPaper('a4', 'portrait');
-                return $pdf->download($filename);
-            }
-        } catch (\Exception $e) {
-            // kalau gagal generate PDF, lanjut ke fallback HTML download
-        }
-
-        // Fallback: kembalikan HTML agar styling tetap utuh (user dapat save as PDF di browser)
-        $filenameHtml = 'Surat-' . $surat->nomor_pengajuan . '-' . now()->format('Y-m-d') . '.html';
+        // Generate HTML dari view
         $html = view('user.pengajuan.print', compact('surat'))->render();
-        return response($html, 200, [
-            'Content-Type' => 'text/html; charset=UTF-8',
-            'Content-Disposition' => 'attachment; filename="' . $filenameHtml . '"',
-        ]);
+
+        // Gunakan Dompdf untuk convert HTML ke PDF
+        try {
+            $dompdf = new \Dompdf\Dompdf();
+            $options = $dompdf->getOptions();
+            $options->setDefaultFont('Courier');
+            $dompdf->setOptions($options);
+            $dompdf->loadHtml($html);
+            $dompdf->setPaper('A4', 'portrait');
+            $dompdf->render();
+
+            return response($dompdf->output(), 200, [
+                'Content-Type' => 'application/pdf',
+                'Content-Disposition' => 'attachment; filename="' . $filename . '"',
+            ]);
+        } catch (\Exception $e) {
+            // Jika dompdf gagal, fallback ke view HTML yang bisa dicetak di browser
+            return view('user.pengajuan.print', compact('surat'));
+        }
     }
 
     /**
@@ -312,15 +309,20 @@ class PengajuanSuratController extends Controller
     }
 
     /**
-     * Download surat sebagai HTML file (Admin)
+     * Download surat sebagai PDF (Admin)
      */
     public function adminDownloadPdf(PengajuanSurat $surat)
     {
         if ($surat->status !== 'Disetujui') {
             abort(404);
         }
+
         $filename = 'Surat-' . $surat->nomor_pengajuan . '-' . now()->format('Y-m-d') . '.pdf';
 
+        // Generate HTML dari view
+        $html = view('admin.pengajuan.print', compact('surat'))->render();
+
+        // Coba beberapa cara untuk menghasilkan PDF seperti pada sisi user
         try {
             if (app()->bound('dompdf.wrapper')) {
                 $pdf = app('dompdf.wrapper');
@@ -329,20 +331,27 @@ class PengajuanSuratController extends Controller
                 return $pdf->download($filename);
             }
 
-            if (class_exists('\Barryvdh\DomPDF\Facade\Pdf') || class_exists('PDF')) {
+            if (class_exists('\\Barryvdh\\DomPDF\\Facade\\Pdf') || class_exists('PDF')) {
                 $pdf = \PDF::loadView('admin.pengajuan.print', compact('surat'));
                 $pdf->setPaper('a4', 'portrait');
                 return $pdf->download($filename);
             }
-        } catch (\Exception $e) {
-            // fallback ke HTML
-        }
 
-        $filenameHtml = 'Surat-' . $surat->nomor_pengajuan . '-' . now()->format('Y-m-d') . '.html';
-        $html = view('admin.pengajuan.print', compact('surat'))->render();
-        return response($html, 200, [
-            'Content-Type' => 'text/html; charset=UTF-8',
-            'Content-Disposition' => 'attachment; filename="' . $filenameHtml . '"',
-        ]);
+            $options = new Options();
+            $options->set('isRemoteEnabled', true);
+            $dompdf = new Dompdf($options);
+            $dompdf->loadHtml($html);
+            $dompdf->setPaper('A4', 'portrait');
+            $dompdf->render();
+
+            return response($dompdf->output(), 200, [
+                'Content-Type' => 'application/pdf',
+                'Content-Disposition' => 'attachment; filename="' . $filename . '"',
+            ]);
+        } catch (\Exception $e) {
+            report($e);
+            // Jika semua cara gagal, kembalikan view HTML agar masih bisa dicetak di browser
+            return view('admin.pengajuan.print', compact('surat'));
+        }
     }
 }
